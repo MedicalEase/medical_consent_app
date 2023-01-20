@@ -1,6 +1,9 @@
+import 'package:consent_app/src/sample_feature/player.dart';
 import 'package:consent_app/src/sample_feature/sample_item.dart';
 import 'package:consent_app/src/sample_feature/sample_item_list_view.dart';
+import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
 class SampleItemDetailsView extends StatelessWidget {
   // In the constructor, require a videoId.
@@ -14,7 +17,8 @@ class SampleItemDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     // Use the videoId to create the UI.
     SampleItem item = const SampleItemListView().items[videoId];
-
+    const vidUrl  = 'http://commondatastorage.googleapis'
+        '.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
     return Scaffold(
       appBar: AppBar(
         title: Text('hed'),
@@ -23,6 +27,7 @@ class SampleItemDetailsView extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            SamplePlayer(key: Key(item.id.toString()),),
             Text(videoId.toString()),
             Text(item.id.toString()),
             const SizedBox(height: 16.0),
