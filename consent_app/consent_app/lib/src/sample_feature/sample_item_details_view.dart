@@ -12,16 +12,12 @@ class SampleItemDetailsView extends StatelessWidget {
   final int videoId;
   static const routeName = '/detail';
 
-  init() {
-    print('init');
-  }
+
 
   @override
   Widget build(BuildContext context) {
     // Use the videoId to create the UI.
-    SampleItem item = const SampleItemListView().items[videoId];
-    const vidUrl = 'http://commondatastorage.googleapis'
-        '.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
+    VideoItem item = const SampleItemListView().items[videoId];
     return Scaffold(
       appBar: AppBar(
         title: const Text('hed'),
@@ -30,9 +26,11 @@ class SampleItemDetailsView extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            Text(item.path),
             WebVideoPlayer(
-                key: Key(item.id.toString()),
-                path: 'assets/video/2-3-ogd_explanation.mp4'),
+              key: Key(item.id.toString()),
+              path: item.path,
+            ),
             Text(videoId.toString()),
             Text(item.id.toString()),
             const SizedBox(height: 16.0),

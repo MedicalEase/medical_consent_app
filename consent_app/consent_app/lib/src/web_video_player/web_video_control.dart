@@ -4,13 +4,12 @@ import 'package:provider/provider.dart';
 
 /// Default portrait controls.
 class WebVideoControl extends StatelessWidget {
-  const WebVideoControl(
-      {Key? key,
-      this.iconSize = 20,
-      this.fontSize = 12,
-      this.progressBarSettings,
-      })
-      : super(key: key);
+  const WebVideoControl({
+    Key? key,
+    this.iconSize = 20,
+    this.fontSize = 12,
+    this.progressBarSettings,
+  }) : super(key: key);
 
   /// Icon size.
   ///
@@ -29,6 +28,8 @@ class WebVideoControl extends StatelessWidget {
   Widget build(BuildContext context) {
     FlickVideoManager flickVideoManager =
         Provider.of<FlickVideoManager>(context);
+    var position =
+        flickVideoManager.videoPlayerValue?.position ?? Duration(seconds: 0);
     return FlickShowControlsActionWeb(
       child: Stack(
         children: <Widget>[
@@ -127,6 +128,7 @@ class WebVideoControl extends StatelessWidget {
               ),
             ),
           ),
+          (position > Duration(seconds: 4) ? Text('Choose now') : Text('')),
         ],
       ),
     );
