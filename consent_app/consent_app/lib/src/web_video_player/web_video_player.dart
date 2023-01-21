@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:video_player/video_player.dart';
 
-import 'data_manager.dart';
-
 class WebVideoPlayer extends StatefulWidget {
   const WebVideoPlayer({Key? key}) : super(key: key);
 
@@ -15,7 +13,6 @@ class WebVideoPlayer extends StatefulWidget {
 
 class _WebVideoPlayerState extends State<WebVideoPlayer> {
   late FlickManager flickManager;
-  late DataManager? dataManager;
 
   @override
   void initState() {
@@ -24,12 +21,6 @@ class _WebVideoPlayerState extends State<WebVideoPlayer> {
       videoPlayerController:
           VideoPlayerController.network("https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4"),
     );
-    List<String> urls = ['https://flutter.github'
-        '.io/assets-for-api-docs/assets/videos/butterfly.mp4',
-      'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
-    ];
-
-    dataManager = DataManager(flickManager: flickManager, urls: urls);
   }
 
   @override
@@ -54,7 +45,6 @@ class _WebVideoPlayerState extends State<WebVideoPlayer> {
           flickManager: flickManager,
           flickVideoWithControls: FlickVideoWithControls(
             controls: WebVideoControl(
-              dataManager: dataManager!,
               iconSize: 30,
               fontSize: 14,
               progressBarSettings: FlickProgressBarSettings(
