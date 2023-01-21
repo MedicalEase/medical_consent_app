@@ -19,7 +19,7 @@ class _WebVideoPlayerState extends State<WebVideoPlayer> {
     super.initState();
     flickManager = FlickManager(
       videoPlayerController:
-          VideoPlayerController.network("https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4"),
+          VideoPlayerController.asset('assets/video/1-2-intro.mp4'),
     );
   }
 

@@ -23,7 +23,7 @@ class SampleItemDetailsView extends StatelessWidget {
         '.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
     return Scaffold(
       appBar: AppBar(
-        title: Text('hed'),
+        title: const Text('hed'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
