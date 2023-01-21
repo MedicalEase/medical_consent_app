@@ -15,6 +15,7 @@ class SampleItemDetailsView extends StatelessWidget {
   init() {
     print('init');
   }
+
   @override
   Widget build(BuildContext context) {
     // Use the videoId to create the UI.
@@ -29,7 +30,9 @@ class SampleItemDetailsView extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            WebVideoPlayer(key: Key(item.id.toString()),),
+            WebVideoPlayer(
+                key: Key(item.id.toString()),
+                path: 'assets/video/2-3-ogd_explanation.mp4'),
             Text(videoId.toString()),
             Text(item.id.toString()),
             const SizedBox(height: 16.0),

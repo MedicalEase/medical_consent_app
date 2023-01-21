@@ -5,8 +5,9 @@ import 'package:visibility_detector/visibility_detector.dart';
 import 'package:video_player/video_player.dart';
 
 class WebVideoPlayer extends StatefulWidget {
-  const WebVideoPlayer({Key? key}) : super(key: key);
+  const WebVideoPlayer({Key? key, required this.path}) : super(key: key);
 
+  final String path;
   @override
   _WebVideoPlayerState createState() => _WebVideoPlayerState();
 }
@@ -16,10 +17,13 @@ class _WebVideoPlayerState extends State<WebVideoPlayer> {
 
   @override
   void initState() {
+    print('initState');
+    print(widget.path);
+
     super.initState();
     flickManager = FlickManager(
       videoPlayerController:
-          VideoPlayerController.asset('assets/video/1-2-intro.mp4'),
+          VideoPlayerController.asset(widget.path),
     );
   }
 
@@ -40,21 +44,19 @@ class _WebVideoPlayerState extends State<WebVideoPlayer> {
           flickManager.flickControlManager?.autoResume();
         }
       },
-      child: Container(
-        child: FlickVideoPlayer(
-          flickManager: flickManager,
-          flickVideoWithControls: FlickVideoWithControls(
-            controls: WebVideoControl(
-              iconSize: 30,
-              fontSize: 14,
-              progressBarSettings: FlickProgressBarSettings(
-                height: 5,
-                handleRadius: 5.5,
-              ),
+      child: FlickVideoPlayer(
+        flickManager: flickManager,
+        flickVideoWithControls: FlickVideoWithControls(
+          controls: WebVideoControl(
+            iconSize: 30,
+            fontSize: 14,
+            progressBarSettings: FlickProgressBarSettings(
+              height: 5,
+              handleRadius: 5.5,
             ),
-            videoFit: BoxFit.contain,
-            // aspectRatioWhenLoading: 4 / 3,
           ),
+          videoFit: BoxFit.contain,
+          // aspectRatioWhenLoading: 4 / 3,
         ),
       ),
     );
