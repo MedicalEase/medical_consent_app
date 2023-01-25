@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../settings/settings_view.dart';
-import 'sample_item.dart';
-import 'sample_item_details_view.dart';
+import 'video_item_dataclass.dart';
+import 'video_item_details_view.dart';
 
 /// Displays a list of SampleItems.
-class SampleItemListView extends StatelessWidget {
-  const SampleItemListView({
+class VideoItemListView extends StatelessWidget {
+  const VideoItemListView({
     super.key,
     this.items = content,
   });
@@ -49,7 +49,7 @@ class SampleItemListView extends StatelessWidget {
         // Providing a restorationId allows the ListView to restore the
         // scroll position when a user leaves and returns to the app after it
         // has been killed while running in the background.
-        restorationId: 'sampleItemListView',
+        restorationId: 'VideoItemListView',
         itemCount: items.length,
         itemBuilder: (BuildContext context, int index) {
           final item = items[index];

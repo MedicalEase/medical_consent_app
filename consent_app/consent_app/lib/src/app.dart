@@ -1,10 +1,10 @@
-import 'package:consent_app/src/sample_feature/sample_item.dart';
+import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'sample_feature/sample_item_details_view.dart';
-import 'sample_feature/sample_item_list_view.dart';
+import 'video_player_feature/video_item_details_view.dart';
+import 'video_player_feature/video_item_list_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 
@@ -77,9 +77,9 @@ class MyApp extends StatelessWidget {
                     final value = routeSettings.arguments as int;
                     print('value: $value');
                     return  SampleItemDetailsView( videoId: value);
-                  case SampleItemListView.routeName:
+                  case VideoItemListView.routeName:
                   default:
-                    return const SampleItemListView();
+                    return const VideoItemListView();
                 }
               },
             );
