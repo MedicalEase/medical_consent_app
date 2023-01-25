@@ -278,9 +278,9 @@ class _PlayerVideoAndPopPageState extends State<_PlayerVideoAndPopPage> {
   }
 }
 
-class SampleItemDetailsView extends StatelessWidget {
+class VideoItemDetailsView extends StatelessWidget {
   // In the constructor, require a videoId.
-  const SampleItemDetailsView({super.key, required this.videoId});
+  const VideoItemDetailsView({super.key, required this.videoId});
 
   // Declare a field that holds the videoId.
   final int videoId;
@@ -321,7 +321,7 @@ class SampleItemDetailsView extends StatelessWidget {
                 // screen by popping the current route off the stack.
                 Navigator.restorablePushNamed(
                   context,
-                  SampleItemDetailsView.routeName,
+                  VideoItemDetailsView.routeName,
                   arguments: videoId + 1,
                 );
               },

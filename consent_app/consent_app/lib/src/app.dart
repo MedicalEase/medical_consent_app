@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           ],
           supportedLocales: const [
             Locale('en'), // English, Greek, Turkish
-            Locale( 'gr'), // English, Greek, Turkish
+            Locale('gr'), // English, Greek, Turkish
             Locale('tr'), // English, Greek, Turkish
           ],
 
@@ -73,10 +73,12 @@ class MyApp extends StatelessWidget {
                 switch (routeSettings.name) {
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
-                  case SampleItemDetailsView.routeName:
+                  case SettingsView.routeName:
+                    return SettingsView(controller: settingsController);
+                  case VideoItemDetailsView.routeName:
                     final value = routeSettings.arguments as int;
                     print('value: $value');
-                    return  SampleItemDetailsView( videoId: value);
+                    return VideoItemDetailsView(videoId: value);
                   case VideoItemListView.routeName:
                   default:
                     return const VideoItemListView();

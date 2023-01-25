@@ -66,7 +66,7 @@ class VideoItemListView extends StatelessWidget {
                 // background, the navigation stack is restored.
                 Navigator.restorablePushNamed(
                   context,
-                  SampleItemDetailsView.routeName,
+                  VideoItemDetailsView.routeName,
                   arguments: item.id,
                 );
               });
