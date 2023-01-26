@@ -1,3 +1,5 @@
+import 'package:consent_app/src/language_chooser_feature/language_item_list_view.dart';
+import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
 import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -59,7 +61,25 @@ class MyApp extends StatelessWidget {
           // Define a light and dark color theme. Then, read the user's
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.
-          theme: ThemeData(),
+          theme: ThemeData(
+            // primaryColor: Colors.lightGreen[800],
+            // todo define real styles here
+            fontFamily: 'Frutiger',
+            textTheme: const TextTheme(
+              displayLarge: TextStyle(
+                fontSize: 72.0,
+                fontWeight: FontWeight.w700,
+              ),
+              titleLarge: TextStyle(
+                fontSize: 36.0,
+                fontWeight: FontWeight.w700,
+              ),
+              bodyMedium: TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
           darkTheme: ThemeData.dark(),
           themeMode: settingsController.themeMode,
 
@@ -71,8 +91,10 @@ class MyApp extends StatelessWidget {
               builder: (BuildContext context) {
                 print('routeSettings.name: ${routeSettings.name}');
                 switch (routeSettings.name) {
-                  case SettingsView.routeName:
-                    return SettingsView(controller: settingsController);
+                  case LanguageListView.routeName:
+                    return LanguageListView();
+                  case ProcedureListView.routeName:
+                    return ProcedureListView();
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
                   case VideoItemDetailsView.routeName:
