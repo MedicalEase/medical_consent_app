@@ -1,31 +1,30 @@
+import 'package:consent_app/src/language_chooser_feature/language_item_list_view.dart';
+import 'package:consent_app/src/video_player_feature/video_item_list_view.dart';
 import 'package:flutter/material.dart';
 
 import '../settings/settings_view.dart';
-import 'video_item_dataclass.dart';
-import 'video_item_details_view.dart';
+import 'procedure_item_dataclass.dart';
 
-/// Displays a list of SampleItems.
-class VideoItemListView extends StatelessWidget {
-  const VideoItemListView({
+class ProcedureListView extends StatelessWidget {
+  const ProcedureListView({
     super.key,
     this.items = content,
   });
 
   static const content = [
-    VideoItem(0, 'assets/video/1-2-intro.mp4'),
-    VideoItem(1, 'assets/video/2-3-ogd_explanation.mp4'),
-    VideoItem(2, 'assets/video/3-4-ogd_question.mp4'),
-    VideoItem(3, 'assets/video/4-5-sedation_question.mp4'),
+    Procedure(0, 'OGD'),
+    Procedure(1, 'Flexible Sigmoidoscopy'),
+    Procedure(2, 'Colonoscopy'),
   ];
-  static const routeName = 'videolist';
+  static const routeName = '/';
 
-  final List<VideoItem> items;
+  final List<Procedure> items;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Video Clips'),
+        title: const Text('Choose Procedure'),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -49,13 +48,13 @@ class VideoItemListView extends StatelessWidget {
         // Providing a restorationId allows the ListView to restore the
         // scroll position when a user leaves and returns to the app after it
         // has been killed while running in the background.
-        restorationId: 'VideoItemListView',
+        restorationId: 'ProcedureListView',
         itemCount: items.length,
         itemBuilder: (BuildContext context, int index) {
           final item = items[index];
 
           return ListTile(
-              title: Text('Video ${item.id}'),
+              title: Text('Procedure: ${item.name}'),
               leading: const CircleAvatar(
                 // Display the Flutter Logo image asset.
                 foregroundImage: AssetImage('assets/images/flutter_logo.png'),
@@ -66,7 +65,7 @@ class VideoItemListView extends StatelessWidget {
                 // background, the navigation stack is restored.
                 Navigator.restorablePushNamed(
                   context,
-                  VideoItemDetailsView.routeName,
+                  LanguageListView.routeName,
                   arguments: item.id,
                 );
               });

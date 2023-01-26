@@ -40,5 +40,5 @@ fonts:
     fonts:
       - asset: assets/fonts/Frutiger.ttf
         weight: 400
-      - asset: assets/fonts/Frutiger_b old.ttf
+      - asset: assets/fonts/Frutiger_bold.ttf
         weight: 700
