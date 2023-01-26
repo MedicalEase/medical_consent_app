@@ -65,6 +65,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                 children: <Widget>[
                     ElevatedButton(
                       onPressed: () {
+                        _controller.dispose();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -88,6 +89,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                     ),
                     ElevatedButton(
                       onPressed: () {
+                        _controller.dispose();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
