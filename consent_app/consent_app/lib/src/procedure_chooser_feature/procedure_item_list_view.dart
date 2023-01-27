@@ -12,13 +12,13 @@ class ProcedureListView extends StatelessWidget {
   });
 
   static const content = [
-    Procedure(0, 'OGD'),
-    Procedure(1, 'Flexible Sigmoidoscopy'),
-    Procedure(2, 'Colonoscopy'),
+    Procedure(0, 'OGD', []),
+    Procedure(1, 'Flexible Sigmoidoscopy', []),
+    Procedure(2, 'Colonoscopy', []),
   ];
   static const routeName = '/';
-
   final List<Procedure> items;
+
 
   @override
   Widget build(BuildContext context) {

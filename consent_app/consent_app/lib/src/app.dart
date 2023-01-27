@@ -89,17 +89,15 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute<void>(
               settings: routeSettings,
               builder: (BuildContext context) {
-                print('routeSettings.name: ${routeSettings.name}');
                 switch (routeSettings.name) {
                   case LanguageListView.routeName:
-                    return LanguageListView();
+                    return const LanguageListView();
                   case ProcedureListView.routeName:
-                    return ProcedureListView();
+                    return const ProcedureListView();
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
                   case VideoItemDetailsView.routeName:
                     final value = routeSettings.arguments as int;
-                    print('value: $value');
                     return VideoItemDetailsView(videoId: value);
                   case VideoItemListView.routeName:
                   default:

@@ -1,6 +1,5 @@
 import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
 
-// todo not implemented yet!
 class VideoData {
   static data() {
     return [
@@ -22,3 +21,4 @@ class VideoData {
       ]),
     ];
   }
+}
