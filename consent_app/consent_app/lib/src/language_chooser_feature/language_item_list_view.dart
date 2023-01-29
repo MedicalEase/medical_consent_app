@@ -1,3 +1,4 @@
+import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
 import 'package:flutter/material.dart';
 
 import '../settings/settings_view.dart';

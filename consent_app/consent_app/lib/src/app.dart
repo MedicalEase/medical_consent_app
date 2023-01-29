@@ -82,7 +82,8 @@ class MyApp extends StatelessWidget {
           ),
           darkTheme: ThemeData.dark(),
           themeMode: settingsController.themeMode,
-
+          debugShowCheckedModeBanner: false,
+          debugShowMaterialGrid: false,
           // Define a function to handle named routes in order to support
           // Flutter web url navigation and deep linking.
           onGenerateRoute: (RouteSettings routeSettings) {
@@ -90,18 +91,19 @@ class MyApp extends StatelessWidget {
               settings: routeSettings,
               builder: (BuildContext context) {
                 switch (routeSettings.name) {
+                  case VideoItemListView.routeName:
+                    return const VideoItemListView();
                   case LanguageListView.routeName:
                     return const LanguageListView();
-                  case ProcedureListView.routeName:
-                    return const ProcedureListView();
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
                   case VideoItemDetailsView.routeName:
                     final value = routeSettings.arguments as int;
+                    print('VideoItemDetailsView.routeName value: $value');
                     return VideoItemDetailsView(videoId: value);
-                  case VideoItemListView.routeName:
+                  case ProcedureListView.routeName:
                   default:
-                    return const VideoItemListView();
+                    return const ProcedureListView();
                 }
               },
             );

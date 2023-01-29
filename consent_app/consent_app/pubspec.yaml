@@ -17,6 +17,7 @@ dependencies:
   video_player: ^2.5.0
   visibility_detector: ^0.3.3
   subtitle: ^0.1.0-beta.3
+  get_it: ^7.2.0
 
 dev_dependencies:
   flutter_test:
