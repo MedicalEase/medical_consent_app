@@ -75,6 +75,12 @@ class ProcedureListView extends StatelessWidget {
               });
         },
       ),
+      floatingActionButton:  FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.arrow_forward),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+
     );
   }
 }
