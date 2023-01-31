@@ -239,13 +239,13 @@ class VideoItemDetailsView extends StatelessWidget {
     VideoItem last_item = items.last;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('hed'),
+        title:  Text(item.heading),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Text(item.path),
+            Text(item.summary),
             ExplainerAssetVideo(
               key: Key(item.id.toString()),
               path: item.path,

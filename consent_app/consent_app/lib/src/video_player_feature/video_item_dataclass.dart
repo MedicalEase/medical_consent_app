@@ -1,9 +1,12 @@
 /// A datclass for a video clip
 class VideoItem {
-  const VideoItem(this.id, this.path, this.subtitles);
+  const VideoItem(this.id, this.path, this.heading, this.summary, this
+      .subtitles);
 
   final int id;
   final String path;
+  final String heading;
+  final String summary;
 
   // List<SubtitleLine> subtitles = <SubtitleLine>[];
   final List<SubtitleLine> subtitles ;
