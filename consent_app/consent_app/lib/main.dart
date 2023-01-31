@@ -1,12 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 import 'src/app.dart';
 import 'src/settings/settings_controller.dart';
 import 'src/settings/settings_service.dart';
 
+GetIt locator = GetIt.instance;
+
+class Store {
+  String procedure = "none";
+}
+
+void setup() {
+  locator.registerSingleton<Store>(Store());
+  locator.allowReassignment = true;
+}
+
 void main() async {
   // Set up the SettingsController, which will glue user settings to multiple
   // Flutter Widgets.
+  setup();
+
   final settingsController = SettingsController(SettingsService());
 
   // Load the user's preferred theme while the splash screen is displayed.

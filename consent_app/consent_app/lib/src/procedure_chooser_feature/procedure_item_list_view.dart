@@ -2,6 +2,7 @@ import 'package:consent_app/src/language_chooser_feature/language_item_list_view
 import 'package:consent_app/src/video_player_feature/video_item_list_view.dart';
 import 'package:flutter/material.dart';
 
+import '../../main.dart';
 import '../settings/settings_view.dart';
 import 'procedure_item_dataclass.dart';
 
@@ -19,9 +20,10 @@ class ProcedureListView extends StatelessWidget {
   static const routeName = '/';
   final List<Procedure> items;
 
-
   @override
   Widget build(BuildContext context) {
+    Store store = locator<Store>();
+    print(store.procedure);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Choose Procedure'),
@@ -63,6 +65,8 @@ class ProcedureListView extends StatelessWidget {
                 // Navigate to the details page. If the user leaves and returns to
                 // the app after it has been killed while running in the
                 // background, the navigation stack is restored.
+                store.procedure = item.name;
+
                 Navigator.restorablePushNamed(
                   context,
                   LanguageListView.routeName,

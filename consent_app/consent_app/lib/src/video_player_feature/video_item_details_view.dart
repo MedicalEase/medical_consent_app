@@ -1,8 +1,11 @@
+import 'package:consent_app/src/summary_feature/summary_view.dart';
 import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
 import 'package:consent_app/src/video_player_feature/video_item_list_view.dart';
 import 'package:consent_app/src/video_player_feature/video_subtitle.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+
+import '../procedure_data.dart';
 
 class ExplainerAssetVideo extends StatefulWidget {
   final String path;
@@ -57,52 +60,52 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
               children: <Widget>[
                 VideoPlayer(_controller),
                 _ControlsOverlay(controller: _controller, item: widget.item),
-                    VideoProgressIndicator(_controller, allowScrubbing: true),
+                VideoProgressIndicator(_controller, allowScrubbing: true),
               ],
             ),
           ),
         ),
         (widget.position.inSeconds > 3)
             ? Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              ElevatedButton(
-                onPressed: () {
-                  _controller.dispose();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => VideoItemListView(),
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                    ElevatedButton(
+                      onPressed: () {
+                        _controller.dispose();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const VideoItemListView(),
+                          ),
+                        );
+                      },
+                      child: const Text('Questions'),
                     ),
-                  );
-                },
-                child: const Text('Questions'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  _controller.dispose();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => VideoItemListView(),
+                    ElevatedButton(
+                      onPressed: () {
+                        _controller.dispose();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => VideoItemListView(),
+                          ),
+                        );
+                      },
+                      child: const Text('No'),
                     ),
-                  );
-                },
-                child: const Text('No'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  _controller.dispose();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => VideoItemListView(),
+                    ElevatedButton(
+                      onPressed: () {
+                        _controller.dispose();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => VideoItemListView(),
+                          ),
+                        );
+                      },
+                      child: const Text('OK'),
                     ),
-                  );
-                },
-                child: const Text('OK'),
-              ),
-            ])
+                  ])
             : Container(),
       ]),
     );
@@ -110,8 +113,8 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
 }
 
 class _ControlsOverlay extends StatelessWidget {
-  const _ControlsOverlay({Key? key, required this.controller, required this
-      .item})
+  const _ControlsOverlay(
+      {Key? key, required this.controller, required this.item})
       : super(key: key);
 
   final VideoPlayerController controller;
@@ -127,16 +130,16 @@ class _ControlsOverlay extends StatelessWidget {
           child: controller.value.isPlaying
               ? const SizedBox.shrink()
               : Container(
-            color: Colors.black26,
-            child: const Center(
-              child: Icon(
-                Icons.play_arrow,
-                color: Colors.white,
-                size: 100.0,
-                semanticLabel: 'Play',
-              ),
-            ),
-          ),
+                  color: Colors.black26,
+                  child: const Center(
+                    child: Icon(
+                      Icons.play_arrow,
+                      color: Colors.white,
+                      size: 100.0,
+                      semanticLabel: 'Play',
+                    ),
+                  ),
+                ),
         ),
         GestureDetector(
           onTap: () {
@@ -227,11 +230,13 @@ class VideoItemDetailsView extends StatelessWidget {
   // Declare a field that holds the videoId.
   final int videoId;
   static const routeName = '/detail';
+  final List<VideoItem> items = ProcedureData.data;
 
   @override
   Widget build(BuildContext context) {
     // Use the videoId to create the UI.
     VideoItem item = const VideoItemListView().items[videoId];
+    VideoItem last_item = items.last;
     return Scaffold(
       appBar: AppBar(
         title: const Text('hed'),
@@ -254,19 +259,31 @@ class VideoItemDetailsView extends StatelessWidget {
               onPressed: () {
                 // When the user taps the button, navigate to the next video.
                 // Navigate to the next video.
-                Navigator.pushNamed(
-                  context,
-                  routeName,
-                  arguments: videoId + 1,
-                );
-
-                // When the user taps the button, navigate back to the first
-                // screen by popping the current route off the stack.
-                Navigator.restorablePushNamed(
-                  context,
-                  VideoItemDetailsView.routeName,
-                  arguments: videoId + 1,
-                );
+                if (last_item.id == item.id) {
+                  // Navigator.pushNamed(
+                  //   context,
+                  //   SummaryView.routeName,
+                  // );
+                  // When the user taps the button, navigate back to the first
+                  // screen by popping the current route off the stack.
+                  Navigator.restorablePushNamed(
+                    context,
+                    SummaryView.routeName,
+                  );
+                } else {
+                  // Navigator.pushNamed(
+                  //   context,
+                  //   routeName,
+                  //   arguments: videoId + 1,
+                  // );
+                  // When the user taps the button, navigate back to the first
+                  // screen by popping the current route off the stack.
+                  Navigator.restorablePushNamed(
+                    context,
+                    VideoItemDetailsView.routeName,
+                    arguments: videoId + 1,
+                  );
+                }
               },
             ),
             ElevatedButton(

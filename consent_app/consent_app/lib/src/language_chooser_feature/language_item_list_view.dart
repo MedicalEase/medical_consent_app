@@ -1,6 +1,7 @@
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
 import 'package:flutter/material.dart';
 
+import '../../main.dart';
 import '../settings/settings_view.dart';
 import '../video_player_feature/video_item_list_view.dart';
 import 'language_dataclass.dart';
@@ -16,12 +17,13 @@ class LanguageListView extends StatelessWidget {
     Language(1, 'Greek'),
     Language(2, 'Turkish'),
   ];
-  static const routeName = 'LanguageListView';
+  static const routeName = '/LanguageListView';
 
   final List<Language> items;
 
   @override
   Widget build(BuildContext context) {
+    Store store = locator<Store>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Choose Language'),

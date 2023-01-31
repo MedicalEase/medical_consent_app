@@ -1,25 +1,30 @@
+import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
-import '../procedure_data.dart';
 import '../settings/settings_view.dart';
-import 'video_item_dataclass.dart';
-import 'video_item_details_view.dart';
+import '../video_player_feature/video_item_list_view.dart';
 
-class VideoItemListView extends StatelessWidget {
-  const VideoItemListView({
-    super.key,
-  });
+class SummaryView extends StatelessWidget {
+  const SummaryView({super.key});
 
-  final List<VideoItem> items = ProcedureData.data;
-
-  static const routeName = 'videolist';
+  static const items = [
+    'result 1 ',
+    'result 2 ',
+    'result 3 ',
+    'result 4 ',
+    'result 5 ',
+    'result 6 ',
+    'result 7 ',
+  ];
+  static const routeName = '/summary';
 
   @override
   Widget build(BuildContext context) {
+    Store store = locator<Store>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Video Clips'),
+        title: const Text('Summary'),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -43,13 +48,13 @@ class VideoItemListView extends StatelessWidget {
         // Providing a restorationId allows the ListView to restore the
         // scroll position when a user leaves and returns to the app after it
         // has been killed while running in the background.
-        restorationId: 'VideoItemListView',
+        restorationId: 'LanguageListView',
         itemCount: items.length,
         itemBuilder: (BuildContext context, int index) {
           final item = items[index];
 
           return ListTile(
-              title: Text('Video ${item.id}'),
+              title: Text('Summary: ${item}'),
               leading: const CircleAvatar(
                 // Display the Flutter Logo image asset.
                 foregroundImage: AssetImage('assets/images/flutter_logo.png'),
@@ -60,8 +65,8 @@ class VideoItemListView extends StatelessWidget {
                 // background, the navigation stack is restored.
                 Navigator.restorablePushNamed(
                   context,
-                  VideoItemDetailsView.routeName,
-                  arguments: item.id,
+                  VideoItemListView.routeName,
+                  arguments: item,
                 );
               });
         },
