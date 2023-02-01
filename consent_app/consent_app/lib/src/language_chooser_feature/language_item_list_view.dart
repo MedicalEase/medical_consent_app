@@ -14,11 +14,7 @@ class LanguageListView extends StatelessWidget {
     this.languages = content,
   });
 
-  static const content = [
-    Language(0, 'Eng'),
-    Language(1, 'Greek'),
-    Language(2, 'Turkish'),
-  ];
+  static const content = LanguageData.data;
   static const routeName = '/LanguageListView';
 
   final List<Language> languages;
