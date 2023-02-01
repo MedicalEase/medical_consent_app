@@ -1,7 +1,9 @@
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
+import 'package:consent_app/src/video_player_feature/video_item_details_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
+import '../procedure_data.dart';
 import '../settings/settings_view.dart';
 import '../video_player_feature/video_item_list_view.dart';
 import 'language_dataclass.dart';
@@ -9,7 +11,7 @@ import 'language_dataclass.dart';
 class LanguageListView extends StatelessWidget {
   const LanguageListView({
     super.key,
-    this.items = content,
+    this.languages = content,
   });
 
   static const content = [
@@ -19,10 +21,12 @@ class LanguageListView extends StatelessWidget {
   ];
   static const routeName = '/LanguageListView';
 
-  final List<Language> items;
+  final List<Language> languages;
 
   @override
   Widget build(BuildContext context) {
+    const procedures = ProcedureData.data;
+    var first_procedure = procedures.first;
     Store store = locator<Store>();
     return Scaffold(
       appBar: AppBar(
@@ -51,12 +55,12 @@ class LanguageListView extends StatelessWidget {
         // scroll position when a user leaves and returns to the app after it
         // has been killed while running in the background.
         restorationId: 'LanguageListView',
-        itemCount: items.length,
+        itemCount: languages.length,
         itemBuilder: (BuildContext context, int index) {
-          final item = items[index];
+          final language = languages[index];
 
           return ListTile(
-              title: Text('Language: ${item.name}'),
+              title: Text('Language: ${language.name}'),
               leading: const CircleAvatar(
                 // Display the Flutter Logo image asset.
                 foregroundImage: AssetImage('assets/images/flutter_logo.png'),
@@ -67,8 +71,8 @@ class LanguageListView extends StatelessWidget {
                 // background, the navigation stack is restored.
                 Navigator.restorablePushNamed(
                   context,
-                  VideoItemListView.routeName,
-                  arguments: item.id,
+                  VideoItemDetailsView.routeName,
+                  arguments: first_procedure.id,
                 );
               });
         },

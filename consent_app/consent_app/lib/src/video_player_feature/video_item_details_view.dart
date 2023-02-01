@@ -287,7 +287,7 @@ class VideoItemDetailsView extends StatelessWidget {
               },
             ),
             ElevatedButton(
-              child: const Text('home'),
+              child: const Text('video index'),
               onPressed: () {
                 // When the user taps the button, navigate back to the first
                 // screen by popping the current route off the stack.
