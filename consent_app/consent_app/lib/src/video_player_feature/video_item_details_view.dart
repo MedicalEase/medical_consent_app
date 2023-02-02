@@ -8,8 +8,9 @@ import 'package:video_player/video_player.dart';
 import '../../main.dart';
 import '../procedure_data.dart';
 
-
-goNext(VideoItem item, VideoItem lastItem, BuildContext context, int videoId) {
+goNext(VideoItem item, VideoItem lastItem, BuildContext context, int videoId,
+    VideoPlayerController video_controller) {
+  video_controller.dispose();
   if (lastItem.id == item.id) {
     Navigator.restorablePushNamed(
       context,
@@ -27,9 +28,14 @@ goNext(VideoItem item, VideoItem lastItem, BuildContext context, int videoId) {
 class ExplainerAssetVideo extends StatefulWidget {
   final String path;
   final VideoItem item;
+  final VideoPlayerController controller;
   Duration position = const Duration(seconds: 0);
 
-  ExplainerAssetVideo({Key? key, required this.path, required this.item})
+  ExplainerAssetVideo(
+      {Key? key,
+      required this.path,
+      required this.item,
+      required this.controller})
       : super(key: key);
 
   @override
@@ -42,7 +48,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset(widget.path);
+    _controller = widget.controller;
 
     _controller.addListener(() {
       print(_controller.value.position);
@@ -95,7 +101,8 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                         store.choices
                             .add('${widget.item.id} -${widget.item.heading} '
                                 '- Question');
-                        goNext(widget.item, lastItem, context, widget.item.id);
+                        goNext(widget.item, lastItem, context, widget.item.id,
+                            _controller);
                       },
                       child: const Text('Questions'),
                     ),
@@ -105,7 +112,8 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                         store.choices
                             .add('${widget.item.id} -${widget.item.heading} '
                                 '- No');
-                        goNext(widget.item, lastItem, context, widget.item.id);
+                        goNext(widget.item, lastItem, context, widget.item.id,
+                            _controller);
                       },
                       child: const Text('No'),
                     ),
@@ -115,7 +123,8 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                         store.choices
                             .add('${widget.item.id} -${widget.item.heading} '
                                 '- OK!');
-                        goNext(widget.item, lastItem, context, widget.item.id);
+                        goNext(widget.item, lastItem, context, widget.item.id,
+                            _controller);
                       },
                       child: const Text('OK'),
                     ),
@@ -244,12 +253,14 @@ class VideoItemDetailsView extends StatelessWidget {
   // Declare a field that holds the videoId.
   final int videoId;
   static const routeName = '/detail';
+
   final List<VideoItem> items = ProcedureData.data;
 
   @override
   Widget build(BuildContext context) {
     // Use the videoId to create the UI.
     VideoItem item = const VideoItemListView().items[videoId];
+    final videoController = VideoPlayerController.asset(item.path);
     VideoItem lastItem = items.last;
     return Scaffold(
       appBar: AppBar(
@@ -264,6 +275,7 @@ class VideoItemDetailsView extends StatelessWidget {
               key: Key(item.id.toString()),
               path: item.path,
               item: item,
+              controller: videoController,
             ),
             Text(videoId.toString()),
             Text(item.id.toString()),
@@ -271,7 +283,7 @@ class VideoItemDetailsView extends StatelessWidget {
             ElevatedButton(
               child: const Text('Next'),
               onPressed: () {
-                goNext(item, lastItem, context, videoId);
+                goNext(item, lastItem, context, videoId, videoController);
               },
             ),
             ElevatedButton(
@@ -288,8 +300,7 @@ class VideoItemDetailsView extends StatelessWidget {
             ElevatedButton(
               child: const Text('Summary'),
               onPressed: () {
-                // When the user taps the button, navigate back to the first
-                // screen by popping the current route off the stack.
+                videoController.dispose();
                 Navigator.restorablePushNamed(
                   context,
                   SummaryView.routeName,
