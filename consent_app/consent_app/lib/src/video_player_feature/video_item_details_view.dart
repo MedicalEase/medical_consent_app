@@ -5,6 +5,7 @@ import 'package:consent_app/src/video_player_feature/video_subtitle.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../main.dart';
 import '../procedure_data.dart';
 
 class ExplainerAssetVideo extends StatefulWidget {
@@ -46,6 +47,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
 
   @override
   Widget build(BuildContext context) {
+    Store store = locator<Store>();
     return SingleChildScrollView(
       child: Column(children: <Widget>[
         Container(
@@ -72,6 +74,9 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                     ElevatedButton(
                       onPressed: () {
                         _controller.dispose();
+                        store.choices
+                            .add('${widget.item.id} -${widget.item.heading} '
+                                '- Question');
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -84,6 +89,9 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                     ElevatedButton(
                       onPressed: () {
                         _controller.dispose();
+                        store.choices
+                            .add('${widget.item.id} -${widget.item.heading} '
+                                '- No');
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -96,6 +104,9 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                     ElevatedButton(
                       onPressed: () {
                         _controller.dispose();
+                        store.choices
+                            .add('${widget.item.id} -${widget.item.heading} '
+                                '- OK!');
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -239,7 +250,7 @@ class VideoItemDetailsView extends StatelessWidget {
     VideoItem last_item = items.last;
     return Scaffold(
       appBar: AppBar(
-        title:  Text(item.heading),
+        title: Text(item.heading),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -294,6 +305,17 @@ class VideoItemDetailsView extends StatelessWidget {
                 Navigator.restorablePushNamed(
                   context,
                   VideoItemListView.routeName,
+                );
+              },
+            ),
+            ElevatedButton(
+              child: const Text('Summary'),
+              onPressed: () {
+                // When the user taps the button, navigate back to the first
+                // screen by popping the current route off the stack.
+                Navigator.restorablePushNamed(
+                  context,
+                  SummaryView.routeName,
                 );
               },
             )
