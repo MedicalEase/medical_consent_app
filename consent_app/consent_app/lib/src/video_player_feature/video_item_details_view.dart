@@ -8,6 +8,22 @@ import 'package:video_player/video_player.dart';
 import '../../main.dart';
 import '../procedure_data.dart';
 
+
+goNext(VideoItem item, VideoItem lastItem, BuildContext context, int videoId) {
+  if (lastItem.id == item.id) {
+    Navigator.restorablePushNamed(
+      context,
+      SummaryView.routeName,
+    );
+  } else {
+    Navigator.restorablePushNamed(
+      context,
+      VideoItemDetailsView.routeName,
+      arguments: videoId + 1,
+    );
+  }
+}
+
 class ExplainerAssetVideo extends StatefulWidget {
   final String path;
   final VideoItem item;
@@ -47,6 +63,8 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
 
   @override
   Widget build(BuildContext context) {
+    List<VideoItem> items = ProcedureData.data;
+    VideoItem lastItem = items.last;
     Store store = locator<Store>();
     return SingleChildScrollView(
       child: Column(children: <Widget>[
@@ -77,12 +95,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                         store.choices
                             .add('${widget.item.id} -${widget.item.heading} '
                                 '- Question');
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const VideoItemListView(),
-                          ),
-                        );
+                        goNext(widget.item, lastItem, context, widget.item.id);
                       },
                       child: const Text('Questions'),
                     ),
@@ -92,12 +105,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                         store.choices
                             .add('${widget.item.id} -${widget.item.heading} '
                                 '- No');
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => VideoItemListView(),
-                          ),
-                        );
+                        goNext(widget.item, lastItem, context, widget.item.id);
                       },
                       child: const Text('No'),
                     ),
@@ -107,12 +115,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                         store.choices
                             .add('${widget.item.id} -${widget.item.heading} '
                                 '- OK!');
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => VideoItemListView(),
-                          ),
-                        );
+                        goNext(widget.item, lastItem, context, widget.item.id);
                       },
                       child: const Text('OK'),
                     ),
@@ -247,7 +250,7 @@ class VideoItemDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     // Use the videoId to create the UI.
     VideoItem item = const VideoItemListView().items[videoId];
-    VideoItem last_item = items.last;
+    VideoItem lastItem = items.last;
     return Scaffold(
       appBar: AppBar(
         title: Text(item.heading),
@@ -268,33 +271,7 @@ class VideoItemDetailsView extends StatelessWidget {
             ElevatedButton(
               child: const Text('Next'),
               onPressed: () {
-                // When the user taps the button, navigate to the next video.
-                // Navigate to the next video.
-                if (last_item.id == item.id) {
-                  // Navigator.pushNamed(
-                  //   context,
-                  //   SummaryView.routeName,
-                  // );
-                  // When the user taps the button, navigate back to the first
-                  // screen by popping the current route off the stack.
-                  Navigator.restorablePushNamed(
-                    context,
-                    SummaryView.routeName,
-                  );
-                } else {
-                  // Navigator.pushNamed(
-                  //   context,
-                  //   routeName,
-                  //   arguments: videoId + 1,
-                  // );
-                  // When the user taps the button, navigate back to the first
-                  // screen by popping the current route off the stack.
-                  Navigator.restorablePushNamed(
-                    context,
-                    VideoItemDetailsView.routeName,
-                    arguments: videoId + 1,
-                  );
-                }
+                goNext(item, lastItem, context, videoId);
               },
             ),
             ElevatedButton(
