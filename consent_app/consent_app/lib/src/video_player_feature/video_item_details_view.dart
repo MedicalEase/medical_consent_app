@@ -264,21 +264,19 @@ class VideoItemDetailsView extends StatelessWidget {
     VideoItem lastItem = items.last;
     return Scaffold(
       appBar: AppBar(
-        title: Text(item.heading),
+        title: Text('${item.heading}'.i18n),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Text(item.summary),
+            Text('${item.summary}'.i18n),
             ExplainerAssetVideo(
               key: Key(item.id.toString()),
               path: item.path,
               item: item,
               controller: videoController,
             ),
-            Text(videoId.toString()),
-            Text(item.id.toString()),
             const SizedBox(height: 16.0),
             ElevatedButton(
               child: Text('Next'.i18n),

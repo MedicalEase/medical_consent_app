@@ -22,9 +22,8 @@ class VideoItem {
 }
 
 class SubtitleLine {
-  const SubtitleLine(this.id, this.text, this.start, this.end);
+  const SubtitleLine(this.text, this.start, this.end);
 
-  final int id;
   final String text;
   final Duration start;
   final Duration end;

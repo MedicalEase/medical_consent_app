@@ -12,14 +12,14 @@ class ProcedureData {
       'This video shows your options and discusses some unlikely '
           'side-effects',
       [
-        SubtitleLine(1, 'Hello', Duration(seconds: 0), Duration(seconds: 5)),
-        SubtitleLine(2, 'World', Duration(seconds: 5), Duration(seconds: 10)),
+        SubtitleLine('Hello', Duration(seconds: 0), Duration(seconds: 5)),
+        SubtitleLine('World', Duration(seconds: 5), Duration(seconds: 10)),
       ],
     ),
     VideoItem(1, 'assets/video/2-3-ogd_explanation.mp4', 'What is and OGD?',
         'An OGD means we will take some photos for further investigation.', [
-      SubtitleLine(1, 'Hello', Duration(seconds: 0), Duration(seconds: 5)),
-      SubtitleLine(2, 'World', Duration(seconds: 5), Duration(seconds: 10)),
+      SubtitleLine('Hello', Duration(seconds: 0), Duration(seconds: 5)),
+      SubtitleLine('World', Duration(seconds: 5), Duration(seconds: 10)),
     ]),
     VideoItem(
       2,
@@ -27,8 +27,8 @@ class ProcedureData {
       'Are you happy to proceed?',
       'PLease press Yes, No or Not Sure.',
       [
-        SubtitleLine(1, 'Hello', Duration(seconds: 0), Duration(seconds: 5)),
-        SubtitleLine(2, 'World', Duration(seconds: 5), Duration(seconds: 10)),
+        SubtitleLine('Hello', Duration(seconds: 0), Duration(seconds: 5)),
+        SubtitleLine('World', Duration(seconds: 5), Duration(seconds: 10)),
       ],
     ),
     VideoItem(
@@ -38,8 +38,8 @@ class ProcedureData {
       'This video shows your options and discusses some unlikely '
           'side-effects',
       [
-        SubtitleLine(1, 'Hello', Duration(seconds: 0), Duration(seconds: 5)),
-        SubtitleLine(2, 'World', Duration(seconds: 5), Duration(seconds: 10)),
+        SubtitleLine('Hello', Duration(seconds: 0), Duration(seconds: 5)),
+        SubtitleLine('World', Duration(seconds: 5), Duration(seconds: 10)),
       ],
     ),
   ];
@@ -63,9 +63,9 @@ class TranslationData {
       tr: 'tr OGD',
     ),
     'Procedure': Translations(
-      en: 'Procedure',
-      gr: 'Πρόγραμμα',
-      tr: 'Prosedür',
+      en: 'Summary',
+      gr: 'Σύνοψη',
+      tr: 'Özet',
     ),
     'Risks and benefits': Translations(
       en: 'Settings',
@@ -74,7 +74,6 @@ class TranslationData {
     ),
   };
 }
-
 
 // Settings
 // Choose Language

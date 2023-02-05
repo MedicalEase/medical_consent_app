@@ -4,11 +4,31 @@ import 'package:i18n_extension/i18n_extension.dart';
 
 extension Localization on String {
   static final _t = Translations("en") +
-  {
-  "en": "Choose Procedure",
-  "tr" : "",
-  "gr": "¿Hola! Cómo estás?",
-  };
+      {
+        "en": "Procedure",
+        "tr": "procedure  tr",
+        "gr": "PROCERD GR",
+      } +
+      {
+        "en": "Choose Procedure",
+        "tr": "procedure choice tr",
+        "gr": "¿Hola! Cómo estás?",
+      } +
+      {
+        "en": "Choose Language",
+        "tr": "Choose Language TURKISS",
+        "gr": "Choose Language GREEK",
+      } +
+      {
+        "en": "Summary",
+        "tr": "Summary TURKISH",
+        "gr": "Summary GREEK",
+      } +
+      {
+        "en": "Risks and benefits",
+        "tr": "Risks and benefits TURKISH",
+        "gr": "Risks and benefits GREEK",
+      };
 
   String get i18n => localize(this, _t);
 }
