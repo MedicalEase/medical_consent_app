@@ -1,3 +1,4 @@
+import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
 import 'package:flutter/material.dart';
 
 import 'settings_controller.dart';
@@ -17,7 +18,7 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title:  Text('Settings'.i18n),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

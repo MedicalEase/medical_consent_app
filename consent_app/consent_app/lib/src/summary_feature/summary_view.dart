@@ -1,4 +1,5 @@
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
+import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
@@ -15,7 +16,7 @@ class SummaryView extends StatelessWidget {
     Store store = locator<Store>();
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Summary'),
+          title:  Text('Summary'.i18n),
           actions: [
             IconButton(
               icon: const Icon(Icons.settings),

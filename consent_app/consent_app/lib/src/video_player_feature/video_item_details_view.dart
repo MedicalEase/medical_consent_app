@@ -1,3 +1,4 @@
+import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
 import 'package:consent_app/src/summary_feature/summary_view.dart';
 import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
 import 'package:consent_app/src/video_player_feature/video_item_list_view.dart';
@@ -51,7 +52,6 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
     _controller = widget.controller;
 
     _controller.addListener(() {
-      print(_controller.value.position);
       setState(() {
         widget.position = _controller.value.position;
       });
@@ -104,7 +104,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                         goNext(widget.item, lastItem, context, widget.item.id,
                             _controller);
                       },
-                      child: const Text('Questions'),
+                      child: Text('Questions'.i18n),
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -115,7 +115,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                         goNext(widget.item, lastItem, context, widget.item.id,
                             _controller);
                       },
-                      child: const Text('No'),
+                      child: Text('No'.i18n),
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -126,7 +126,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                         goNext(widget.item, lastItem, context, widget.item.id,
                             _controller);
                       },
-                      child: const Text('OK'),
+                      child: Text('OK'.i18n),
                     ),
                   ])
             : Container(),
@@ -237,7 +237,7 @@ class _PlayerVideoAndPopPageState extends State<_PlayerVideoAndPopPage> {
                 child: VideoPlayer(_videoPlayerController),
               );
             } else {
-              return const Text('waiting for video to load');
+              return Text('waiting for video to load'.i18n);
             }
           },
         ),
@@ -281,7 +281,7 @@ class VideoItemDetailsView extends StatelessWidget {
             Text(item.id.toString()),
             const SizedBox(height: 16.0),
             ElevatedButton(
-              child: const Text('Next'),
+              child: Text('Next'.i18n),
               onPressed: () {
                 goNext(item, lastItem, context, videoId, videoController);
               },

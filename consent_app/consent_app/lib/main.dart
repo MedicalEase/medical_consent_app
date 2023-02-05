@@ -9,7 +9,7 @@ GetIt locator = GetIt.instance;
 
 class Store {
   String procedure = "none";
-  String language = "none";
+  String language = "en";
   List choices = [];
 }
 

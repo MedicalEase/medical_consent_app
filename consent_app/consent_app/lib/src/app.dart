@@ -10,6 +10,8 @@ import 'video_player_feature/video_item_details_view.dart';
 import 'video_player_feature/video_item_list_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
+import 'package:i18n_extension/i18n_widget.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 /// The Widget that configures your application.
 class MyApp extends StatelessWidget {
@@ -29,7 +31,8 @@ class MyApp extends StatelessWidget {
     return AnimatedBuilder(
       animation: settingsController,
       builder: (BuildContext context, Widget? child) {
-        return MaterialApp(
+        return I18n(
+            child: MaterialApp(
           // Providing a restorationScopeId allows the Navigator built by the
           // MaterialApp to restore the navigation stack when a user leaves and
           // returns to the app after it has been killed while running in the
@@ -98,8 +101,8 @@ class MyApp extends StatelessWidget {
                     return const LanguageListView();
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
-                 case SummaryView.routeName:
-                   return  SummaryView();
+                  case SummaryView.routeName:
+                    return SummaryView();
                   case VideoItemDetailsView.routeName:
                     final value = routeSettings.arguments as int;
                     print('VideoItemDetailsView.routeName value: $value');
@@ -111,7 +114,7 @@ class MyApp extends StatelessWidget {
               },
             );
           },
-        );
+        ));
       },
     );
   }

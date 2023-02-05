@@ -1,8 +1,10 @@
 import 'package:consent_app/src/language_chooser_feature/language_item_list_view.dart';
 import 'package:consent_app/src/video_player_feature/video_item_list_view.dart';
 import 'package:flutter/material.dart';
-
+import 'package:i18n_extension/i18n_extension.dart';
+import 'procedure_item_list_view.i18n.dart';
 import '../../main.dart';
+import '../procedure_data.dart';
 import '../settings/settings_view.dart';
 import 'procedure_item_dataclass.dart';
 
@@ -22,7 +24,7 @@ class ProcedureListView extends StatelessWidget {
     print(store.procedure);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Choose Procedure'),
+        title:  Text('Choose Procedure'.i18n),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -52,7 +54,7 @@ class ProcedureListView extends StatelessWidget {
           final item = items[index];
 
           return ListTile(
-              title: Text('Procedure: ${item.name}'),
+              title: Text(('Procedure'.i18n)+ ' : ${item.name}'),
               leading: const CircleAvatar(
                 // Display the Flutter Logo image asset.
                 foregroundImage: AssetImage('assets/images/flutter_logo.png'),
@@ -71,12 +73,11 @@ class ProcedureListView extends StatelessWidget {
               });
         },
       ),
-      floatingActionButton:  FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {},
         child: const Icon(Icons.arrow_forward),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-
     );
   }
 }
