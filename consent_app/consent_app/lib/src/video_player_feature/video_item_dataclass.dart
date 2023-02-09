@@ -1,15 +1,19 @@
-/// A datclass for a video clip
+/// A dataclass for a video clip
 class VideoItem {
-  const VideoItem(this.id, this.path, this.heading, this.summary, this
-      .subtitles);
+const  VideoItem(
+      {required this.id,
+      required this.path,
+      required this.heading,
+      required this.summary,
+      required this.questionAfter,
+      required this.subtitles});
 
   final int id;
   final String path;
   final String heading;
   final String summary;
-
-  // List<SubtitleLine> subtitles = <SubtitleLine>[];
-  final List<SubtitleLine> subtitles ;
+  final int questionAfter;
+  final List<SubtitleLine> subtitles;
 
   String getSubtitle({position: Duration}) {
     for (final subtitle in subtitles) {

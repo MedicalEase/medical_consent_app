@@ -5,39 +5,48 @@ import '../main.dart';
 
 class ProcedureData {
   static const List<VideoItem> data = [
-    VideoItem(
-      0,
-      'assets/video/1-2-intro.mp4',
-      'Risks and benefits',
-      'This video shows your options and discusses some unlikely '
-          'side-effects',
-      [
+    const VideoItem(
+      id: 0,
+      path: 'assets/video/1-2-intro.mp4',
+      heading: 'Risks and benefits',
+      summary:
+          'This video shows your options and discusses some unlikely side-effects',
+      questionAfter: 2,
+       subtitles: [
         SubtitleLine('Hello', Duration(seconds: 0), Duration(seconds: 5)),
         SubtitleLine('World', Duration(seconds: 5), Duration(seconds: 10)),
       ],
     ),
-    VideoItem(1, 'assets/video/2-3-ogd_explanation.mp4', 'What is and OGD?',
-        'An OGD means we will take some photos for further investigation.', [
-      SubtitleLine('Hello', Duration(seconds: 0), Duration(seconds: 5)),
-      SubtitleLine('World', Duration(seconds: 5), Duration(seconds: 10)),
-    ]),
-    VideoItem(
-      2,
-      'assets/video/3-4-ogd_question.mp4',
-      'Are you happy to proceed?',
-      'PLease press Yes, No or Not Sure.',
-      [
+    const VideoItem(
+        id: 1,
+        path: 'assets/video/2-3-ogd_explanation.mp4',
+        heading: 'What is and OGD?',
+        summary:
+            'An OGD means we will take some photos for further investigation.',
+        questionAfter: 3,
+        subtitles: [
+          SubtitleLine('Hello', Duration(seconds: 0), Duration(seconds: 5)),
+          SubtitleLine('World', Duration(seconds: 5), Duration(seconds: 10)),
+        ]),
+    const VideoItem(
+      id: 2,
+      path: 'assets/video/3-4-ogd_question.mp4',
+      heading: 'Are you happy to proceed?',
+      summary: 'PLease press Yes, No or Not Sure.',
+      questionAfter: 5,
+      subtitles: [
         SubtitleLine('Hello', Duration(seconds: 0), Duration(seconds: 5)),
         SubtitleLine('World', Duration(seconds: 5), Duration(seconds: 10)),
       ],
     ),
-    VideoItem(
-      3,
-      'assets/video/4-5-sedation_question.mp4',
-      'Video Heading',
-      'This video shows your options and discusses some unlikely '
-          'side-effects',
-      [
+    const VideoItem(
+      id: 3,
+      path: 'assets/video/4-5-sedation_question.mp4',
+      heading: 'Video Heading',
+      summary:
+          'This video shows your options and discusses some unlikely side-effects',
+      questionAfter: 3,
+      subtitles: [
         SubtitleLine('Hello', Duration(seconds: 0), Duration(seconds: 5)),
         SubtitleLine('World', Duration(seconds: 5), Duration(seconds: 10)),
       ],

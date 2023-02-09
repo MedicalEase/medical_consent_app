@@ -91,7 +91,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
             ),
           ),
         ),
-        (widget.position.inSeconds > 3)
+        (widget.position.inSeconds > widget.item.questionAfter)
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
