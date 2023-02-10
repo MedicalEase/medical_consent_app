@@ -24,8 +24,6 @@ class LanguageListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const procedures = ProcedureData.data;
-    var first_procedure = procedures.first;
     Store store = locator<Store>();
     return Scaffold(
       appBar: AppBar(
@@ -77,7 +75,7 @@ class LanguageListView extends StatelessWidget {
                 Navigator.restorablePushNamed(
                   context,
                   VideoItemDetailsView.routeName,
-                  arguments: first_procedure.id,
+                  arguments: 0,
                 );
               });
         },

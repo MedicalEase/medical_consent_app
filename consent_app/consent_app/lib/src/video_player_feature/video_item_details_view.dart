@@ -9,10 +9,13 @@ import 'package:video_player/video_player.dart';
 import '../../main.dart';
 import '../procedure_data.dart';
 
-goNext(VideoItem item, VideoItem lastItem, BuildContext context, int videoId,
-    VideoPlayerController video_controller) {
+goNext( BuildContext context, int videoId, VideoPlayerController video_controller) {
+  Store store = locator<Store>();
+  List<VideoItem> items = store.procedure.videos;
+  VideoItem lastItem = items.last;
   video_controller.dispose();
-  if (lastItem.id == item.id) {
+  print("goNext: videoId: $videoId, lastItem.id: ${lastItem.id}");
+  if (lastItem.id == videoId) {
     Navigator.restorablePushNamed(
       context,
       SummaryView.routeName,
@@ -69,9 +72,8 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
 
   @override
   Widget build(BuildContext context) {
-    List<VideoItem> items = ProcedureData.data;
-    VideoItem lastItem = items.last;
     Store store = locator<Store>();
+    List<VideoItem> items = store.procedure.videos;
     return SingleChildScrollView(
       child: Column(children: <Widget>[
         Container(
@@ -101,8 +103,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                         store.choices
                             .add('${widget.item.id} -${widget.item.heading} '
                                 '- Question');
-                        goNext(widget.item, lastItem, context, widget.item.id,
-                            _controller);
+                        goNext(context, widget.item.id, _controller);
                       },
                       child: Text('Questions'.i18n),
                     ),
@@ -112,8 +113,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                         store.choices
                             .add('${widget.item.id} -${widget.item.heading} '
                                 '- No');
-                        goNext(widget.item, lastItem, context, widget.item.id,
-                            _controller);
+                        goNext( context, widget.item.id, _controller);
                       },
                       child: Text('No'.i18n),
                     ),
@@ -123,8 +123,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                         store.choices
                             .add('${widget.item.id} -${widget.item.heading} '
                                 '- OK!');
-                        goNext(widget.item, lastItem, context, widget.item.id,
-                            _controller);
+                        goNext( context, widget.item.id, _controller);
                       },
                       child: Text('OK'.i18n),
                     ),
@@ -254,12 +253,14 @@ class VideoItemDetailsView extends StatelessWidget {
   final int videoId;
   static const routeName = '/detail';
 
-  final List<VideoItem> items = ProcedureData.data;
 
   @override
   Widget build(BuildContext context) {
     // Use the videoId to create the UI.
-    VideoItem item = const VideoItemListView().items[videoId];
+    Store store = locator<Store>();
+    List<VideoItem> items = store.procedure.videos;
+    VideoItem item = items[videoId];
+
     final videoController = VideoPlayerController.asset(item.path);
     VideoItem lastItem = items.last;
     return Scaffold(
@@ -281,7 +282,7 @@ class VideoItemDetailsView extends StatelessWidget {
             ElevatedButton(
               child: Text('Next'.i18n),
               onPressed: () {
-                goNext(item, lastItem, context, videoId, videoController);
+                goNext( context, videoId, videoController);
               },
             ),
             ElevatedButton(
@@ -289,6 +290,7 @@ class VideoItemDetailsView extends StatelessWidget {
               onPressed: () {
                 // When the user taps the button, navigate back to the first
                 // screen by popping the current route off the stack.
+                videoController.dispose();
                 Navigator.restorablePushNamed(
                   context,
                   VideoItemListView.routeName,

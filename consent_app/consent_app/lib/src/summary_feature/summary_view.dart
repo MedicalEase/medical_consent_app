@@ -30,7 +30,7 @@ class SummaryView extends StatelessWidget {
           ],
         ),
         body: Column(children: [
-          Text('Procedure: ${store.procedure}'),
+          Text('Procedure: ${store.procedure.name}'),
           const SizedBox(height: 10),
           Text('Language: ${store.language}'),
           const SizedBox(height: 10),

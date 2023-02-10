@@ -1,3 +1,5 @@
+import 'package:consent_app/src/procedure_chooser_feature/procedure_item_dataclass.dart';
+import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -8,9 +10,70 @@ import 'src/settings/settings_service.dart';
 GetIt locator = GetIt.instance;
 
 class Store {
-  String procedure = "none";
+  late Procedure procedure;
   String language = "en";
   List choices = [];
+  List procedures = [
+    const Procedure(id: 0, name: 'OGD', videos: [
+      VideoItem(
+          id: 0,
+          path: 'assets/video/1-2-intro.mp4',
+          heading: 'Risks and benefits',
+          summary:
+              'This video shows your options and discusses some unlikely side-effects',
+          questionAfter: 1,
+          subtitles: [
+            SubtitleLine('Hello', Duration(seconds: 0), Duration(seconds: 5)),
+            SubtitleLine('World', Duration(seconds: 5), Duration(seconds: 10)),
+          ]),
+      VideoItem(
+          id: 1,
+          path: 'assets/video/2-3-ogd_explanation.mp4',
+          heading: '2: What is and OGD?',
+          summary: '2 An OGD means we will take some photos for further '
+              'investigation.',
+          questionAfter: 3,
+          subtitles: [
+            SubtitleLine('Hello', Duration(seconds: 0), Duration(seconds: 5)),
+            SubtitleLine('World', Duration(seconds: 5), Duration(seconds: 10)),
+          ]),
+      VideoItem(
+          id: 2,
+          path: 'assets/video/3-4-ogd_question.mp4',
+          heading: '3 Are you happy to proceed?',
+          summary: 'PLease press Yes, No or Not Sure.',
+          questionAfter: 3,
+          subtitles: [
+            SubtitleLine('Hello', Duration(seconds: 0), Duration(seconds: 5)),
+            SubtitleLine('World', Duration(seconds: 5), Duration(seconds: 10)),
+          ]),
+      VideoItem(
+        id: 3,
+        path: 'assets/video/4-5-sedation_question.mp4',
+        heading: ' 4 Sedation question',
+        summary:
+            'This video has details about sedation',
+        questionAfter: 0,
+        subtitles: [
+          SubtitleLine('Hello', Duration(seconds: 0), Duration(seconds: 5)),
+          SubtitleLine('World', Duration(seconds: 5), Duration(seconds: 10)),
+        ],
+      )
+    ]),
+    const Procedure(id: 1, name: 'Flexible Sigmoidoscopy', videos: [
+      VideoItem(
+          id: 0,
+          path: 'assets/video/2-3-ogd_explanation.mp4',
+          heading: 'What is  Flexible Sigmoidoscopy?',
+          summary:
+              'An Flexible Sigmoidoscopy means we will take some photos for further investigation.',
+          questionAfter: 3,
+          subtitles: [
+            SubtitleLine('Hello', Duration(seconds: 0), Duration(seconds: 5)),
+            SubtitleLine('World', Duration(seconds: 5), Duration(seconds: 10)),
+          ])
+    ]),
+  ];
 }
 
 void setup() {

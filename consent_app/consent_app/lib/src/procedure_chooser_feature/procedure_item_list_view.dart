@@ -11,17 +11,15 @@ import 'procedure_item_dataclass.dart';
 class ProcedureListView extends StatelessWidget {
   const ProcedureListView({
     super.key,
-    this.items = content,
   });
 
-  static const content = ProcedureNames.data;
+
   static const routeName = '/';
-  final List<Procedure> items;
 
   @override
   Widget build(BuildContext context) {
     Store store = locator<Store>();
-    print(store.procedure);
+    var items = store.procedures;
     return Scaffold(
       appBar: AppBar(
         title:  Text('Choose Procedure'.i18n),
@@ -51,6 +49,7 @@ class ProcedureListView extends StatelessWidget {
         restorationId: 'ProcedureListView',
         itemCount: items.length,
         itemBuilder: (BuildContext context, int index) {
+          var items = store.procedures;
           final item = items[index];
 
           return ListTile(
@@ -63,7 +62,7 @@ class ProcedureListView extends StatelessWidget {
                 // Navigate to the details page. If the user leaves and returns to
                 // the app after it has been killed while running in the
                 // background, the navigation stack is restored.
-                store.procedure = item.name;
+                store.procedure = item;
 
                 Navigator.restorablePushNamed(
                   context,

@@ -11,12 +11,14 @@ class VideoItemListView extends StatelessWidget {
     super.key,
   });
 
-  final List<VideoItem> items = ProcedureData.data;
 
   static const routeName = 'videolist';
 
   @override
   Widget build(BuildContext context) {
+        Store store = locator<Store>();
+
+    var items = store.procedure.videos;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Video Clips'),
@@ -49,7 +51,7 @@ class VideoItemListView extends StatelessWidget {
           final item = items[index];
 
           return ListTile(
-              title: Text('Video ${item.id}'),
+              title: Text('Video ${item.heading} '),
               leading: const CircleAvatar(
                 // Display the Flutter Logo image asset.
                 foregroundImage: AssetImage('assets/images/flutter_logo.png'),
