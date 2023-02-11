@@ -88,7 +88,7 @@ class MyApp extends StatelessWidget {
           themeMode: settingsController.themeMode,
           debugShowCheckedModeBanner: false,
           debugShowMaterialGrid: false,
-          // Define a function to handle named routes in order to support
+          // Define a function to handle named routes in order to supporting
           // Flutter web url navigation and deep linking.
           onGenerateRoute: (RouteSettings routeSettings) {
             return MaterialPageRoute<void>(
