@@ -1,0 +1,39 @@
+#: ./lib/src/settings/settings_view.dart:21
+msgid "Settings"
+msgstr ""
+
+#: ./lib/src/language_chooser_feature/language_item_list_view.dart:32
+msgid "Choose Language"
+msgstr ""
+
+#: ./lib/src/summary_feature/summary_view.dart:19
+msgid "Summary"
+msgstr ""
+
+#: ./lib/src/video_player_feature/video_item_details_view.dart:107
+msgid "Questions"
+msgstr ""
+
+#: ./lib/src/video_player_feature/video_item_details_view.dart:118
+msgid "No"
+msgstr ""
+
+#: ./lib/src/video_player_feature/video_item_details_view.dart:129
+msgid "OK"
+msgstr ""
+
+#: ./lib/src/video_player_feature/video_item_details_view.dart:240
+msgid "waiting for video to load"
+msgstr ""
+
+#: ./lib/src/video_player_feature/video_item_details_view.dart:284
+msgid "Next"
+msgstr ""
+
+#: ./lib/src/procedure_chooser_feature/procedure_item_list_view.dart:27
+msgid "Choose Procedure"
+msgstr ""
+
+#: ./lib/src/procedure_chooser_feature/procedure_item_list_view.dart:57
+msgid "Procedure"
+msgstr ""
