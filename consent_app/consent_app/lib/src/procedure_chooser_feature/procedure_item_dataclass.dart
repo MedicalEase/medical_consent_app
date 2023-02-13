@@ -7,11 +7,13 @@ class Procedure {
   const Procedure({
     required this.id,
     required this.name,
+    required this.icon,
     required this.videos,
   });
 
   final int id;
   final String name;
+  final String icon;
   final List<VideoItem> videos;
 }
 

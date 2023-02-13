@@ -13,7 +13,6 @@ class ProcedureListView extends StatelessWidget {
     super.key,
   });
 
-
   static const routeName = '/';
 
   @override
@@ -22,7 +21,7 @@ class ProcedureListView extends StatelessWidget {
     var items = store.procedures;
     return Scaffold(
       appBar: AppBar(
-        title:  Text('Choose Procedure'.i18n),
+        title: Text('Choose Procedure'.i18n),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -49,19 +48,14 @@ class ProcedureListView extends StatelessWidget {
         restorationId: 'ProcedureListView',
         itemCount: items.length,
         itemBuilder: (BuildContext context, int index) {
-          var items = store.procedures;
-          final item = items[index];
+          final item = store.procedures[index];
 
           return ListTile(
-              title: Text(('Procedure'.i18n)+ ' : ${item.name}'),
-              leading: const CircleAvatar(
-                // Display the Flutter Logo image asset.
-                foregroundImage: AssetImage('assets/images/flutter_logo.png'),
+              title: Text(('Procedure'.i18n) + ' : ${item.name}'),
+              leading: CircleAvatar(
+                backgroundImage: AssetImage(item.icon),
               ),
               onTap: () {
-                // Navigate to the details page. If the user leaves and returns to
-                // the app after it has been killed while running in the
-                // background, the navigation stack is restored.
                 store.procedure = item;
 
                 Navigator.restorablePushNamed(

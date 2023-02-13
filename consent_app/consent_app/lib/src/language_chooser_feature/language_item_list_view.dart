@@ -58,15 +58,12 @@ class LanguageListView extends StatelessWidget {
 
           return ListTile(
               title: Text('Language: ${language.name}'),
-              leading: const CircleAvatar(
+              leading: CircleAvatar(
                 // Display the Flutter Logo image asset.
-                foregroundImage: AssetImage('assets/images/flutter_logo.png'),
+                backgroundImage: AssetImage(language.icon),
               ),
               onTap: () {
-                print('Language: ${language.name}');
-                print('Language: ${language.code}');
                 store.language = language.code;
-                print('Language: ${store.language}');
                 I18n.of(context).locale = Locale(language.code);
 
                 // Navigate to the details page. If the user leaves and returns to
