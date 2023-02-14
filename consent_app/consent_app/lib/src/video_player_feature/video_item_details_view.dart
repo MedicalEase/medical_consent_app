@@ -259,8 +259,7 @@ class VideoItemDetailsView extends StatelessWidget {
     // Use the videoId to create the UI.
     Store store = locator<Store>();
     List<VideoItem> items = store.procedure.videos;
-    VideoItem item = items[videoId];
-
+    VideoItem item = items.firstWhere((item) => item.id == videoId);
     final videoController = VideoPlayerController.asset(item.path);
     VideoItem lastItem = items.last;
     return Scaffold(

@@ -28,7 +28,13 @@ extension Localization on String {
         "en": "Risks and benefits",
         "tr": "Risks and benefits TURKISH",
         "gr": "Risks and benefits GREEK",
-      };
+      } + {
+        "en": "OGD",
+        "tr": "OGD (but in TURKISH)",
+        "gr": "OGD (but in GREEK)",
+
+  }
+      ;
 
   String get i18n => localize(this, _t);
 }

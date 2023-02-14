@@ -51,7 +51,7 @@ class ProcedureListView extends StatelessWidget {
           final item = store.procedures[index];
 
           return ListTile(
-              title: Text(('Procedure'.i18n) + ' : ${item.name}'),
+              title: Text(('Procedure'.i18n) + ' : ' + '${item.name}'.i18n),
               leading: CircleAvatar(
                 backgroundImage: AssetImage(item.icon),
               ),
