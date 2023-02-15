@@ -9,13 +9,15 @@ import 'package:video_player/video_player.dart';
 import '../../main.dart';
 import '../procedure_data.dart';
 
-goNext( BuildContext context, int videoId, VideoPlayerController video_controller) {
+goNext(BuildContext context,
+    int videoId,
+    int nextVideoItemId,
+    VideoPlayerController video_controller,) {
+  video_controller.dispose();
   Store store = locator<Store>();
   List<VideoItem> items = store.procedure.videos;
-  VideoItem lastItem = items.last;
-  video_controller.dispose();
-  print("goNext: videoId: $videoId, lastItem.id: ${lastItem.id}");
-  if (lastItem.id == videoId) {
+  VideoItem item = items.firstWhere((item) => item.id == videoId);
+  if (item.nextVideoItemId == null) {
     Navigator.restorablePushNamed(
       context,
       SummaryView.routeName,
@@ -24,7 +26,7 @@ goNext( BuildContext context, int videoId, VideoPlayerController video_controlle
     Navigator.restorablePushNamed(
       context,
       VideoItemDetailsView.routeName,
-      arguments: videoId + 1,
+      arguments: nextVideoItemId,
     );
   }
 }
@@ -35,11 +37,10 @@ class ExplainerAssetVideo extends StatefulWidget {
   final VideoPlayerController controller;
   Duration position = const Duration(seconds: 0);
 
-  ExplainerAssetVideo(
-      {Key? key,
-      required this.path,
-      required this.item,
-      required this.controller})
+  ExplainerAssetVideo({Key? key,
+    required this.path,
+    required this.item,
+    required this.controller})
       : super(key: key);
 
   @override
@@ -93,44 +94,73 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
             ),
           ),
         ),
-        (widget.position.inSeconds > widget.item.questionAfter)
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                    ElevatedButton(
-                      onPressed: () {
-                        _controller.dispose();
-                        store.choices
-                            .add('${widget.item.id} -${widget.item.heading} '
-                                '- Question');
-                        goNext(context, widget.item.id, _controller);
-                      },
-                      child: Text('Questions'.i18n),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        _controller.dispose();
-                        store.choices
-                            .add('${widget.item.id} -${widget.item.heading} '
-                                '- No');
-                        goNext( context, widget.item.id, _controller);
-                      },
-                      child: Text('No'.i18n),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        _controller.dispose();
-                        store.choices
-                            .add('${widget.item.id} -${widget.item.heading} '
-                                '- OK!');
-                        goNext( context, widget.item.id, _controller);
-                      },
-                      child: Text('OK'.i18n),
-                    ),
-                  ])
-            : Container(),
+        // we show the answer buttons when timer is up & if there's a FAQ video
+        continueButton(context),
+        PatientChoicesButtons(context),
       ]),
     );
+  }
+
+  Widget PatientChoicesButtons(BuildContext context) {
+    Store store = locator<Store>();
+    return (widget.item.faqVideoItemId != null) &&
+          (widget.position.inSeconds >
+              (widget.item.questionAfter ?? 999999))
+          ? Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                _controller.dispose();
+                store.choices
+                    .add('${widget.item.id} -${widget.item.heading} '
+                    '- Question');
+                goNext(context, widget.item.id,
+                    widget.item.faqVideoItemId ?? 0, _controller);
+              },
+              child: Text('Questions'.i18n),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _controller.dispose();
+                store.choices
+                    .add('${widget.item.id} -${widget.item.heading} '
+                    '- No');
+                goNext(context, widget.item.id,
+                    widget.item.nextVideoItemId ?? 0, _controller);
+              },
+              child: Text('No'.i18n),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _controller.dispose();
+                store.choices
+                    .add('${widget.item.id} -${widget.item.heading} '
+                    '- OK!');
+                goNext(context, widget.item.id,
+                    widget.item.nextVideoItemId ?? 0, _controller);
+              },
+              child: Text('OK'.i18n),
+            ),
+          ])
+          : Container();
+  }
+
+  Widget continueButton(BuildContext context) {
+    return (widget.item.faqVideoItemId == null) &&
+          (widget.position.inSeconds >
+              (widget.item.questionAfter ?? 999999))
+          ? Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                goNext(context, widget.item.id,
+                    widget.item.nextVideoItemId ?? 0, _controller);
+              },
+              child: Text('Continue'.i18n),
+            ),
+          ]) : Container();
   }
 }
 
@@ -152,16 +182,16 @@ class _ControlsOverlay extends StatelessWidget {
           child: controller.value.isPlaying
               ? const SizedBox.shrink()
               : Container(
-                  color: Colors.black26,
-                  child: const Center(
-                    child: Icon(
-                      Icons.play_arrow,
-                      color: Colors.white,
-                      size: 100.0,
-                      semanticLabel: 'Play',
-                    ),
-                  ),
-                ),
+            color: Colors.black26,
+            child: const Center(
+              child: Icon(
+                Icons.play_arrow,
+                color: Colors.white,
+                size: 200.0,
+                semanticLabel: 'Play',
+              ),
+            ),
+          ),
         ),
         GestureDetector(
           onTap: () {

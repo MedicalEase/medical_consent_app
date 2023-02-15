@@ -14,7 +14,7 @@ class Store {
   String language = "en";
   List choices = [];
   List procedures = [
-    const Procedure(
+     const Procedure(
         id: 0,
         name: 'OGD',
         icon: 'assets/images/OGD_icon.png',
@@ -26,6 +26,8 @@ class Store {
               summary:
                   'This video shows your options and discusses some unlikely side-effects',
               questionAfter: 1,
+              nextVideoItemId: 1,
+              faqVideoItemId:3,
               subtitles: [
                 SubtitleLine('Hello en', Duration(seconds: 0),
                     Duration(seconds: 5), 'en'),
@@ -43,6 +45,8 @@ class Store {
               summary: '2 An OGD means we will take some photos for further '
                   'investigation.',
               questionAfter: 3,
+              nextVideoItemId: 2,
+              faqVideoItemId: 3,
               subtitles: [
                 SubtitleLine(
                     'Hello', Duration(seconds: 0), Duration(seconds: 5), 'en'),
@@ -68,7 +72,8 @@ class Store {
             path: 'assets/video/4-5-sedation_question.mp4',
             heading: ' 4 Sedation question',
             summary: 'This video has details about sedation',
-            questionAfter: 0,
+            nextVideoItemId: 0,
+            questionAfter: 3,
             subtitles: [
               SubtitleLine(
                   'Hello', Duration(seconds: 0), Duration(seconds: 5), 'en'),
@@ -77,7 +82,7 @@ class Store {
             ],
           )
         ]),
-    const Procedure(
+     const Procedure(
         id: 1,
         name: 'Flexible Sigmoidoscopy',
         icon: 'assets/images/sigmoidoscopy.png',
