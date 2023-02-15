@@ -177,7 +177,7 @@ class _ControlsOverlay extends StatelessWidget {
     return Stack(
       children: <Widget>[
         AnimatedSwitcher(
-          duration: const Duration(milliseconds: 50),
+          duration: const Duration(milliseconds: 200),
           reverseDuration: const Duration(milliseconds: 200),
           child: controller.value.isPlaying
               ? const SizedBox.shrink()
@@ -283,7 +283,6 @@ class VideoItemDetailsView extends StatelessWidget {
   final int videoId;
   static const routeName = '/detail';
 
-
   @override
   Widget build(BuildContext context) {
     // Use the videoId to create the UI.
@@ -291,7 +290,6 @@ class VideoItemDetailsView extends StatelessWidget {
     List<VideoItem> items = store.procedure.videos;
     VideoItem item = items.firstWhere((item) => item.id == videoId);
     final videoController = VideoPlayerController.asset(item.path);
-    VideoItem lastItem = items.last;
     return Scaffold(
       appBar: AppBar(
         title: Text('${item.heading}'.i18n),
@@ -311,7 +309,8 @@ class VideoItemDetailsView extends StatelessWidget {
             ElevatedButton(
               child: Text('Next'.i18n),
               onPressed: () {
-                goNext( context, videoId, videoController);
+                goNext(context, videoId, item.nextVideoItemId ?? 0,
+                    videoController);
               },
             ),
             ElevatedButton(
