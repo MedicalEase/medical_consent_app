@@ -9,11 +9,13 @@ import 'package:video_player/video_player.dart';
 import '../../main.dart';
 import '../procedure_data.dart';
 
-goNext(BuildContext context,
-    int videoId,
-    int nextVideoItemId,
-    VideoPlayerController video_controller,) {
-  video_controller.dispose();
+goNext(
+  BuildContext context,
+  int videoId,
+  int nextVideoItemId,
+  VideoPlayerController videoController,
+) {
+  videoController.dispose();
   Store store = locator<Store>();
   List<VideoItem> items = store.procedure.videos;
   VideoItem item = items.firstWhere((item) => item.id == videoId);
@@ -104,27 +106,22 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
   Widget PatientChoicesButtons(BuildContext context) {
     Store store = locator<Store>();
     return (widget.item.faqVideoItemId != null) &&
-          (widget.position.inSeconds >
-              (widget.item.questionAfter ?? 999999))
-          ? Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+            (widget.position.inSeconds > (widget.item.questionAfter ?? 999999))
+        ? Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
             ElevatedButton(
               onPressed: () {
                 _controller.dispose();
-                store.choices
-                    .add('${widget.item.id} -${widget.item.heading} '
+                store.choices.add('${widget.item.id} -${widget.item.heading} '
                     '- Question');
-                goNext(context, widget.item.id,
-                    widget.item.faqVideoItemId ?? 0, _controller);
+                goNext(context, widget.item.id, widget.item.faqVideoItemId ?? 0,
+                    _controller);
               },
               child: Text('Questions'.i18n),
             ),
             ElevatedButton(
               onPressed: () {
                 _controller.dispose();
-                store.choices
-                    .add('${widget.item.id} -${widget.item.heading} '
+                store.choices.add('${widget.item.id} -${widget.item.heading} '
                     '- No');
                 goNext(context, widget.item.id,
                     widget.item.nextVideoItemId ?? 0, _controller);
@@ -134,8 +131,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
             ElevatedButton(
               onPressed: () {
                 _controller.dispose();
-                store.choices
-                    .add('${widget.item.id} -${widget.item.heading} '
+                store.choices.add('${widget.item.id} -${widget.item.heading} '
                     '- OK!');
                 goNext(context, widget.item.id,
                     widget.item.nextVideoItemId ?? 0, _controller);
@@ -143,16 +139,13 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
               child: Text('OK'.i18n),
             ),
           ])
-          : Container();
+        : Container();
   }
 
   Widget continueButton(BuildContext context) {
     return (widget.item.faqVideoItemId == null) &&
-          (widget.position.inSeconds >
-              (widget.item.questionAfter ?? 999999))
-          ? Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+            (widget.position.inSeconds > (widget.item.questionAfter ?? 999999))
+        ? Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
             ElevatedButton(
               onPressed: () {
                 goNext(context, widget.item.id,
@@ -160,7 +153,8 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
               },
               child: Text('Continue'.i18n),
             ),
-          ]) : Container();
+          ])
+        : Container();
   }
 }
 
@@ -182,16 +176,16 @@ class _ControlsOverlay extends StatelessWidget {
           child: controller.value.isPlaying
               ? const SizedBox.shrink()
               : Container(
-            color: Colors.black26,
-            child: const Center(
-              child: Icon(
-                Icons.play_arrow,
-                color: Colors.white,
-                size: 200.0,
-                semanticLabel: 'Play',
-              ),
-            ),
-          ),
+                  color: Colors.black26,
+                  child: const Center(
+                    child: Icon(
+                      Icons.play_arrow,
+                      color: Colors.white,
+                      size: 200.0,
+                      semanticLabel: 'Play',
+                    ),
+                  ),
+                ),
         ),
         GestureDetector(
           onTap: () {
