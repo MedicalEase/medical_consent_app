@@ -41,10 +41,11 @@ class ExplainerAssetVideo extends StatefulWidget {
   final VideoPlayerController controller;
   Duration position = const Duration(seconds: 0);
 
-  ExplainerAssetVideo({Key? key,
-    required this.path,
-    required this.item,
-    required this.controller})
+  ExplainerAssetVideo(
+      {Key? key,
+      required this.path,
+      required this.item,
+      required this.controller})
       : super(key: key);
 
   @override
@@ -93,7 +94,12 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
               children: <Widget>[
                 VideoPlayer(_controller),
                 _ControlsOverlay(controller: _controller, item: widget.item),
-                VideoProgressIndicator(_controller, allowScrubbing: true),
+                VideoProgressIndicator(_controller, allowScrubbing: true,
+                colors: const VideoProgressColors(
+                  playedColor: Color(0xFF005EB8) ,
+                  bufferedColor: Color(0xFFF0F4F5),
+                  backgroundColor: Color(0xFFD8DDE0),
+                ),),
               ],
             ),
           ),
@@ -291,8 +297,10 @@ class VideoItemDetailsView extends StatelessWidget {
         title: Text('${item.heading}'.i18n),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text('${item.summary}'.i18n),
             ExplainerAssetVideo(
@@ -302,35 +310,41 @@ class VideoItemDetailsView extends StatelessWidget {
               controller: videoController,
             ),
             const SizedBox(height: 16.0),
-            ElevatedButton(
-              child: Text('Next'.i18n),
-              onPressed: () {
-                goNext(context, videoId, item.nextVideoItemId ?? 0,
-                    videoController);
-              },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  child: Text('Next'.i18n),
+                  onPressed: () {
+                    goNext(context, videoId, item.nextVideoItemId ?? 0,
+                        videoController);
+                  },
+                ),
+                ElevatedButton(
+                  child: const Text('video index'),
+                  onPressed: () {
+                    // When the user taps the button, navigate back to the first
+                    // screen by popping the current route off the stack.
+                    videoController.dispose();
+                    Navigator.restorablePushNamed(
+                      context,
+                      VideoItemListView.routeName,
+                    );
+                  },
+                ),
+                ElevatedButton(
+                  child: const Text('Summary'),
+                  onPressed: () {
+                    videoController.dispose();
+                    Navigator.restorablePushNamed(
+                      context,
+                      SummaryView.routeName,
+                    );
+                  },
+                )
+              ],
             ),
-            ElevatedButton(
-              child: const Text('video index'),
-              onPressed: () {
-                // When the user taps the button, navigate back to the first
-                // screen by popping the current route off the stack.
-                videoController.dispose();
-                Navigator.restorablePushNamed(
-                  context,
-                  VideoItemListView.routeName,
-                );
-              },
-            ),
-            ElevatedButton(
-              child: const Text('Summary'),
-              onPressed: () {
-                videoController.dispose();
-                Navigator.restorablePushNamed(
-                  context,
-                  SummaryView.routeName,
-                );
-              },
-            )
           ],
         ),
       ),
