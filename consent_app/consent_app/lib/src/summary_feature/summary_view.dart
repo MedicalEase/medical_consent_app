@@ -16,7 +16,7 @@ class SummaryView extends StatelessWidget {
     Store store = locator<Store>();
     return Scaffold(
         appBar: AppBar(
-          title:  Text('Summary'.i18n),
+          title: Text('Summary'.i18n),
           actions: [
             IconButton(
               icon: const Icon(Icons.settings),
@@ -29,12 +29,14 @@ class SummaryView extends StatelessWidget {
             ),
           ],
         ),
-        body: Column(children: [
-          Text('Procedure: ${store.procedure.name}'),
-          const SizedBox(height: 10),
-          Text('Language: ${store.language}'),
-          const SizedBox(height: 10),
-          Text('Result: ${store.choices}'),
-        ]));
+        body: Center(
+            child: Column(children: [
+              Text('Procedure: ${store.procedure.name}'),
+              const SizedBox(height: 10),
+              Text('Language: ${store.language}'),
+              const SizedBox(height: 10),
+              Text('Result: ${store.choices}'),
+            ]))
+    );
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
 import 'package:consent_app/src/summary_feature/summary_view.dart';
 import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';

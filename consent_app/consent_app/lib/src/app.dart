@@ -63,20 +63,29 @@ class MyApp extends StatelessWidget {
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.
           theme: ThemeData(
-            // primaryColor: Colors.lightGreen[800],
-            // todo define real styles here
+            scaffoldBackgroundColor: const Color(0xFFF0F4F5),
+            colorScheme: const ColorScheme.light(
+              primary: Color(0xFF005EB8),
+              secondary: Color(0xFF007F3B),
+            ),
+            primaryColor: Colors.lightGreen[800],
             fontFamily: 'Frutiger',
             textTheme: const TextTheme(
               displayLarge: TextStyle(
                 fontSize: 72.0,
+                fontFamily: 'Frutiger',
                 fontWeight: FontWeight.w700,
               ),
               titleLarge: TextStyle(
                 fontSize: 36.0,
+                // color: Colors.green,
+                fontFamily: 'Frutiger',
                 fontWeight: FontWeight.w700,
               ),
               bodyMedium: TextStyle(
-                fontSize: 14.0,
+                color: Color(0xFF212B32),
+                fontSize: 24.0,
+                fontFamily: 'Frutiger',
                 fontWeight: FontWeight.w700,
               ),
             ),
