@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
 import 'package:consent_app/src/summary_feature/summary_view.dart';
+import 'package:consent_app/src/thank_you/thank_you.dart';
 import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
 import 'package:consent_app/src/video_player_feature/video_item_list_view.dart';
 import 'package:consent_app/src/video_player_feature/video_subtitle.dart';
@@ -17,6 +18,7 @@ goNext(
   int nextVideoItemId,
   VideoPlayerController videoController,
 ) {
+  // function to go to next video or thank you page
   videoController.dispose();
   Store store = locator<Store>();
   List<VideoItem> items = store.procedure.videos;
@@ -24,7 +26,7 @@ goNext(
   if (item.nextVideoItemId == null) {
     Navigator.restorablePushNamed(
       context,
-      SummaryView.routeName,
+      ThankYouView.routeName,
     );
   } else {
     Navigator.restorablePushNamed(
@@ -94,12 +96,15 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
               children: <Widget>[
                 VideoPlayer(_controller),
                 _ControlsOverlay(controller: _controller, item: widget.item),
-                VideoProgressIndicator(_controller, allowScrubbing: true,
-                colors: const VideoProgressColors(
-                  playedColor: Color(0xFF005EB8) ,
-                  bufferedColor: Color(0xFFF0F4F5),
-                  backgroundColor: Color(0xFFD8DDE0),
-                ),),
+                VideoProgressIndicator(
+                  _controller,
+                  allowScrubbing: true,
+                  colors: const VideoProgressColors(
+                    playedColor: Color(0xFF005EB8),
+                    bufferedColor: Color(0xFFF0F4F5),
+                    backgroundColor: Color(0xFFD8DDE0),
+                  ),
+                ),
               ],
             ),
           ),
@@ -146,6 +151,20 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
               },
               child: Text('OK'.i18n),
             ),
+            (widget.position.inSeconds >
+                    _controller.value.duration.inSeconds -
+                        Duration(seconds: 2).inSeconds)
+                ? ElevatedButton(
+                    onPressed: () {
+                      store.choices
+                          .add('${widget.item.id} -${widget.item.heading} '
+                              '- replay');
+                      _controller.seekTo(Duration(seconds: 0));
+                      _controller.play();
+                    },
+                    child: Text('PLay again'.i18n),
+                  )
+                : Container(),
           ])
         : Container();
   }

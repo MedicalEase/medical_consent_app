@@ -1,6 +1,7 @@
 import 'package:consent_app/src/language_chooser_feature/language_item_list_view.dart';
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
 import 'package:consent_app/src/summary_feature/summary_view.dart';
+import 'package:consent_app/src/thank_you/thank_you.dart';
 import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -109,7 +110,9 @@ class MyApp extends StatelessWidget {
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
                   case SummaryView.routeName:
-                    return SummaryView();
+                    return const SummaryView();
+                    case ThankYouView.routeName:
+                    return const ThankYouView();
                   case VideoItemDetailsView.routeName:
                     final value = routeSettings.arguments as int;
                     print('VideoItemDetailsView.routeName value: $value');
