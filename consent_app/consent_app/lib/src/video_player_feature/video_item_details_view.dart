@@ -200,22 +200,19 @@ class _ControlsOverlay extends StatelessWidget {
         AnimatedSwitcher(
           duration: const Duration(milliseconds: 200),
           reverseDuration: const Duration(milliseconds: 200),
-          child: controller.value.isPlaying
-              ? const SizedBox.shrink()
-              : Container(
-                  color: Colors.black26,
-                  child: const Center(
-                    child: Icon(
-                      Icons.play_arrow,
-                      color: Colors.white,
-                      size: 200.0,
-                      semanticLabel: 'Play',
-                    ),
-                  ),
-                ),
+          child: (controller.value.position > const Duration(seconds: 1) &&
+                  controller.value.position == controller.value.duration)
+              ? overlayIcon(Icons.replay, 'Replay')
+              : controller.value.isPlaying
+                  ? const SizedBox.shrink()
+                  : overlayIcon(Icons.play_arrow, 'Play'),
         ),
         GestureDetector(
           onTap: () {
+            if (controller.value.position == controller.value.duration) {
+              controller.seekTo(const Duration(seconds: 0));
+              controller.play();
+            }
             controller.value.isPlaying ? controller.pause() : controller.play();
           },
         ),
@@ -236,6 +233,20 @@ class _ControlsOverlay extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Container overlayIcon( icon, String semanticLabel) {
+    return Container(
+                color: Colors.black26,
+                child:  Center(
+                  child: Icon(
+                    icon,
+                    color: Colors.white,
+                    size: 200.0,
+                    semanticLabel: semanticLabel,
+                  ),
+                ),
+              );
   }
 }
 

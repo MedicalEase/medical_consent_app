@@ -122,7 +122,6 @@ class MyApp extends StatelessWidget {
                     return VideoItemDetailsView(videoId: value);
                   case ProcedureListView.routeName:
                   default:
-                    return const SurveyView();
                     return const ProcedureListView();
                 }
               },
