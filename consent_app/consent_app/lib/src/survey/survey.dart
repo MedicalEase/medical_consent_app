@@ -1,6 +1,8 @@
+import 'package:consent_app/src/intro/intro.dart';
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
 import 'package:consent_app/src/summary_feature/summary_view.dart';
+import 'package:consent_app/src/thank_you/final_thank_you.dart';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
@@ -57,6 +59,7 @@ class _SurveyAppState extends State<SurveyApp> {
             child: FutureBuilder<Task>(
               future: getJsonTask(),
               builder: (context, snapshot) {
+                // todo : check all these conditions are correct
                 if (snapshot.connectionState == ConnectionState.done &&
                     snapshot.hasData &&
                     snapshot.data != null) {
@@ -64,7 +67,11 @@ class _SurveyAppState extends State<SurveyApp> {
                   return SurveyKit(
                     onResult: (SurveyResult result) {
                       print(result.finishReason);
-                      Navigator.pushNamed(context, '/');
+                      // Navigator.pushNamed(context, '/');
+                      Navigator.restorablePushNamed(
+                        context,
+                        FinalThankYou.routeName,
+                      );
                     },
                     task: task,
                     showProgress: true,
