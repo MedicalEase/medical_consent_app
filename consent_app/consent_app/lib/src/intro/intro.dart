@@ -1,24 +1,23 @@
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
 import 'package:consent_app/src/summary_feature/summary_view.dart';
-import 'package:consent_app/src/survey/survey.dart';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
 import '../settings/settings_view.dart';
 import '../video_player_feature/video_item_list_view.dart';
 
-class ThankYouView extends StatelessWidget {
-  const ThankYouView({super.key});
+class IntroView extends StatelessWidget {
+  const IntroView({super.key});
 
-  static const routeName = '/thankyou';
+  static const routeName = '/intro';
 
   @override
   Widget build(BuildContext context) {
     Store store = locator<Store>();
     return Scaffold(
         appBar: AppBar(
-          title: Text('ThankYou'.i18n),
+          title: Text('Intro'.i18n),
           actions: [
             IconButton(
               icon: const Icon(Icons.settings),
@@ -33,31 +32,20 @@ class ThankYouView extends StatelessWidget {
         ),
         body: Center(
             child: Column(children: [
-          Text('Thank you for your participation!'.i18n),
+          Text('Made by, XXX with YYYY released 2/feb/2032 VER 0.1!'.i18n),
           const SizedBox(height: 40),
-          Text('Would you like to fill out a survey?'.i18n),
+          Text('Thanks to : CCCC'.i18n),
           const SizedBox(height: 10),
+          Text('Support and help: contact'.i18n),
           Row(
             children: [
               ElevatedButton(
                 onPressed: () {
-                  store.choices.add('survey');
                   Navigator.restorablePushNamed(
                     context,
-                    SurveyView.routeName,
-                  );
-                },
-                child: Text('Ok Survey'.i18n),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  store.choices.add('No survey');
-                  Navigator.restorablePushNamed(
-                    context,
-                    SummaryView.routeName,
-                  );
-                },
-                child: Text('No Survey'.i18n),
+                    ProcedureListView.routeName,
+                  );                },
+                child: Text('Continue'.i18n),
               )
             ],
           )

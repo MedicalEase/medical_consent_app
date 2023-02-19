@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'intro/intro.dart';
 import 'video_player_feature/video_item_details_view.dart';
 import 'video_player_feature/video_item_list_view.dart';
 import 'settings/settings_controller.dart';
@@ -112,17 +113,20 @@ class MyApp extends StatelessWidget {
                     return SettingsView(controller: settingsController);
                   case SummaryView.routeName:
                     return const SummaryView();
-                  case SummaryView.routeName:
+                  case SurveyView.routeName:
                     return const SurveyView();
                   case ThankYouView.routeName:
                     return const ThankYouView();
+                  case IntroView.routeName:
+                    return const IntroView();
+                  case ProcedureListView.routeName:
+                    return const ProcedureListView();
                   case VideoItemDetailsView.routeName:
                     final value = routeSettings.arguments as int;
                     print('VideoItemDetailsView.routeName value: $value');
                     return VideoItemDetailsView(videoId: value);
-                  case ProcedureListView.routeName:
                   default:
-                    return const ProcedureListView();
+                    return const IntroView();
                 }
               },
             );

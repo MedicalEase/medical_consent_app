@@ -24,7 +24,7 @@ class ProcedureListView extends StatelessWidget {
     super.key,
   });
 
-  static const routeName = '/';
+  static const routeName = '/procedures';
 
   @override
   Widget build(BuildContext context) {

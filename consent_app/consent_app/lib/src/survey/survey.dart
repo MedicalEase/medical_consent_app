@@ -145,7 +145,7 @@ class _SurveyAppState extends State<SurveyApp> {
                           ),
                         ),
                       ),
-                      textTheme: TextTheme(
+                      textTheme: const TextTheme(
                         displayMedium: TextStyle(
                           fontSize: 28.0,
                           color: Colors.black,
@@ -163,7 +163,7 @@ class _SurveyAppState extends State<SurveyApp> {
                           color: Colors.black,
                         ),
                       ),
-                      inputDecorationTheme: InputDecorationTheme(
+                      inputDecorationTheme: const InputDecorationTheme(
                         labelStyle: TextStyle(
                           color: Colors.black,
                         ),
@@ -263,7 +263,7 @@ class _SurveyAppState extends State<SurveyApp> {
         ),
         QuestionStep(
           title: 'When did you wake up?',
-          answerFormat: TimeAnswerFormat(
+          answerFormat: const TimeAnswerFormat(
             defaultValue: TimeOfDay(
               hour: 12,
               minute: 0,
