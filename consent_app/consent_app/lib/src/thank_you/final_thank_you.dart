@@ -43,7 +43,7 @@ class FinalThankYou extends StatelessWidget {
                 onPressed: () {
                   Navigator.restorablePushNamed(
                     context,
-                    IntroView.routeName,
+                    SummaryView.routeName,
                   );
                 },
                 child: Text('Ok Done'.i18n),

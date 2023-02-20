@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 
 import '../../main.dart';
+import '../components/frame.dart';
 import '../components/horizontal_chooser.dart';
 import '../procedure_data.dart';
 import '../settings/settings_view.dart';
@@ -37,21 +38,10 @@ class LanguageListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Store store = locator<Store>();
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Choose Language'.i18n),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () {
-                // Navigate to the settings page. If the user leaves and returns
-                // to the app after it has been killed while running in the
-                // background, the navigation stack is restored.
-                Navigator.restorablePushNamed(context, SettingsView.routeName);
-              },
-            ),
-          ],
-        ),
-        body: horizontalChooser(languages, store, context, onTap));
+    return FrameView(
+        heading: 'Choose Language',
+        body:
+          horizontalChooser(languages, store, context, onTap)
+    );
   }
 }
