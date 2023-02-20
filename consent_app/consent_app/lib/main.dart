@@ -17,7 +17,7 @@ class Store {
      const Procedure(
         id: 0,
         name: 'OGD',
-        icon: 'assets/images/OGD_icon.png',
+        icon: 'images/ogd_icon.png',
         videos: [
           VideoItem(
               id: 0,
@@ -85,7 +85,26 @@ class Store {
      const Procedure(
         id: 1,
         name: 'Flexible Sigmoidoscopy',
-        icon: 'assets/images/sigmoidoscopy.png',
+        icon: 'images/sigmoidoscopy_icon.png',
+        videos: [
+          VideoItem(
+              id: 0,
+              path: 'assets/video/2-3-ogd_explanation.mp4',
+              heading: 'What is  Flexible Sigmoidoscopy?',
+              summary:
+                  'An Flexible Sigmoidoscopy means we will take some photos for further investigation.',
+              questionAfter: 3,
+              subtitles: [
+                SubtitleLine(
+                    'Hello', Duration(seconds: 0), Duration(seconds: 5), 'en'),
+                SubtitleLine(
+                    'World', Duration(seconds: 0), Duration(seconds: 5), 'tk'),
+              ])
+        ]),
+     const Procedure(
+        id: 1,
+        name: 'Colonoscopy',
+        icon: 'images/colonscopy_icon.png',
         videos: [
           VideoItem(
               id: 0,
