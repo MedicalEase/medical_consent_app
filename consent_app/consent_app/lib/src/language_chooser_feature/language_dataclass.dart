@@ -14,7 +14,7 @@ class Language {
 
 class LanguageData {
   static const List<Language> data = [
-    Language(id:0,name: 'Eng', icon:'assets/images/uk.jpeg', code: 'en'),
+    Language(id:0,name: 'English', icon:'assets/images/uk.png', code: 'en'),
     Language(id:1,name: 'Greek', icon: 'assets/images/gr.png' ,code: 'gr'),
     Language(id:2,name: 'Turkish' , icon: 'assets/images/tr.png' ,code: 'tr'),
   ];
