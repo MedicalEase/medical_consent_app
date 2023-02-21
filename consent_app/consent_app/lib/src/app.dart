@@ -2,6 +2,7 @@ import 'package:consent_app/src/language_chooser_feature/language_item_list_view
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
 import 'package:consent_app/src/summary_feature/summary_view.dart';
 import 'package:consent_app/src/survey/survey.dart';
+import 'package:consent_app/src/thank_you/final_thank_you.dart';
 import 'package:consent_app/src/thank_you/thank_you.dart';
 import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
 import 'package:flutter/material.dart';
@@ -66,6 +67,7 @@ class MyApp extends StatelessWidget {
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.
           theme: ThemeData(
+            brightness: Brightness.light,
             splashColor: const Color(0xFFF0F4F5),
             scaffoldBackgroundColor: const Color(0xFFF0F4F5),
             colorScheme: const ColorScheme.light(
@@ -117,6 +119,8 @@ class MyApp extends StatelessWidget {
                     return const SurveyView();
                   case ThankYouView.routeName:
                     return const ThankYouView();
+                  case FinalThankYou.routeName:
+                    return const FinalThankYou();
                   case IntroView.routeName:
                     return const IntroView();
                   case ProcedureListView.routeName:

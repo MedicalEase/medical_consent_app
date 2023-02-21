@@ -102,7 +102,7 @@ class Store {
               ])
         ]),
      const Procedure(
-        id: 1,
+        id: 2,
         name: 'Colonoscopy',
         icon: 'images/colonscopy_icon.png',
         videos: [

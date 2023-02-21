@@ -323,6 +323,7 @@ class VideoItemDetailsView extends StatelessWidget {
     final videoController = VideoPlayerController.asset(item.path);
     return FrameView(
       heading: '${item.heading}'.i18n,
+      admin_pre_action:() => videoController.dispose(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
         child: Column(
