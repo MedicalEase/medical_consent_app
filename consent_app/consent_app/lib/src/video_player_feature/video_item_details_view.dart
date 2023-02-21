@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
 import 'package:consent_app/src/summary_feature/summary_view.dart';
 import 'package:consent_app/src/thank_you/thank_you.dart';
@@ -10,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../main.dart';
+import '../components/frame.dart';
 import '../procedure_data.dart';
 
 goNext(
@@ -235,18 +234,18 @@ class _ControlsOverlay extends StatelessWidget {
     );
   }
 
-  Container overlayIcon( icon, String semanticLabel) {
+  Container overlayIcon(icon, String semanticLabel) {
     return Container(
-                color: Colors.black26,
-                child:  Center(
-                  child: Icon(
-                    icon,
-                    color: Colors.white,
-                    size: 200.0,
-                    semanticLabel: semanticLabel,
-                  ),
-                ),
-              );
+      color: Colors.black26,
+      child: Center(
+        child: Icon(
+          icon,
+          color: Colors.white,
+          size: 200.0,
+          semanticLabel: semanticLabel,
+        ),
+      ),
+    );
   }
 }
 
@@ -322,10 +321,8 @@ class VideoItemDetailsView extends StatelessWidget {
     List<VideoItem> items = store.procedure.videos;
     VideoItem item = items.firstWhere((item) => item.id == videoId);
     final videoController = VideoPlayerController.asset(item.path);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('${item.heading}'.i18n),
-      ),
+    return FrameView(
+      heading: '${item.heading}'.i18n,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
         child: Column(

@@ -6,6 +6,7 @@ import 'package:consent_app/src/thank_you/final_thank_you.dart';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
+import '../components/frame.dart';
 import '../settings/settings_view.dart';
 import '../video_player_feature/video_item_list_view.dart';
 
@@ -17,21 +18,8 @@ class ThankYouView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Store store = locator<Store>();
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('ThankYou'.i18n),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () {
-                // Navigate to the settings page. If the user leaves and returns
-                // to the app after it has been killed while running in the
-                // background, the navigation stack is restored.
-                Navigator.restorablePushNamed(context, SettingsView.routeName);
-              },
-            ),
-          ],
-        ),
+    return FrameView(
+        heading: 'Thank You'.i18n,
         body: Center(
             child: Column(children: [
           Text('Thank you for your participation!'.i18n),

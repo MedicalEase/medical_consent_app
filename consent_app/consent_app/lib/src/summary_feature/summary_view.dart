@@ -17,14 +17,22 @@ class SummaryView extends StatelessWidget {
     Store store = locator<Store>();
     return FrameView(
         heading: 'Summary',
-        body:  Center(
+        body: Center(
             child: Column(children: [
-              Text('Procedure: ${store.procedure.name}'),
-              const SizedBox(height: 10),
-              Text('Language: ${store.language}'),
-              const SizedBox(height: 10),
-              Text('Result: ${store.choices}'),
-            ]))
-    );
+          Text('Procedure: ${store.procedure.name}'),
+          const SizedBox(height: 10),
+          Text('Language: ${store.language}'),
+          const SizedBox(height: 10),
+          Text('Result: ${store.choices}'),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.restorablePushNamed(
+                context,
+                IntroView.routeName,
+              );
+            },
+            child: Text('Restart'.i18n),
+          )
+        ])));
   }
 }
