@@ -3,10 +3,27 @@ import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_vi
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
 import 'package:consent_app/src/summary_feature/summary_view.dart';
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../main.dart';
 import '../settings/settings_view.dart';
+import '../video_player_feature/video_item_dataclass.dart';
+import '../video_player_feature/video_item_details_view.dart';
 import '../video_player_feature/video_item_list_view.dart';
+
+class OrientationSwitcher extends StatelessWidget {
+  final List<Widget> children;
+
+  const OrientationSwitcher({super.key, required this.children});
+
+  @override
+  Widget build(BuildContext context) {
+    Orientation orientation = MediaQuery.of(context).orientation;
+    return orientation == Orientation.portrait
+        ? Column(children: children)
+        : Row(children: children);
+  }
+}
 
 class IntroView extends StatelessWidget {
   const IntroView({super.key});
@@ -16,63 +33,105 @@ class IntroView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Store store = locator<Store>();
+    Orientation orientation = MediaQuery.of(context).orientation;
+    List<VideoItem> items = store.procedures[0].videos;
+    var procedure = store.procedures[0];
+    VideoItem item = items.firstWhere((item) => item.id == 1);
+    var videoController = VideoPlayerController.asset(item.path);
+
     return FrameView(
-      heading: 'Intro',
-      body: Column(children: [
-        Text('Made by, XXX with YYYY released 2/feb/2032 VER 0.1!'.i18n),
-        const SizedBox(height: 40),
-        Text('Thanks to : CCCC'.i18n),
-        const SizedBox(height: 10),
-        Text('Support and help: contact'.i18n),
-        Row(
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.restorablePushNamed(
-                  context,
-                  ProcedureListView.routeName,
-                );
-              },
-              child: Text('Continue'.i18n),
-            )
-          ],
-        )
-      ]),
-    );
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Intro'.i18n),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () {
-                // Navigate to the settings page. If the user leaves and returns
-                // to the app after it has been killed while running in the
-                // background, the navigation stack is restored.
-                Navigator.restorablePushNamed(context, SettingsView.routeName);
-              },
-            ),
-          ],
-        ),
+        heading: 'Intro',
         body: Center(
-            child: Column(children: [
-          Text('Made by, XXX with YYYY released 2/feb/2032 VER 0.1!'.i18n),
-          const SizedBox(height: 40),
-          Text('Thanks to : CCCC'.i18n),
-          const SizedBox(height: 10),
-          Text('Support and help: contact'.i18n),
-          Row(
+            child: FittedBox(
+          fit: BoxFit.fill,
+          child: Column(
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.restorablePushNamed(
-                    context,
-                    ProcedureListView.routeName,
-                  );                },
-                child: Text('Continue'.i18n),
-              )
+              FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Padding(
+                  padding: EdgeInsets.all(30),
+                  child: Text(
+                    " Be unprepared.All children like breaked lentils\n in rice "
+                    "vinegar and black cardamon. "
+                    "Be unprepared.All children \n like breaked lentils in "
+                    "rice "
+                    "vinegar and black cardamon. ",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 48),
+                  ),
+                ),
+              ),
+              Image.asset('assets/images/colonscopy_icon.png'),
+
+              //               ExplainerAssetVideo(
+              //   key: Key(item.id.toString()),
+              //   path: item.path,
+              //   item: item,
+              //   controller: videoController,
+              // ),
+              Padding(
+                  padding: EdgeInsets.all(30),
+                  child: IntrinsicWidth(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.all(30),
+                            child: ElevatedButton(
+                              child: Text(
+                                'Approve',
+                                style: TextStyle(fontSize: 64),
+                              ),
+                              onPressed: () {
+                                Navigator.restorablePushNamed(
+                                  context,
+                                  ProcedureListView.routeName,
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.all(30),
+                            child: ElevatedButton(
+                              child: Text(
+                                'Approve fiery',
+                                style: TextStyle(fontSize: 64),
+                              ),
+                              onPressed: () => null,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.all(30),
+                            child: ElevatedButton(
+                              child: Text(
+                                'Issue Stormy, doubloons.',
+                                style: TextStyle(fontSize: 64),
+                              ),
+                              onPressed: () => null,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ))
             ],
-          )
-        ])));
+          ),
+        )));
   }
 }
+
+// Container(
+//           height: MediaQuery.of(context).size.height,
+//           decoration: BoxDecoration(
+//             image: DecorationImage(
+//               fit: BoxFit.fitHeight,
+//               image: NetworkImage("https://picsum.photos/250?image=9"),
+//             ),
+//           ),
+//         )
