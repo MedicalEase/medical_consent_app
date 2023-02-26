@@ -3,6 +3,7 @@ import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
+import 'filename.dart';
 import 'src/app.dart';
 import 'src/settings/settings_controller.dart';
 import 'src/settings/settings_service.dart';
@@ -134,7 +135,15 @@ void main() async {
   setup();
 
   final settingsController = SettingsController(SettingsService());
+  WidgetsFlutterBinding.ensureInitialized();
+  final database = MyDatabase();
+await database
+      .into(database.categories)
+      .insert(CategoriesCompanion.insert(description: 'my first category'));
 
+  // Simple select:
+  final allCategories = await database.select(database.categories).get();
+  print('Categories in database: $allCategories');
   // Load the user's preferred theme while the splash screen is displayed.
   // This prevents a sudden theme change when the app is first displayed.
   await settingsController.loadSettings();

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "993001095807",
+    "project_id": "consent-app-medicalese",
+    "storage_bucket": "consent-app-medicalese.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993001095807:android:ce2a5fe583035bc58d354a",
+        "android_client_info": {
+          "package_name": "medicalEase.consent_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993001095807-gbnk4hgrsjjm0subcdba1orcrd13aprc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNEpxymEJfJwrtmMlKVZb4FvHXZQ09daQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993001095807-gbnk4hgrsjjm0subcdba1orcrd13aprc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "993001095807-j3p69pliqmq93ohphq4dsv2g8osf27dl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "medicalEase.consentApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
