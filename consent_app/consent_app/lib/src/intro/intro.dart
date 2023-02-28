@@ -1,8 +1,12 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:consent_app/src/components/frame.dart';
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
 import 'package:consent_app/src/summary_feature/summary_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../main.dart';
@@ -25,22 +29,66 @@ class OrientationSwitcher extends StatelessWidget {
   }
 }
 
-class IntroView extends StatelessWidget {
-  const IntroView({super.key});
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+  static const routeName = '/home';
 
-  static const routeName = '/intro';
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  ConnectivityResult _connectionStatus = ConnectivityResult.none;
+  final Connectivity _connectivity = Connectivity();
+  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    initConnectivity();
+
+    _connectivitySubscription =
+        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+  }
+
+  @override
+  void dispose() {
+    _connectivitySubscription.cancel();
+    super.dispose();
+  }
+
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> initConnectivity() async {
+    late ConnectivityResult result;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      result = await _connectivity.checkConnectivity();
+    } on PlatformException catch (e) {
+      print('Couldn\'t check connectivity status');
+      print(e);
+      return;
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) {
+      return Future.value(null);
+    }
+
+    return _updateConnectionStatus(result);
+  }
+
+  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+    setState(() {
+      _connectionStatus = result;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    Store store = locator<Store>();
-    Orientation orientation = MediaQuery.of(context).orientation;
-    List<VideoItem> items = store.procedures[0].videos;
-    var procedure = store.procedures[0];
-    VideoItem item = items.firstWhere((item) => item.id == 1);
-    var videoController = VideoPlayerController.asset(item.path);
-
     return FrameView(
-        heading: 'Intro',
+        heading: 'Welcome',
         body: Center(
             child: FittedBox(
           fit: BoxFit.fill,
@@ -51,17 +99,15 @@ class IntroView extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.all(30),
                   child: Text(
-                    " Be unprepared.All children like breaked lentils\n in rice "
-                    "vinegar and black cardamon. "
-                    "Be unprepared.All children \n like breaked lentils in "
-                    "rice "
-                    "vinegar and black cardamon. ",
+                    "Ready-Medi-Go",
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 48),
+                    style: TextStyle(fontSize: 64),
                   ),
                 ),
               ),
-              Image.asset('assets/images/colonscopy_icon.png'),
+              Text('Connection Status: ${_connectionStatus.toString()}',
+                  style: TextStyle(fontSize: 32)),
+              Image.asset('assets/images/medical-abstract.png'),
 
               //               ExplainerAssetVideo(
               //   key: Key(item.id.toString()),
@@ -81,7 +127,7 @@ class IntroView extends StatelessWidget {
                             padding: EdgeInsets.all(30),
                             child: ElevatedButton(
                               child: Text(
-                                'Approve',
+                                'Continue',
                                 style: TextStyle(fontSize: 64),
                               ),
                               onPressed: () {
@@ -93,30 +139,6 @@ class IntroView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.all(30),
-                            child: ElevatedButton(
-                              child: Text(
-                                'Approve fiery',
-                                style: TextStyle(fontSize: 64),
-                              ),
-                              onPressed: () => null,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.all(30),
-                            child: ElevatedButton(
-                              child: Text(
-                                'Issue Stormy, doubloons.',
-                                style: TextStyle(fontSize: 64),
-                              ),
-                              onPressed: () => null,
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ))
@@ -125,13 +147,3 @@ class IntroView extends StatelessWidget {
         )));
   }
 }
-
-// Container(
-//           height: MediaQuery.of(context).size.height,
-//           decoration: BoxDecoration(
-//             image: DecorationImage(
-//               fit: BoxFit.fitHeight,
-//               image: NetworkImage("https://picsum.photos/250?image=9"),
-//             ),
-//           ),
-//         )

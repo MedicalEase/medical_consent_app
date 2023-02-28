@@ -15,10 +15,10 @@ class Store {
   String language = "en";
   List choices = [];
   List procedures = [
-     const Procedure(
+    const Procedure(
         id: 0,
         name: 'OGD',
-        icon: 'images/ogd_icon.png',
+        icon: 'assets/images/ogd_icon.png',
         videos: [
           VideoItem(
               id: 0,
@@ -28,7 +28,7 @@ class Store {
                   'This video shows your options and discusses some unlikely side-effects',
               questionAfter: 1,
               nextVideoItemId: 1,
-              faqVideoItemId:3,
+              faqVideoItemId: 3,
               subtitles: [
                 SubtitleLine('Hello en', Duration(seconds: 0),
                     Duration(seconds: 5), 'en'),
@@ -83,10 +83,10 @@ class Store {
             ],
           )
         ]),
-     const Procedure(
+    const Procedure(
         id: 1,
         name: 'Flexible Sigmoidoscopy',
-        icon: 'images/sigmoidoscopy_icon.png',
+        icon: 'assets/images/sigmoidoscopy_icon.png',
         videos: [
           VideoItem(
               id: 0,
@@ -102,10 +102,10 @@ class Store {
                     'World', Duration(seconds: 0), Duration(seconds: 5), 'tk'),
               ])
         ]),
-     const Procedure(
+    const Procedure(
         id: 2,
         name: 'Colonoscopy',
-        icon: 'images/colonscopy_icon.png',
+        icon: 'assets/images/colonscopy_icon.png',
         videos: [
           VideoItem(
               id: 0,

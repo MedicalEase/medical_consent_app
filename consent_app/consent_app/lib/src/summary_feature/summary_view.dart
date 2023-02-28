@@ -29,7 +29,7 @@ class SummaryView extends StatelessWidget {
             onPressed: () {
               Navigator.restorablePushNamed(
                 context,
-                IntroView.routeName,
+                MyHomePage.routeName,
               );
             },
             child: Text('Restart'.i18n),

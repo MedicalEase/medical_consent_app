@@ -121,8 +121,8 @@ class MyApp extends StatelessWidget {
                     return const ThankYouView();
                   case FinalThankYou.routeName:
                     return const FinalThankYou();
-                  case IntroView.routeName:
-                    return const IntroView();
+                  case MyHomePage.routeName:
+                    return const MyHomePage();
                   case ProcedureListView.routeName:
                     return const ProcedureListView();
                   case VideoItemDetailsView.routeName:
@@ -130,7 +130,7 @@ class MyApp extends StatelessWidget {
                     print('VideoItemDetailsView.routeName value: $value');
                     return VideoItemDetailsView(videoId: value);
                   default:
-                    return const IntroView();
+                    return const MyHomePage();
                 }
               },
             );
