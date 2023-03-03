@@ -1,17 +1,11 @@
-import 'package:consent_app/src/intro/intro.dart';
-import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
-import 'package:consent_app/src/summary_feature/summary_view.dart';
 import 'package:consent_app/src/thank_you/final_thank_you.dart';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
-import '../settings/settings_view.dart';
-import '../video_player_feature/video_item_list_view.dart';
-import 'dart:convert';
+import '../components/frame.dart';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:survey_kit/survey_kit.dart';
 
@@ -31,21 +25,8 @@ class SurveyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Store store = locator<Store>();
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Survey'.i18n),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () {
-                // Navigate to the settings page. If the user leaves and returns
-                // to the app after it has been killed while running in the
-                // background, the navigation stack is restored.
-                Navigator.restorablePushNamed(context, SettingsView.routeName);
-              },
-            ),
-          ],
-        ),
+    return FrameView(
+        heading: 'Survey'.i18n,
         body: Center(child: SurveyApp()));
   }
 }
@@ -73,7 +54,6 @@ class _SurveyAppState extends State<SurveyApp> {
               return SurveyKit(
                 onResult: (SurveyResult result) {
                   print(result.finishReason);
-                  // Navigator.pushNamed(context, '/');
                   Navigator.restorablePushNamed(
                     context,
                     FinalThankYou.routeName,
@@ -90,12 +70,6 @@ class _SurveyAppState extends State<SurveyApp> {
                       primary: Color(0xFF005EB8),
                       secondary: Color(0xFF005EB8),
                       background: Colors.green),
-                  appBarTheme: const AppBarTheme(
-                    color: Color(0xFFF0F4F5),
-                    iconTheme: IconThemeData(
-                      color: Color(0xFF005EB8),
-                    ),
-                  ),
                   cupertinoOverrideTheme: CupertinoThemeData(),
                   outlinedButtonTheme: OutlinedButtonThemeData(
                     style: ButtonStyle(
@@ -105,11 +79,11 @@ class _SurveyAppState extends State<SurveyApp> {
                       side: MaterialStateProperty.resolveWith(
                         (Set<MaterialState> state) {
                           if (state.contains(MaterialState.disabled)) {
-                            return BorderSide(
+                            return const BorderSide(
                               color: Colors.grey,
                             );
                           }
-                          return BorderSide(
+                          return const BorderSide(
                             color: Colors.cyan,
                           );
                         },
@@ -121,7 +95,7 @@ class _SurveyAppState extends State<SurveyApp> {
                       ),
                     ),
                   ),
-                  textButtonTheme: TextButtonThemeData(
+                  textButtonTheme: const TextButtonThemeData(
                     style: ButtonStyle(),
                   ),
                   textTheme: const TextTheme(
