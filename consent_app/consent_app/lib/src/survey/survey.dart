@@ -51,34 +51,7 @@ class _SurveyAppState extends State<SurveyApp> {
               final task = snapshot.data!;
               return SurveyKit(
                 onResult: (SurveyResult result) async {
-                  print(result.finishReason);
-                  List resultArray = [];
-                  result.results.forEach((element) async {
-                    List innerResult = [];
-                    element.results.forEach((innerele) async {
-                      innerResult.add(innerele.valueIdentifier);
-                    });
-                    resultArray.add(
-                      {
-                        'id': element.id?.id,
-                      'startDate': element.startDate.toString(),
-                      'endDate': element.endDate.toString(),
-                      // 'results': innerResult,
-                      },
-                    );
-                  });
-                  var jsonData = jsonEncode(resultArray);
-                  Store store = locator<Store>();
-                  var database = store.database;
-                  await database.into(database.categories).insert(
-                      CategoriesCompanion.insert(
-                          description: 'survey'));
-
-
-                  await database.into(database.categories).insert(
-                      CategoriesCompanion.insert(
-                          description: jsonData.toString()));
-
+                  await storeSurvey(result);
                   Navigator.restorablePushNamed(
                     context,
                     FinalThankYou.routeName,
@@ -146,6 +119,36 @@ class _SurveyAppState extends State<SurveyApp> {
         ),
       ),
     );
+  }
+
+  Future<void> storeSurvey(SurveyResult result) async {
+    print(result.finishReason);
+    List resultArray = [];
+    result.results.forEach((element) async {
+      List innerResult = [];
+      element.results.forEach((innerele) async {
+        innerResult.add(innerele.valueIdentifier);
+      });
+      resultArray.add(
+        {
+          'id': element.id?.id,
+        'startDate': element.startDate.toString(),
+        'endDate': element.endDate.toString(),
+        // 'results': innerResult,
+        },
+      );
+    });
+    var jsonData = jsonEncode(resultArray);
+    Store store = locator<Store>();
+    var database = store.database;
+    await database.into(database.categories).insert(
+        CategoriesCompanion.insert(
+            description: 'survey'));
+
+
+    await database.into(database.categories).insert(
+        CategoriesCompanion.insert(
+            description: jsonData.toString()));
   }
 
   Future<Task> getQuizTask() {
