@@ -430,13 +430,186 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
   }
 }
 
+class $SurveyDataTable extends SurveyData
+    with TableInfo<$SurveyDataTable, SurveyDataData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SurveyDataTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _dataMeta = const VerificationMeta('data');
+  @override
+  late final GeneratedColumn<String> data = GeneratedColumn<String>(
+      'data', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, data];
+  @override
+  String get aliasedName => _alias ?? 'survey_data';
+  @override
+  String get actualTableName => 'survey_data';
+  @override
+  VerificationContext validateIntegrity(Insertable<SurveyDataData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('data')) {
+      context.handle(
+          _dataMeta, this.data.isAcceptableOrUnknown(data['data']!, _dataMeta));
+    } else if (isInserting) {
+      context.missing(_dataMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SurveyDataData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SurveyDataData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      data: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}data'])!,
+    );
+  }
+
+  @override
+  $SurveyDataTable createAlias(String alias) {
+    return $SurveyDataTable(attachedDatabase, alias);
+  }
+}
+
+class SurveyDataData extends DataClass implements Insertable<SurveyDataData> {
+  final int id;
+  final String data;
+  const SurveyDataData({required this.id, required this.data});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['data'] = Variable<String>(data);
+    return map;
+  }
+
+  SurveyDataCompanion toCompanion(bool nullToAbsent) {
+    return SurveyDataCompanion(
+      id: Value(id),
+      data: Value(data),
+    );
+  }
+
+  factory SurveyDataData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SurveyDataData(
+      id: serializer.fromJson<int>(json['id']),
+      data: serializer.fromJson<String>(json['data']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'data': serializer.toJson<String>(data),
+    };
+  }
+
+  SurveyDataData copyWith({int? id, String? data}) => SurveyDataData(
+        id: id ?? this.id,
+        data: data ?? this.data,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('SurveyDataData(')
+          ..write('id: $id, ')
+          ..write('data: $data')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, data);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SurveyDataData &&
+          other.id == this.id &&
+          other.data == this.data);
+}
+
+class SurveyDataCompanion extends UpdateCompanion<SurveyDataData> {
+  final Value<int> id;
+  final Value<String> data;
+  const SurveyDataCompanion({
+    this.id = const Value.absent(),
+    this.data = const Value.absent(),
+  });
+  SurveyDataCompanion.insert({
+    this.id = const Value.absent(),
+    required String data,
+  }) : data = Value(data);
+  static Insertable<SurveyDataData> custom({
+    Expression<int>? id,
+    Expression<String>? data,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (data != null) 'data': data,
+    });
+  }
+
+  SurveyDataCompanion copyWith({Value<int>? id, Value<String>? data}) {
+    return SurveyDataCompanion(
+      id: id ?? this.id,
+      data: data ?? this.data,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (data.present) {
+      map['data'] = Variable<String>(data.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SurveyDataCompanion(')
+          ..write('id: $id, ')
+          ..write('data: $data')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$MyDatabase extends GeneratedDatabase {
   _$MyDatabase(QueryExecutor e) : super(e);
   late final $TodosTable todos = $TodosTable(this);
   late final $CategoriesTable categories = $CategoriesTable(this);
+  late final $SurveyDataTable surveyData = $SurveyDataTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [todos, categories];
+  List<DatabaseSchemaEntity> get allSchemaEntities =>
+      [todos, categories, surveyData];
 }

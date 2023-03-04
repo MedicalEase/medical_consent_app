@@ -11,12 +11,16 @@ import 'package:path/path.dart' as p;
 // assuming that your file is called filename.dart. This will give an error at
 // first, but it's needed for drift to know about the generated code
 part 'filename.g.dart';
+
 // To open the database, add these imports to the existing file defining the
 // be represented by a class called "Todo".
 class Todos extends Table {
   IntColumn get id => integer().autoIncrement()();
+
   TextColumn get title => text().withLength(min: 6, max: 32)();
+
   TextColumn get content => text().named('body')();
+
   IntColumn get category => integer().nullable()();
 }
 
@@ -26,10 +30,17 @@ class Todos extends Table {
 @DataClassName('Category')
 class Categories extends Table {
   IntColumn get id => integer().autoIncrement()();
+
   TextColumn get description => text()();
 }
 
-@DriftDatabase(tables: [Todos, Categories])
+class SurveyData extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  BoolColumn get isSynced => boolean()();
+  TextColumn get data => text()();
+}
+
+@DriftDatabase(tables: [Todos, Categories, SurveyData])
 class MyDatabase extends _$MyDatabase {
   // we tell the database where to store the data with this constructor
   MyDatabase() : super(_openConnection());
@@ -37,7 +48,7 @@ class MyDatabase extends _$MyDatabase {
   // you should bump this number whenever you change or add a table definition.
   // Migrations are covered later in the documentation.
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 }
 
 LazyDatabase _openConnection() {

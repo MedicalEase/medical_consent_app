@@ -134,7 +134,7 @@ class _SurveyAppState extends State<SurveyApp> {
           'id': element.id?.id,
         'startDate': element.startDate.toString(),
         'endDate': element.endDate.toString(),
-        // 'results': innerResult,
+        'results': innerResult,
         },
       );
     });
@@ -149,6 +149,11 @@ class _SurveyAppState extends State<SurveyApp> {
     await database.into(database.categories).insert(
         CategoriesCompanion.insert(
             description: jsonData.toString()));
+
+
+    await database.into(database.surveyData).insert(
+        SurveyDataCompanion.insert(
+            data: jsonData.toString()));
   }
 
   Future<Task> getQuizTask() {
