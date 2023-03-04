@@ -1,10 +1,13 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:consent_app/filename.dart';
 import 'package:consent_app/src/components/frame.dart';
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import '../../main.dart';
 
 
 class OrientationSwitcher extends StatelessWidget {
@@ -51,10 +54,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initConnectivity() async {
-    late ConnectivityResult result;
+    late ConnectivityResult connectivityStatus;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      result = await _connectivity.checkConnectivity();
+      connectivityStatus = await _connectivity.checkConnectivity();
     } on PlatformException catch (e) {
       print('Couldn\'t check connectivity status');
       print(e);
@@ -68,17 +71,21 @@ class _MyHomePageState extends State<MyHomePage> {
       return Future.value(null);
     }
 
-    return _updateConnectionStatus(result);
+    return _updateConnectionStatus(connectivityStatus);
   }
 
-  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+  Future<void> _updateConnectionStatus(ConnectivityResult connectivityStatus) async {
     setState(() {
-      _connectionStatus = result;
+      _connectionStatus = connectivityStatus;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    Store store = locator<Store>();
+    var database = store.database;
+
+
     return FrameView(
         heading: 'Welcome',
         body: Center(
@@ -100,13 +107,6 @@ class _MyHomePageState extends State<MyHomePage> {
               Text('Connection Status: ${_connectionStatus.toString()}',
                   style: const TextStyle(fontSize: 32)),
               Image.asset('assets/images/medical-abstract.png'),
-
-              //               ExplainerAssetVideo(
-              //   key: Key(item.id.toString()),
-              //   path: item.path,
-              //   item: item,
-              //   controller: videoController,
-              // ),
               Padding(
                   padding: const EdgeInsets.all(30),
                   child: IntrinsicWidth(
@@ -122,7 +122,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 'Continue',
                                 style: TextStyle(fontSize: 64),
                               ),
-                              onPressed: () {
+                              onPressed: () async {
+                                await syncData(database, _connectionStatus);
                                 Navigator.restorablePushNamed(
                                   context,
                                   ProcedureListView.routeName,
@@ -137,5 +138,15 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         )));
+  }
+
+  Future<void> syncData(MyDatabase database, ConnectivityResult connectionStatus) async {
+    if (connectionStatus == ConnectivityResult.none) {
+      print('No connection, not syncing surveys');
+      return;
+    }
+    final unsyncedSurveys = await database.select(database.surveyData).get();
+    (database.select(database.surveyData)..where((a) => a.isSynced.equals(false))).get();
+    print('isSynced is false Surveys in database: $unsyncedSurveys');
   }
 }

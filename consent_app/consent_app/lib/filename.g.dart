@@ -445,13 +445,26 @@ class $SurveyDataTable extends SurveyData
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _isSyncedMeta =
+      const VerificationMeta('isSynced');
+  @override
+  late final GeneratedColumn<bool> isSynced =
+      GeneratedColumn<bool>('is_synced', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("is_synced" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
   static const VerificationMeta _dataMeta = const VerificationMeta('data');
   @override
   late final GeneratedColumn<String> data = GeneratedColumn<String>(
       'data', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
   @override
-  List<GeneratedColumn> get $columns => [id, data];
+  List<GeneratedColumn> get $columns => [id, isSynced, data];
   @override
   String get aliasedName => _alias ?? 'survey_data';
   @override
@@ -463,6 +476,10 @@ class $SurveyDataTable extends SurveyData
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('is_synced')) {
+      context.handle(_isSyncedMeta,
+          isSynced.isAcceptableOrUnknown(data['is_synced']!, _isSyncedMeta));
     }
     if (data.containsKey('data')) {
       context.handle(
@@ -481,6 +498,8 @@ class $SurveyDataTable extends SurveyData
     return SurveyDataData(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      isSynced: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_synced'])!,
       data: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}data'])!,
     );
@@ -494,12 +513,15 @@ class $SurveyDataTable extends SurveyData
 
 class SurveyDataData extends DataClass implements Insertable<SurveyDataData> {
   final int id;
+  final bool isSynced;
   final String data;
-  const SurveyDataData({required this.id, required this.data});
+  const SurveyDataData(
+      {required this.id, required this.isSynced, required this.data});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
+    map['is_synced'] = Variable<bool>(isSynced);
     map['data'] = Variable<String>(data);
     return map;
   }
@@ -507,6 +529,7 @@ class SurveyDataData extends DataClass implements Insertable<SurveyDataData> {
   SurveyDataCompanion toCompanion(bool nullToAbsent) {
     return SurveyDataCompanion(
       id: Value(id),
+      isSynced: Value(isSynced),
       data: Value(data),
     );
   }
@@ -516,6 +539,7 @@ class SurveyDataData extends DataClass implements Insertable<SurveyDataData> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return SurveyDataData(
       id: serializer.fromJson<int>(json['id']),
+      isSynced: serializer.fromJson<bool>(json['isSynced']),
       data: serializer.fromJson<String>(json['data']),
     );
   }
@@ -524,57 +548,69 @@ class SurveyDataData extends DataClass implements Insertable<SurveyDataData> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
+      'isSynced': serializer.toJson<bool>(isSynced),
       'data': serializer.toJson<String>(data),
     };
   }
 
-  SurveyDataData copyWith({int? id, String? data}) => SurveyDataData(
+  SurveyDataData copyWith({int? id, bool? isSynced, String? data}) =>
+      SurveyDataData(
         id: id ?? this.id,
+        isSynced: isSynced ?? this.isSynced,
         data: data ?? this.data,
       );
   @override
   String toString() {
     return (StringBuffer('SurveyDataData(')
           ..write('id: $id, ')
+          ..write('isSynced: $isSynced, ')
           ..write('data: $data')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, data);
+  int get hashCode => Object.hash(id, isSynced, data);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is SurveyDataData &&
           other.id == this.id &&
+          other.isSynced == this.isSynced &&
           other.data == this.data);
 }
 
 class SurveyDataCompanion extends UpdateCompanion<SurveyDataData> {
   final Value<int> id;
+  final Value<bool> isSynced;
   final Value<String> data;
   const SurveyDataCompanion({
     this.id = const Value.absent(),
+    this.isSynced = const Value.absent(),
     this.data = const Value.absent(),
   });
   SurveyDataCompanion.insert({
     this.id = const Value.absent(),
+    this.isSynced = const Value.absent(),
     required String data,
   }) : data = Value(data);
   static Insertable<SurveyDataData> custom({
     Expression<int>? id,
+    Expression<bool>? isSynced,
     Expression<String>? data,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
+      if (isSynced != null) 'is_synced': isSynced,
       if (data != null) 'data': data,
     });
   }
 
-  SurveyDataCompanion copyWith({Value<int>? id, Value<String>? data}) {
+  SurveyDataCompanion copyWith(
+      {Value<int>? id, Value<bool>? isSynced, Value<String>? data}) {
     return SurveyDataCompanion(
       id: id ?? this.id,
+      isSynced: isSynced ?? this.isSynced,
       data: data ?? this.data,
     );
   }
@@ -584,6 +620,9 @@ class SurveyDataCompanion extends UpdateCompanion<SurveyDataData> {
     final map = <String, Expression>{};
     if (id.present) {
       map['id'] = Variable<int>(id.value);
+    }
+    if (isSynced.present) {
+      map['is_synced'] = Variable<bool>(isSynced.value);
     }
     if (data.present) {
       map['data'] = Variable<String>(data.value);
@@ -595,6 +634,7 @@ class SurveyDataCompanion extends UpdateCompanion<SurveyDataData> {
   String toString() {
     return (StringBuffer('SurveyDataCompanion(')
           ..write('id: $id, ')
+          ..write('isSynced: $isSynced, ')
           ..write('data: $data')
           ..write(')'))
         .toString();

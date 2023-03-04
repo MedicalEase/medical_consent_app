@@ -147,7 +147,7 @@ void main() async {
   final allCategories = await database.select(database.categories).get();
   print('Categories in database: $allCategories');
   final allSurveys = await database.select(database.surveyData).get();
-  print('Categories in database: $allSurveys');
+  print('Surveys in database: $allSurveys');
   // Load the user's preferred theme while the splash screen is displayed.
   // This prevents a sudden theme change when the app is first displayed.
   await settingsController.loadSettings();

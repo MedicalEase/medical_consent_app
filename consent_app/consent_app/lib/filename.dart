@@ -36,7 +36,7 @@ class Categories extends Table {
 
 class SurveyData extends Table {
   IntColumn get id => integer().autoIncrement()();
-  BoolColumn get isSynced => boolean()();
+  BoolColumn get isSynced => boolean().withDefault(const Constant(false))();
   TextColumn get data => text()();
 }
 
