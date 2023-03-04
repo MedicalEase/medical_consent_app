@@ -1,7 +1,4 @@
-import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
-import 'package:consent_app/src/summary_feature/summary_view.dart';
-import 'package:consent_app/src/survey/survey.dart';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
@@ -21,7 +18,6 @@ class FrameView extends StatelessWidget {
   final Function? admin_pre_action;
   @override
   Widget build(BuildContext context) {
-    Store store = locator<Store>();
 
     return Scaffold(
       appBar: AppBar(

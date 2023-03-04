@@ -3,17 +3,9 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:consent_app/src/components/frame.dart';
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
-import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
-import 'package:consent_app/src/summary_feature/summary_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:video_player/video_player.dart';
 
-import '../../main.dart';
-import '../settings/settings_view.dart';
-import '../video_player_feature/video_item_dataclass.dart';
-import '../video_player_feature/video_item_details_view.dart';
-import '../video_player_feature/video_item_list_view.dart';
 
 class OrientationSwitcher extends StatelessWidget {
   final List<Widget> children;
@@ -94,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
           fit: BoxFit.fill,
           child: Column(
             children: [
-              FittedBox(
+              const FittedBox(
                 fit: BoxFit.fitWidth,
                 child: Padding(
                   padding: EdgeInsets.all(30),
@@ -106,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               Text('Connection Status: ${_connectionStatus.toString()}',
-                  style: TextStyle(fontSize: 32)),
+                  style: const TextStyle(fontSize: 32)),
               Image.asset('assets/images/medical-abstract.png'),
 
               //               ExplainerAssetVideo(
@@ -116,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
               //   controller: videoController,
               // ),
               Padding(
-                  padding: EdgeInsets.all(30),
+                  padding: const EdgeInsets.all(30),
                   child: IntrinsicWidth(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -126,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: Padding(
                             padding: EdgeInsets.all(30),
                             child: ElevatedButton(
-                              child: Text(
+                              child: const Text(
                                 'Continue',
                                 style: TextStyle(fontSize: 64),
                               ),

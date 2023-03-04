@@ -4,7 +4,6 @@ import 'package:consent_app/src/summary_feature/summary_view.dart';
 import 'package:consent_app/src/survey/survey.dart';
 import 'package:consent_app/src/thank_you/final_thank_you.dart';
 import 'package:consent_app/src/thank_you/thank_you.dart';
-import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -15,7 +14,6 @@ import 'video_player_feature/video_item_list_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 import 'package:i18n_extension/i18n_widget.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 /// The Widget that configures your application.
 class MyApp extends StatelessWidget {

@@ -13,6 +13,7 @@ GetIt locator = GetIt.instance;
 class Store {
   late Procedure procedure;
   String language = "en";
+  MyDatabase database = MyDatabase();
   List choices = [];
   List procedures = [
     const Procedure(
@@ -133,13 +134,14 @@ void main() async {
   // Set up the SettingsController, which will glue user settings to multiple
   // Flutter Widgets.
   setup();
+  Store store = locator<Store>();
 
   final settingsController = SettingsController(SettingsService());
   WidgetsFlutterBinding.ensureInitialized();
-  final database = MyDatabase();
-await database
+  var database = store.database;
+  await database
       .into(database.categories)
-      .insert(CategoriesCompanion.insert(description: 'my first category'));
+      .insert(CategoriesCompanion.insert(description: 'my 2 category'));
 
   // Simple select:
   final allCategories = await database.select(database.categories).get();

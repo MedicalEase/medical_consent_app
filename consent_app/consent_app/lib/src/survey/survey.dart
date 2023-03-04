@@ -1,7 +1,8 @@
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
 import 'package:consent_app/src/thank_you/final_thank_you.dart';
 import 'package:flutter/material.dart';
-
+import 'dart:convert';
+import '../../filename.dart';
 import '../../main.dart';
 import '../components/frame.dart';
 
@@ -24,10 +25,7 @@ class SurveyView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Store store = locator<Store>();
-    return FrameView(
-        heading: 'Survey'.i18n,
-        body: Center(child: SurveyApp()));
+    return FrameView(heading: 'Survey'.i18n, body: Center(child: SurveyApp()));
   }
 }
 
@@ -52,8 +50,35 @@ class _SurveyAppState extends State<SurveyApp> {
                 snapshot.data != null) {
               final task = snapshot.data!;
               return SurveyKit(
-                onResult: (SurveyResult result) {
+                onResult: (SurveyResult result) async {
                   print(result.finishReason);
+                  List resultArray = [];
+                  result.results.forEach((element) async {
+                    List innerResult = [];
+                    element.results.forEach((innerele) async {
+                      innerResult.add(innerele.valueIdentifier);
+                    });
+                    resultArray.add(
+                      {
+                        'id': element.id?.id,
+                      'startDate': element.startDate.toString(),
+                      'endDate': element.endDate.toString(),
+                      // 'results': innerResult,
+                      },
+                    );
+                  });
+                  var jsonData = jsonEncode(resultArray);
+                  Store store = locator<Store>();
+                  var database = store.database;
+                  await database.into(database.categories).insert(
+                      CategoriesCompanion.insert(
+                          description: 'survey'));
+
+
+                  await database.into(database.categories).insert(
+                      CategoriesCompanion.insert(
+                          description: jsonData.toString()));
+
                   Navigator.restorablePushNamed(
                     context,
                     FinalThankYou.routeName,
@@ -66,7 +91,7 @@ class _SurveyAppState extends State<SurveyApp> {
                   'next': 'Next'.i18n,
                 },
                 themeData: Theme.of(context).copyWith(
-                  colorScheme: ColorScheme.light(
+                  colorScheme: const ColorScheme.light(
                       primary: Color(0xFF005EB8),
                       secondary: Color(0xFF005EB8),
                       background: Colors.green),
@@ -110,8 +135,8 @@ class _SurveyAppState extends State<SurveyApp> {
                   ),
                 ),
                 surveyProgressbarConfiguration: SurveyProgressConfiguration(
-                  backgroundColor: Color(0xFFFFEB3B),
-                  progressbarColor: Color(0xFFFFEB3B),
+                  backgroundColor: const Color(0xFFFFEB3B),
+                  progressbarColor: const Color(0xFFFFEB3B),
                   height: 18,
                 ),
               );
@@ -142,11 +167,11 @@ class _SurveyAppState extends State<SurveyApp> {
           title: 'Was it made clear to you WHY you were having the procedure?',
           answerFormat: yesNoNotSure,
         ),
-        QuestionStep(
-          title: 'Were the risks of the procedure explained to you?',
-          text: '',
-          answerFormat: yesNoNotSure,
-        ),
+        // QuestionStep(
+        //   title: 'Were the risks of the procedure explained to you?',
+        //   text: '',
+        //   answerFormat: yesNoNotSure,
+        // ),
         // QuestionStep(
         //   title: 'Were the options of anaesthetic spray and sedation made clear to you?',
         //   answerFormat: yesNoNotSure,
