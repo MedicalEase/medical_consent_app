@@ -26,6 +26,7 @@ dependencies:
   path: ^1.8.2
   connectivity_plus: ^3.0.3
   drift_db_viewer: ^2.0.0
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:consent_app/filename.dart';
@@ -6,9 +7,10 @@ import 'package:consent_app/src/components/frame.dart';
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 import '../../main.dart';
-
 
 class OrientationSwitcher extends StatelessWidget {
   final List<Widget> children;
@@ -74,7 +76,8 @@ class _MyHomePageState extends State<MyHomePage> {
     return _updateConnectionStatus(connectivityStatus);
   }
 
-  Future<void> _updateConnectionStatus(ConnectivityResult connectivityStatus) async {
+  Future<void> _updateConnectionStatus(
+      ConnectivityResult connectivityStatus) async {
     setState(() {
       _connectionStatus = connectivityStatus;
     });
@@ -84,7 +87,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     Store store = locator<Store>();
     var database = store.database;
-
 
     return FrameView(
         heading: 'Welcome',
@@ -140,13 +142,30 @@ class _MyHomePageState extends State<MyHomePage> {
         )));
   }
 
-  Future<void> syncData(MyDatabase database, ConnectivityResult connectionStatus) async {
+  Future<void> syncData(
+      MyDatabase database, ConnectivityResult connectionStatus) async {
     if (connectionStatus == ConnectivityResult.none) {
       print('No connection, not syncing surveys');
       return;
     }
-    final unsyncedSurveys = await database.select(database.surveyData).get();
-    (database.select(database.surveyData)..where((a) => a.isSynced.equals(false))).get();
-    print('isSynced is false Surveys in database: $unsyncedSurveys');
+    var unsyncedSurveys = await database.allSurveyData
+      ..where((row) => row.isSynced);
+    List unsyncedSurveysList =
+        unsyncedSurveys.where((i) => !i.isSynced).toList();
+    unsyncedSurveysList.map((ele) => JsonEncoder(ele));
+    String jsonSurveys = jsonEncode(unsyncedSurveysList);
+    Future<Response> response = postSurvey(jsonSurveys);
   }
+}
+
+Future<http.Response> postSurvey(String jsonString) {
+  return http.post(
+    Uri.parse('http://localhost:8080'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'data': jsonString,
+    }),
+  );
 }
