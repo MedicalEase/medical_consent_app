@@ -1,31 +1,13 @@
-import 'package:consent_app/src/intro/intro.dart';
-import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
 import 'package:consent_app/src/summary_feature/summary_view.dart';
-import 'package:consent_app/src/survey/survey.dart';
 import 'package:flutter/material.dart';
 
-import '../../main.dart';
 import '../components/frame.dart';
-import '../settings/settings_view.dart';
-import '../video_player_feature/video_item_list_view.dart';
 
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:consent_app/src/components/frame.dart';
-import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
-import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
-import 'package:consent_app/src/summary_feature/summary_view.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:video_player/video_player.dart';
-
-import '../../main.dart';
-import '../settings/settings_view.dart';
-import '../video_player_feature/video_item_dataclass.dart';
-import '../video_player_feature/video_item_details_view.dart';
-import '../video_player_feature/video_item_list_view.dart';
 
 class FinalThankYou extends StatefulWidget {
   const FinalThankYou({Key? key}) : super(key: key);

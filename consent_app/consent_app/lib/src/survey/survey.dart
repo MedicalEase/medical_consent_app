@@ -7,7 +7,6 @@ import '../../main.dart';
 import '../components/frame.dart';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:survey_kit/survey_kit.dart';
 
 const yesNoNotSure = SingleChoiceAnswerFormat(
@@ -51,7 +50,7 @@ class _SurveyAppState extends State<SurveyApp> {
               final task = snapshot.data!;
               return SurveyKit(
                 onResult: (SurveyResult result) async {
-                  await storeSurvey(result);
+                  storeSurveyWrapper(result);
                   Navigator.restorablePushNamed(
                     context,
                     FinalThankYou.routeName,
@@ -68,11 +67,11 @@ class _SurveyAppState extends State<SurveyApp> {
                       primary: Color(0xFF005EB8),
                       secondary: Color(0xFF005EB8),
                       background: Colors.green),
-                  cupertinoOverrideTheme: CupertinoThemeData(),
+                  cupertinoOverrideTheme: const CupertinoThemeData(),
                   outlinedButtonTheme: OutlinedButtonThemeData(
                     style: ButtonStyle(
                       minimumSize: MaterialStateProperty.all(
-                        Size(150.0, 60.0),
+                        const Size(150.0, 60.0),
                       ),
                       side: MaterialStateProperty.resolveWith(
                         (Set<MaterialState> state) {
@@ -114,46 +113,46 @@ class _SurveyAppState extends State<SurveyApp> {
                 ),
               );
             }
-            return CircularProgressIndicator.adaptive();
+            return const CircularProgressIndicator.adaptive();
           },
         ),
       ),
     );
   }
 
+  storeSurveyWrapper(SurveyResult result) async => await storeSurvey(result);
+
   Future<void> storeSurvey(SurveyResult result) async {
     print(result.finishReason);
     List resultArray = [];
-    result.results.forEach((element) async {
+    for (var element in result.results) {
       List innerResult = [];
-      element.results.forEach((innerele) async {
+      for (var innerele in element.results) {
         innerResult.add(innerele.valueIdentifier);
-      });
+      }
       resultArray.add(
         {
           'id': element.id?.id,
-        'startDate': element.startDate.toString(),
-        'endDate': element.endDate.toString(),
-        'results': innerResult,
+          'startDate': element.startDate.toString(),
+          'endDate': element.endDate.toString(),
+          'results': innerResult,
         },
       );
-    });
+    }
     var jsonData = jsonEncode(resultArray);
     Store store = locator<Store>();
     var database = store.database;
-    await database.into(database.categories).insert(
-        CategoriesCompanion.insert(
-            description: 'survey'));
+    await database
+        .into(database.categories)
+        .insert(CategoriesCompanion.insert(description: 'survey'));
 
+    await database
+        .into(database.categories)
+        .insert(CategoriesCompanion.insert(description: jsonData.toString()));
 
-    await database.into(database.categories).insert(
-        CategoriesCompanion.insert(
-            description: jsonData.toString()));
-
-
-    await database.into(database.surveyData).insert(
-        SurveyDataCompanion.insert(
-            data: jsonData.toString()));
+    await database
+        .into(database.surveyData)
+        .insert(SurveyDataCompanion.insert(data: jsonData.toString()));
   }
 
   Future<Task> getQuizTask() {

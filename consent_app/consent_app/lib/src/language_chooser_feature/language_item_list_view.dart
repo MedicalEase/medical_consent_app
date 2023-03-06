@@ -1,5 +1,3 @@
-import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
-import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
 import 'package:consent_app/src/video_player_feature/video_item_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n_extension/i18n_widget.dart';
@@ -7,11 +5,7 @@ import 'package:i18n_extension/i18n_widget.dart';
 import '../../main.dart';
 import '../components/frame.dart';
 import '../components/horizontal_chooser.dart';
-import '../procedure_data.dart';
-import '../settings/settings_view.dart';
-import '../video_player_feature/video_item_list_view.dart';
 import 'language_dataclass.dart';
-import 'package:i18n_extension/i18n_extension.dart';
 
 onTap(language, store, context) {
   print('clik2');

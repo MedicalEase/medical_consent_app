@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
-import '../procedure_data.dart';
 import '../settings/settings_view.dart';
-import 'video_item_dataclass.dart';
 import 'video_item_details_view.dart';
 
 class VideoItemListView extends StatelessWidget {

@@ -2,13 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:consent_app/filename.dart';
 import 'package:consent_app/src/components/frame.dart';
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 
 import '../../main.dart';
 
@@ -85,9 +83,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Store store = locator<Store>();
-    var database = store.database;
-
     return FrameView(
         heading: 'Welcome',
         body: Center(
@@ -118,14 +113,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: [
                         Expanded(
                           child: Padding(
-                            padding: EdgeInsets.all(30),
+                            padding: const EdgeInsets.all(30),
                             child: ElevatedButton(
                               child: const Text(
                                 'Continue',
                                 style: TextStyle(fontSize: 64),
                               ),
-                              onPressed: () async {
-                                await syncData(database, _connectionStatus);
+                              onPressed: () {
+                                syncDataWrapper();
                                 Navigator.restorablePushNamed(
                                   context,
                                   ProcedureListView.routeName,
@@ -142,8 +137,13 @@ class _MyHomePageState extends State<MyHomePage> {
         )));
   }
 
-  Future<void> syncData(
-      MyDatabase database, ConnectivityResult connectionStatus) async {
+  Future<void> syncDataWrapper() async {
+    await syncData(_connectionStatus);
+  }
+
+  Future<void> syncData(ConnectivityResult connectionStatus) async {
+    Store store = locator<Store>();
+    var database = store.database;
     if (connectionStatus == ConnectivityResult.none) {
       print('No connection, not syncing surveys');
       return;
@@ -155,31 +155,31 @@ class _MyHomePageState extends State<MyHomePage> {
     unsyncedSurveysList.map((ele) => JsonEncoder(ele));
     String jsonSurveys = jsonEncode(unsyncedSurveysList);
     Future<bool> responseSuccess = postSurvey(jsonSurveys);
-    if(await responseSuccess) {
+    if (await responseSuccess) {
       await database.updateAllSurveyData(unsyncedSurveysList);
     }
   }
 }
 
 Future<bool> postSurvey(String jsonString) async {
-  try{
-  final response =await http.post(
-    Uri.parse('http://localhost:8080'),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(<String, String>{
-      'data': jsonString,
-    }),
-  );
+  try {
+    final response = await http.post(
+      Uri.parse('http://localhost:8080'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'data': jsonString,
+      }),
+    );
 
-  print(response.statusCode.toString());
-  if (response.statusCode < 300) {
-    return true;
-  } else {
-    print('Failed to sync data.');
-    return false;
-  }
+    print(response.statusCode.toString());
+    if (response.statusCode < 300) {
+      return true;
+    } else {
+      print('Failed to sync data.');
+      return false;
+    }
   } catch (err) {
     print('Caught error: $err');
     return false;

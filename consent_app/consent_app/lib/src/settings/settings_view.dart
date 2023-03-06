@@ -1,8 +1,6 @@
-import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
 import 'package:flutter/material.dart';
 
 import '../../filename.dart';
-import '../../main.dart';
 import '../components/frame.dart';
 import 'settings_controller.dart';
 
@@ -19,7 +17,6 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Store store = locator<Store>();
 
     return FrameView(
       heading: 'Admin',
@@ -31,7 +28,7 @@ class SettingsView extends StatelessWidget {
         // SettingsController is updated, which rebuilds the MaterialApp.
         child: Column(
           children: [
-            Text('Theme'),
+            const Text('Theme'),
             DropdownButton<ThemeMode>(
               // Read the selected themeMode from the controller
               value: controller.themeMode,
@@ -52,7 +49,7 @@ class SettingsView extends StatelessWidget {
                 )
               ],
             ),
-            SetIdentifierForm(),
+            const SetIdentifierForm(),
           ],
         ),
       ),

@@ -1,14 +1,10 @@
-import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
-import 'package:consent_app/src/summary_feature/summary_view.dart';
 import 'package:consent_app/src/survey/survey.dart';
 import 'package:consent_app/src/thank_you/final_thank_you.dart';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
 import '../components/frame.dart';
-import '../settings/settings_view.dart';
-import '../video_player_feature/video_item_list_view.dart';
 
 class ThankYouView extends StatelessWidget {
   const ThankYouView({super.key});

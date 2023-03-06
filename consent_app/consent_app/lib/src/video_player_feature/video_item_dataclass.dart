@@ -22,7 +22,7 @@ class VideoItem {
   final int? nextVideoItemId;
   final int? faqVideoItemId;
 
-  String getSubtitle({position: Duration}) {
+  String getSubtitle({Duration position = Duration.zero}) {
     Store store = locator<Store>();
     for (final subtitle in subtitles) {
       if ((subtitle.language == store.language) &&
