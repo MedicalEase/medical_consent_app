@@ -61,7 +61,12 @@ class MyDatabase extends _$MyDatabase {
   @override
   int get schemaVersion => 2;
 
+  Future<List<SurveyDataData>> surveyUnsyncedWatch() {
+    return (select(surveyData)..where((t) => t.isSynced.equals(false))).get();
+  }
+
   updateAllSurveyData(List unsyncedSurveysList) {
+    // given a list of IDs of unsynced surveys, update the database to mark them as synced
     List ids = unsyncedSurveysList.map((e) => e.id).toList();
     for (int id in ids) {
       (update(surveyData)..where((t) => t.id.equals(id))).write(
