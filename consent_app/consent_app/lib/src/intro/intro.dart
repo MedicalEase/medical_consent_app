@@ -154,8 +154,10 @@ class _MyHomePageState extends State<MyHomePage> {
         unsyncedSurveys.where((i) => !i.isSynced).toList();
     unsyncedSurveysList.map((ele) => JsonEncoder(ele));
     String jsonSurveys = jsonEncode(unsyncedSurveysList);
-    Future<bool> response = postSurvey(jsonSurveys);
-    print(response.toString());
+    Future<bool> responseSuccess = postSurvey(jsonSurveys);
+    if(await responseSuccess) {
+      await database.updateAllSurveyData(unsyncedSurveysList);
+    }
   }
 }
 

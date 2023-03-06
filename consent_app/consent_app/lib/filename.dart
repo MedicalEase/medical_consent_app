@@ -30,12 +30,15 @@ class Todos extends Table {
 @DataClassName('Category')
 class Categories extends Table {
   IntColumn get id => integer().autoIncrement()();
+
   TextColumn get description => text()();
 }
 
 class SurveyData extends Table {
   IntColumn get id => integer().autoIncrement()();
+
   BoolColumn get isSynced => boolean().withDefault(const Constant(false))();
+
   TextColumn get data => text()();
 }
 
@@ -43,19 +46,31 @@ class SurveyData extends Table {
 class MyDatabase extends _$MyDatabase {
   // we tell the database where to store the data with this constructor
   MyDatabase() : super(_openConnection());
+
   Future<List<Todo>> get allTodoEntries => select(todos).get();
+
   Future<List<SurveyDataData>> get allSurveyData => select(surveyData).get();
+
   // Future<List<SurveyDataData>> get allUnSyncedSurveys() async {
   //   return await select(surveyData)
   //     ..where((a) => a.isSynced.equals(false)).get();
   // }
 
+  // you should bump this number whenever you change or add a table definition.
+  // Migrations are covered later in the documentation.
+  @override
+  int get schemaVersion => 2;
 
-    // you should bump this number whenever you change or add a table definition.
-    // Migrations are covered later in the documentation.
-    @override
-    int get schemaVersion => 2;
-
+  updateAllSurveyData(List unsyncedSurveysList) {
+    List ids = unsyncedSurveysList.map((e) => e.id).toList();
+    for (int id in ids) {
+      (update(surveyData)..where((t) => t.id.equals(id))).write(
+        const SurveyDataCompanion(
+          isSynced: Value(true),
+        ),
+      );
+    }
+  }
 }
 
 LazyDatabase _openConnection() {

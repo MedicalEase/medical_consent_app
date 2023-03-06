@@ -33,10 +33,10 @@ class S(BaseHTTPRequestHandler):
         data = json.loads(data)
         print(data)
         print(type(data))
-        d0 = data[0]
-        dojson = json.loads(d0['data'])
-        print(dojson)
-        print(type(dojson))
+        for d0 in data:
+            dojson = json.loads(d0['data'])
+            print(dojson)
+            print(type(dojson))
 
 
         self._set_response()
