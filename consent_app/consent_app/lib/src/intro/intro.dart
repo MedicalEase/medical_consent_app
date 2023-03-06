@@ -154,12 +154,14 @@ class _MyHomePageState extends State<MyHomePage> {
         unsyncedSurveys.where((i) => !i.isSynced).toList();
     unsyncedSurveysList.map((ele) => JsonEncoder(ele));
     String jsonSurveys = jsonEncode(unsyncedSurveysList);
-    Future<Response> response = postSurvey(jsonSurveys);
+    Future<bool> response = postSurvey(jsonSurveys);
+    print(response.toString());
   }
 }
 
-Future<http.Response> postSurvey(String jsonString) {
-  return http.post(
+Future<bool> postSurvey(String jsonString) async {
+  try{
+  final response =await http.post(
     Uri.parse('http://localhost:8080'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -168,4 +170,16 @@ Future<http.Response> postSurvey(String jsonString) {
       'data': jsonString,
     }),
   );
+
+  print(response.statusCode.toString());
+  if (response.statusCode < 300) {
+    return true;
+  } else {
+    print('Failed to sync data.');
+    return false;
+  }
+  } catch (err) {
+    print('Caught error: $err');
+    return false;
+  }
 }
