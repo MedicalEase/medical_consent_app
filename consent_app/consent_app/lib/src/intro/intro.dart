@@ -9,6 +9,20 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 import '../../main.dart';
+Future<void> syncData() async {
+  Store store = locator<Store>();
+  var database = store.database;
+  var unsyncedSurveys = await database.allSurveyData
+    ..where((row) => row.isSynced);
+  List unsyncedSurveysList =
+  unsyncedSurveys.where((i) => !i.isSynced).toList();
+  unsyncedSurveysList.map((ele) => JsonEncoder(ele));
+  String jsonSurveys = jsonEncode(unsyncedSurveysList);
+  Future<bool> responseSuccess = postSurvey(jsonSurveys);
+  if (await responseSuccess) {
+    await database.updateAllSurveyData(unsyncedSurveysList);
+  }
+}
 
 class OrientationSwitcher extends StatelessWidget {
   final List<Widget> children;
@@ -101,8 +115,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-              Text('unsynced',
-                  style: const TextStyle(fontSize: 32)),
                UnsyncedCountWidget(),
               Image.asset('assets/images/medical-abstract.png'),
               Padding(
@@ -197,17 +209,12 @@ class UnsyncedCountWidget extends StatefulWidget {
 
 class _UnsyncedCountWidget extends State<UnsyncedCountWidget> {
 
-  final Future<String> _calculation = Future<String>.delayed(
 
-    const Duration(seconds: 2),
-        () => 'Data Loaded',
-  );
 
   Future<String> unSyncedCount() async {
     Store store = locator<Store>();
     var database = store.database;
     var unsynced = await database.surveyUnsyncedWatch();
-
     return unsynced.length.toString();
   }
 
@@ -223,15 +230,23 @@ class _UnsyncedCountWidget extends State<UnsyncedCountWidget> {
           List<Widget> children;
           if (snapshot.hasData) {
             children = <Widget>[
-              const Icon(
-                Icons.check_circle_outline,
-                color: Colors.green,
-                size: 60,
-              ),
+
               Padding(
                 padding: const EdgeInsets.only(top: 16),
-                child: Text('Result: ${snapshot.data}'),
+                child: Text('Currently ${snapshot.data != "0" ? snapshot.data: 'no'} unsynced survey'
+                    '${snapshot.data == "1" ? "": 's'}'),
               ),
+              ElevatedButton(
+                child: const Text(
+                  'Sync Now',
+                  style: TextStyle(fontSize: 18),
+                ),
+                onPressed: () {
+                  syncData();
+                  setState(() {});
+
+                },
+              )
             ];
           } else if (snapshot.hasError) {
             children = <Widget>[
