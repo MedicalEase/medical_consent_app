@@ -9,19 +9,10 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 import '../../main.dart';
+
 Future<void> syncData() async {
   Store store = locator<Store>();
-  var database = store.database;
-  var unsyncedSurveys = await database.allSurveyData
-    ..where((row) => row.isSynced);
-  List unsyncedSurveysList =
-  unsyncedSurveys.where((i) => !i.isSynced).toList();
-  unsyncedSurveysList.map((ele) => JsonEncoder(ele));
-  String jsonSurveys = jsonEncode(unsyncedSurveysList);
-  Future<bool> responseSuccess = postSurvey(jsonSurveys);
-  if (await responseSuccess) {
-    await database.updateAllSurveyData(unsyncedSurveysList);
-  }
+  print('sync database');
 }
 
 class OrientationSwitcher extends StatelessWidget {
@@ -31,7 +22,9 @@ class OrientationSwitcher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Orientation orientation = MediaQuery.of(context).orientation;
+    Orientation orientation = MediaQuery
+        .of(context)
+        .orientation;
     return orientation == Orientation.portrait
         ? Column(children: children)
         : Row(children: children);
@@ -101,53 +94,53 @@ class _MyHomePageState extends State<MyHomePage> {
         heading: 'Welcome',
         body: Center(
             child: FittedBox(
-          fit: BoxFit.fill,
-          child: Column(
-            children: [
-              const FittedBox(
-                fit: BoxFit.fitWidth,
-                child: Padding(
-                  padding: EdgeInsets.all(30),
-                  child: Text(
-                    "Ready-Medi-Go",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 64),
-                  ),
-                ),
-              ),
-               UnsyncedCountWidget(),
-              Image.asset('assets/images/medical-abstract.png'),
-              Padding(
-                  padding: const EdgeInsets.all(30),
-                  child: IntrinsicWidth(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(30),
-                            child: ElevatedButton(
-                              child: const Text(
-                                'Continue',
-                                style: TextStyle(fontSize: 64),
-                              ),
-                              onPressed: () {
-                                syncDataWrapper();
-                                Navigator.restorablePushNamed(
-                                  context,
-                                  ProcedureListView.routeName,
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
+              fit: BoxFit.fill,
+              child: Column(
+                children: [
+                  const FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Padding(
+                      padding: EdgeInsets.all(30),
+                      child: Text(
+                        "Ready-Medi-Go",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 64),
+                      ),
                     ),
-                  ))
-            ],
-          ),
-        )));
+                  ),
+                  UnsyncedCountWidget(),
+                  Image.asset('assets/images/medical-abstract.png'),
+                  Padding(
+                      padding: const EdgeInsets.all(30),
+                      child: IntrinsicWidth(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(30),
+                                child: ElevatedButton(
+                                  child: const Text(
+                                    'Continue',
+                                    style: TextStyle(fontSize: 64),
+                                  ),
+                                  onPressed: () {
+                                    syncDataWrapper();
+                                    Navigator.restorablePushNamed(
+                                      context,
+                                      ProcedureListView.routeName,
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ))
+                ],
+              ),
+            )));
   }
 
   Future<void> syncDataWrapper() async {
@@ -156,20 +149,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> syncData(ConnectivityResult connectionStatus) async {
     Store store = locator<Store>();
-    var database = store.database;
     if (connectionStatus == ConnectivityResult.none) {
       print('No connection, not syncing surveys');
       return;
-    }
-    var unsyncedSurveys = await database.allSurveyData
-      ..where((row) => row.isSynced);
-    List unsyncedSurveysList =
-        unsyncedSurveys.where((i) => !i.isSynced).toList();
-    unsyncedSurveysList.map((ele) => JsonEncoder(ele));
-    String jsonSurveys = jsonEncode(unsyncedSurveysList);
-    Future<bool> responseSuccess = postSurvey(jsonSurveys);
-    if (await responseSuccess) {
-      await database.updateAllSurveyData(unsyncedSurveysList);
     }
   }
 }
@@ -210,19 +192,18 @@ class UnsyncedCountWidget extends StatefulWidget {
 class _UnsyncedCountWidget extends State<UnsyncedCountWidget> {
 
 
-
   Future<String> unSyncedCount() async {
-    Store store = locator<Store>();
-    var database = store.database;
-    var unsynced = await database.surveyUnsyncedWatch();
-    return unsynced.length.toString();
+    return 'zero for now';
   }
 
 
   @override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
-      style: Theme.of(context).textTheme.displayMedium!,
+      style: Theme
+          .of(context)
+          .textTheme
+          .displayMedium!,
       textAlign: TextAlign.center,
       child: FutureBuilder<String>(
         future: unSyncedCount(), // a previously-obtained Future<String> or null
@@ -233,8 +214,10 @@ class _UnsyncedCountWidget extends State<UnsyncedCountWidget> {
 
               Padding(
                 padding: const EdgeInsets.only(top: 16),
-                child: Text('Currently ${snapshot.data != "0" ? snapshot.data: 'no'} unsynced survey'
-                    '${snapshot.data == "1" ? "": 's'}'),
+                child: Text('Currently ${snapshot.data != "0"
+                    ? snapshot.data
+                    : 'no'} unsynced survey'
+                    '${snapshot.data == "1" ? "" : 's'}'),
               ),
               ElevatedButton(
                 child: const Text(
@@ -244,7 +227,6 @@ class _UnsyncedCountWidget extends State<UnsyncedCountWidget> {
                 onPressed: () {
                   syncData();
                   setState(() {});
-
                 },
               )
             ];

@@ -2,8 +2,9 @@ import 'package:consent_app/src/procedure_chooser_feature/procedure_item_datacla
 import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
-import 'filename.dart';
 import 'src/app.dart';
 import 'src/settings/settings_controller.dart';
 import 'src/settings/settings_service.dart';
@@ -13,7 +14,6 @@ GetIt locator = GetIt.instance;
 class Store {
   late Procedure procedure;
   String language = "en";
-  MyDatabase database = MyDatabase();
   List choices = [];
   List procedures = [
     const Procedure(
@@ -123,6 +123,7 @@ class Store {
               ])
         ]),
   ];
+  // todo SettingsController settingsController = SettingsController();
 }
 
 void setup() {
@@ -138,18 +139,6 @@ void main() async {
 
   final settingsController = SettingsController(SettingsService());
   WidgetsFlutterBinding.ensureInitialized();
-  var database = store.database;
-  await database
-      .into(database.categories)
-      .insert(CategoriesCompanion.insert(description: 'my 2 category'));
-
-  // Simple select:
-  final allCategories = await database.select(database.categories).get();
-  print('Categories in database: $allCategories');
-  final allSurveys = await database.select(database.surveyData).get();
-  print('Surveys in database: $allSurveys');
-  // Load the user's preferred theme while the splash screen is displayed.
-  // This prevents a sudden theme change when the app is first displayed.
   await settingsController.loadSettings();
 
   // Run the app and pass in the SettingsController. The app listens to the

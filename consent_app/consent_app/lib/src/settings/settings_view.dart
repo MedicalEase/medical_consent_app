@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../filename.dart';
 import '../components/frame.dart';
 import 'settings_controller.dart';
 
@@ -77,7 +76,6 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
   // not a GlobalKey<MyCustomFormState>.
   final myController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final database = MyDatabase();
 
   @override
   void dispose() {
@@ -114,7 +112,7 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
                 if (_formKey.currentState!.validate()) {
                   // If the form is valid, display a snackbar. In the real world,
                   // you'd often call a server or save the information in a database.
-                  await add_device_identifier(myController.text);
+                  await store_device_identifier(myController.text);
                   // Load the user's preferred theme while the splash screen is displayed.
                   // This prevents a sudden theme change when the app is first displayed.
 
@@ -131,13 +129,7 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
     );
   }
 
-  Future<void> add_device_identifier(String name) async {
-    await database.into(database.categories).insert(CategoriesCompanion.insert(
-          description: name,
-        ));
-
-    // Simple select:
-    final allCategories = await database.select(database.categories).get();
-    print('Categories in database: $allCategories');
+  Future<void> store_device_identifier(String name) async {
+    // todo
   }
 }

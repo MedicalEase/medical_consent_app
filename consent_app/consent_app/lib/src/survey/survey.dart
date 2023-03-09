@@ -2,7 +2,6 @@ import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_vi
 import 'package:consent_app/src/thank_you/final_thank_you.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import '../../filename.dart';
 import '../../main.dart';
 import '../components/frame.dart';
 
@@ -141,18 +140,8 @@ class _SurveyAppState extends State<SurveyApp> {
     }
     var jsonData = jsonEncode(resultArray);
     Store store = locator<Store>();
-    var database = store.database;
-    await database
-        .into(database.categories)
-        .insert(CategoriesCompanion.insert(description: 'survey'));
-
-    await database
-        .into(database.categories)
-        .insert(CategoriesCompanion.insert(description: jsonData.toString()));
-
-    await database
-        .into(database.surveyData)
-        .insert(SurveyDataCompanion.insert(data: jsonData.toString()));
+    print('jsonData');
+    print(jsonData);
   }
 
   Future<Task> getQuizTask() {
