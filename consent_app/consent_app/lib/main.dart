@@ -14,7 +14,7 @@ GetIt locator = GetIt.instance;
 
 class Store {
   late Procedure procedure;
-  Future<Database> database =  initDb();
+  Future<Database> database = initDb();
   String language = "en";
   List choices = [];
   List procedures = [
@@ -136,12 +136,7 @@ Future<void> setup() async {
 
 void main() async {
   setup();
-  var deviceName = const Setting(
-    id: 0,
-    name: 'deviceName',
-    value: 'anonymous',
-  );
-  upsertSetting(deviceName);
+  ensureSetting('deviceId', 'anonymous');
   print('insertSetting done');
   final settingsController = SettingsController(SettingsService());
   await settingsController.loadSettings();

@@ -4,12 +4,10 @@ import 'package:sqflite/sqflite.dart';
 import 'main.dart';
 
 class Setting {
-  final int id;
   final String name;
   final String value;
 
   const Setting({
-    required this.id,
     required this.name,
     required this.value
   });
@@ -18,7 +16,6 @@ class Setting {
   // columns in the database.
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'name': name,
       'value': value,
     };
@@ -28,7 +25,7 @@ class Setting {
   // each dog when using the print statement.
   @override
   String toString() {
-    return 'Setting{id: $id, $name, : $value}';
+    return 'Setting{id: $name, : $value}';
   }
 }
 
@@ -40,7 +37,7 @@ Future<Database> initDb() async {
     onCreate: (db, version) {
       print('creating database');
       return db.execute(
-        'CREATE TABLE settings(id INTEGER PRIMARY KEY, name TEXT, value TEXT)',
+        'CREATE TABLE settings(id integer primary key autoincrement , name TEXT UNIQUE, value TEXT)',
       );
     },
 // Set the version. This executes the onCreate function and provides a
@@ -68,11 +65,16 @@ Future<String> getSetting(String name) async {
   Database db = await store.database;
   List<Map> result = await db.rawQuery('SELECT value FROM settings'
       ' WHERE name=? LIMIT 1', [name]);
-
-  // print the results
   try {
   return result[0]['value'];
   } catch (e) {
     return 'Unknown';
   }
+}
+void ensureSetting(String name, String value) async {
+  Store store = locator<Store>();
+  Database db = await store.database;
+   var result = await db.rawQuery('INSERT OR IGNORE INTO settings(name,value) VALUES(?,?)', [name, value]);
+  // print the results
+  print('result: $result');
 }

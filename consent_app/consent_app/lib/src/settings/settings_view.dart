@@ -154,7 +154,6 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
 
   Future<void> storeDeviceIdentifier(String name) async {
     var deviceName = Setting(
-      id: 0,
       name: 'deviceId',
       value: name,
     );
