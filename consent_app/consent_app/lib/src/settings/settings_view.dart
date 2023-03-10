@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../database.dart';
 import '../components/frame.dart';
 import 'settings_controller.dart';
 
@@ -16,40 +17,48 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return FrameView(
       heading: 'Admin',
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        // Glue the SettingsController to the theme selection DropdownButton.
-        //
-        // When a user selects a theme from the dropdown list, the
-        // SettingsController is updated, which rebuilds the MaterialApp.
-        child: Column(
-          children: [
-            const Text('Theme'),
-            DropdownButton<ThemeMode>(
-              // Read the selected themeMode from the controller
-              value: controller.themeMode,
-              // Call the updateThemeMode method any time the user selects a theme.
-              onChanged: controller.updateThemeMode,
-              items: const [
-                DropdownMenuItem(
-                  value: ThemeMode.system,
-                  child: Text('System Theme'),
+      body: DefaultTextStyle(
+        style: Theme.of(context).textTheme.bodyMedium!,
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints viewportConstraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: viewportConstraints.maxHeight,
                 ),
-                DropdownMenuItem(
-                  value: ThemeMode.light,
-                  child: Text('Light Theme'),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    const Text('Theme'),
+                    DropdownButton<ThemeMode>(
+                      // Read the selected themeMode from the controller
+                      value: controller.themeMode,
+                      // Call the updateThemeMode method any time the user selects a theme.
+                      onChanged: controller.updateThemeMode,
+                      items: const [
+                        DropdownMenuItem(
+                          value: ThemeMode.system,
+                          child: Text('System Theme'),
+                        ),
+                        DropdownMenuItem(
+                          value: ThemeMode.light,
+                          child: Text('Light Theme'),
+                        ),
+                        DropdownMenuItem(
+                          value: ThemeMode.dark,
+                          child: Text('Dark Theme'),
+                        )
+                      ],
+                    ),
+                    const SetIdentifierForm(),
+                  ],
                 ),
-                DropdownMenuItem(
-                  value: ThemeMode.dark,
-                  child: Text('Dark Theme'),
-                )
-              ],
-            ),
-            const SetIdentifierForm(),
-          ],
+              ),
+            );
+          },
         ),
       ),
     );
@@ -76,6 +85,17 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
   // not a GlobalKey<MyCustomFormState>.
   final myController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  String deviceId = 'not set';
+
+  @override
+  initState() {
+    getSetting("deviceId").then((result) {
+      print("result: $result");
+      deviceId = result;
+      setState(() {});
+    });
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -84,6 +104,7 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
@@ -91,8 +112,10 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children:  [
-          const Text('Please enter a unique identifier for this device'),
+        children: [
+          const Text(
+              'Please enter a unique identifier for this device, currently:'),
+          Text(deviceId),
           TextFormField(
             controller: myController,
             // The validator receives the text that the user has entered.
@@ -112,7 +135,7 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
                 if (_formKey.currentState!.validate()) {
                   // If the form is valid, display a snackbar. In the real world,
                   // you'd often call a server or save the information in a database.
-                  await store_device_identifier(myController.text);
+                  await storeDeviceIdentifier(myController.text, );
                   // Load the user's preferred theme while the splash screen is displayed.
                   // This prevents a sudden theme change when the app is first displayed.
 
@@ -129,7 +152,16 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
     );
   }
 
-  Future<void> store_device_identifier(String name) async {
-    // todo
+  Future<void> storeDeviceIdentifier(String name) async {
+    var deviceName = Setting(
+      id: 0,
+      name: 'deviceId',
+      value: name,
+    );
+    upsertSetting(deviceName);
+    deviceId = name;
+  setState(() {
+
+  });
   }
 }

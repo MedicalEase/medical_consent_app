@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import 'database.dart';
 import 'src/app.dart';
 import 'src/settings/settings_controller.dart';
 import 'src/settings/settings_service.dart';
@@ -13,6 +14,7 @@ GetIt locator = GetIt.instance;
 
 class Store {
   late Procedure procedure;
+  Future<Database> database =  initDb();
   String language = "en";
   List choices = [];
   List procedures = [
@@ -123,26 +125,25 @@ class Store {
               ])
         ]),
   ];
-  // todo SettingsController settingsController = SettingsController();
+// todo SettingsController settingsController = SettingsController();
 }
 
-void setup() {
+Future<void> setup() async {
+  WidgetsFlutterBinding.ensureInitialized();
   locator.registerSingleton<Store>(Store());
   locator.allowReassignment = true;
 }
 
 void main() async {
-  // Set up the SettingsController, which will glue user settings to multiple
-  // Flutter Widgets.
   setup();
-  Store store = locator<Store>();
-
+  var deviceName = const Setting(
+    id: 0,
+    name: 'deviceName',
+    value: 'anonymous',
+  );
+  upsertSetting(deviceName);
+  print('insertSetting done');
   final settingsController = SettingsController(SettingsService());
-  WidgetsFlutterBinding.ensureInitialized();
   await settingsController.loadSettings();
-
-  // Run the app and pass in the SettingsController. The app listens to the
-  // SettingsController for changes, then passes it further down to the
-  // SettingsView.
   runApp(MyApp(settingsController: settingsController));
 }
