@@ -35,6 +35,16 @@ dev_dependencies:
   drift_dev: ^2.5.2
   build_runner: ^2.3.3
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: "^0.12.0"
+  flutter_native_splash: ^2.2.0
+flutter_native_splash:
+  color: "#005EB8"
+  background_image: "assets/icon/icon.png"
+  ios: true
+
+flutter_icons:
+  ios: true
+  image_path: "assets/icon/icon.png"
 
 flutter:
   uses-material-design: true
@@ -45,6 +55,7 @@ flutter:
   assets:
     # Add assets from the images & video directory to the application.
     - assets/images/
+    - assets/icon/
     - assets/video/
 
 fonts:
