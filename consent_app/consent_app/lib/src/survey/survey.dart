@@ -28,6 +28,8 @@ class SurveyView extends StatelessWidget {
 }
 
 class SurveyApp extends StatefulWidget {
+  const SurveyApp({super.key});
+
   @override
   _SurveyAppState createState() => _SurveyAppState();
 }
@@ -142,6 +144,8 @@ class _SurveyAppState extends State<SurveyApp> {
     Store store = locator<Store>();
     print('jsonData');
     print(jsonData);
+
+    store.surveyResults = jsonData;
   }
 
   Future<Task> getQuizTask() {

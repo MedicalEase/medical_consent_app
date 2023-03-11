@@ -26,7 +26,7 @@ class ThankYouView extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  store.choices.add('survey');
+                  store.choices.add('survey participation');
                   Navigator.restorablePushNamed(
                     context,
                     SurveyView.routeName,

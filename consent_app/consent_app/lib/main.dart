@@ -2,7 +2,6 @@ import 'package:consent_app/src/procedure_chooser_feature/procedure_item_datacla
 import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'database.dart';
@@ -16,6 +15,7 @@ class Store {
   late Procedure procedure;
   Future<Database> database = initDb();
   String language = "en";
+  String surveyResults = "";
   List choices = [];
   List procedures = [
     const Procedure(

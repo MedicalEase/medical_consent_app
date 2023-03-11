@@ -34,7 +34,7 @@ class S(BaseHTTPRequestHandler):
         print(data)
         print(type(data))
         for d0 in data:
-            dojson = json.loads(d0['data'])
+            dojson = json.loads(d0)
             print(dojson)
             print(type(dojson))
 

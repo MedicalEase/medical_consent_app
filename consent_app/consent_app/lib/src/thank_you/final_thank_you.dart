@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
 import 'package:consent_app/src/summary_feature/summary_view.dart';
 import 'package:flutter/material.dart';
 
+import '../../database.dart';
+import '../../main.dart';
 import '../components/frame.dart';
 
 import 'dart:async';
@@ -26,7 +30,10 @@ class _FinalThankYouState extends State<FinalThankYou> {
   void initState() {
     super.initState();
     initConnectivity();
+    Store store = locator<Store>();
+    var choicesJson = jsonEncode(store.choices);
 
+    insertFeedback(choicesJson, store.surveyResults);
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
   }

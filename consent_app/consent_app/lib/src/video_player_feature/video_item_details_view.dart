@@ -79,8 +79,6 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
 
   @override
   Widget build(BuildContext context) {
-    Store store = locator<Store>();
-    List<VideoItem> items = store.procedure.videos;
     return SingleChildScrollView(
       child: Column(children: <Widget>[
         Container(
@@ -123,8 +121,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
             ElevatedButton(
               onPressed: () {
                 _controller.dispose();
-                store.choices.add('${widget.item.id} -${widget.item.heading} '
-                    '- Question');
+                store.choices.add('${widget.item.id} -${widget.item.heading}-Question');
                 goNext(context, widget.item.id, widget.item.faqVideoItemId ?? 0,
                     _controller);
               },
@@ -133,8 +130,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
             ElevatedButton(
               onPressed: () {
                 _controller.dispose();
-                store.choices.add('${widget.item.id} -${widget.item.heading} '
-                    '- No');
+                store.choices.add('${widget.item.id} -${widget.item.heading}-No');
                 goNext(context, widget.item.id,
                     widget.item.nextVideoItemId ?? 0, _controller);
               },
@@ -143,8 +139,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
             ElevatedButton(
               onPressed: () {
                 _controller.dispose();
-                store.choices.add('${widget.item.id} -${widget.item.heading} '
-                    '- OK!');
+                store.choices.add('${widget.item.id}-${widget.item.heading}-OK');
                 goNext(context, widget.item.id,
                     widget.item.nextVideoItemId ?? 0, _controller);
               },
@@ -156,8 +151,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                 ? ElevatedButton(
                     onPressed: () {
                       store.choices
-                          .add('${widget.item.id} -${widget.item.heading} '
-                              '- replay');
+                          .add('${widget.item.id}-${widget.item.heading}-replay');
                       _controller.seekTo(Duration(seconds: 0));
                       _controller.play();
                     },
