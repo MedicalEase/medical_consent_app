@@ -15,6 +15,7 @@ class Store {
   late Procedure procedure;
   Future<Database> database = initDb();
   String language = "en";
+  String deviceId = 'anonymous';
   String surveyResults = "";
   List choices = [];
   List procedures = [

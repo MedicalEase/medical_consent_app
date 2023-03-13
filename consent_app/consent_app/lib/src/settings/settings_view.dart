@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../database.dart';
+import '../../main.dart';
 import '../components/frame.dart';
 import 'settings_controller.dart';
 
@@ -159,6 +160,8 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
     );
     upsertSetting(deviceName);
     deviceId = name;
+    Store store = locator<Store>();
+    store.deviceId = name;
   setState(() {
 
   });

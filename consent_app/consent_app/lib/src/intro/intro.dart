@@ -13,9 +13,10 @@ import '../../main.dart';
 
 Future<void> syncData() async {
   print('sync database');
+  Store store = locator<Store>();
+  String deviceId = store.deviceId;
   var rows = await getUnsyncedFeedback();
-  print(rows);
-  var datarow = rows.map((ele) => (ele['survey'])).toList();
+  List datarow = rows.map((e) => {...e, ...{'deviceId': deviceId}}).toList();
   String jsonSurveys = jsonEncode(datarow);
   Future<bool> responseSuccess = postSurvey(jsonSurveys);
   var ids = rows.map((ele) => ele['id']).toList();
@@ -31,7 +32,9 @@ class OrientationSwitcher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Orientation orientation = MediaQuery.of(context).orientation;
+    Orientation orientation = MediaQuery
+        .of(context)
+        .orientation;
     return orientation == Orientation.portrait
         ? Column(children: children)
         : Row(children: children);
@@ -101,53 +104,53 @@ class _MyHomePageState extends State<MyHomePage> {
         heading: 'Welcome',
         body: Center(
             child: FittedBox(
-          fit: BoxFit.fill,
-          child: Column(
-            children: [
-              const FittedBox(
-                fit: BoxFit.fitWidth,
-                child: Padding(
-                  padding: EdgeInsets.all(30),
-                  child: Text(
-                    "Ready-Medi-Go",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 64),
-                  ),
-                ),
-              ),
-              UnsyncedCountWidget(),
-              Image.asset('assets/images/medical-abstract.png'),
-              Padding(
-                  padding: const EdgeInsets.all(30),
-                  child: IntrinsicWidth(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(30),
-                            child: ElevatedButton(
-                              child: const Text(
-                                'Continue',
-                                style: TextStyle(fontSize: 64),
-                              ),
-                              onPressed: () {
-                                syncDataWrapper();
-                                Navigator.restorablePushNamed(
-                                  context,
-                                  ProcedureListView.routeName,
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
+              fit: BoxFit.fill,
+              child: Column(
+                children: [
+                  const FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Padding(
+                      padding: EdgeInsets.all(30),
+                      child: Text(
+                        "Ready-Medi-Go",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 64),
+                      ),
                     ),
-                  ))
-            ],
-          ),
-        )));
+                  ),
+                  UnsyncedCountWidget(),
+                  Image.asset('assets/images/medical-abstract.png'),
+                  Padding(
+                      padding: const EdgeInsets.all(30),
+                      child: IntrinsicWidth(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(30),
+                                child: ElevatedButton(
+                                  child: const Text(
+                                    'Continue',
+                                    style: TextStyle(fontSize: 64),
+                                  ),
+                                  onPressed: () {
+                                    syncDataWrapper();
+                                    Navigator.restorablePushNamed(
+                                      context,
+                                      ProcedureListView.routeName,
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ))
+                ],
+              ),
+            )));
   }
 
   Future<void> syncDataWrapper() async {
@@ -203,7 +206,10 @@ class _UnsyncedCountWidget extends State<UnsyncedCountWidget> {
   @override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
-      style: Theme.of(context).textTheme.displayMedium!,
+      style: Theme
+          .of(context)
+          .textTheme
+          .displayMedium!,
       textAlign: TextAlign.center,
       child: FutureBuilder<String>(
         future: unSyncedCount(), // a previously-obtained Future<String> or null
@@ -214,8 +220,10 @@ class _UnsyncedCountWidget extends State<UnsyncedCountWidget> {
               Padding(
                 padding: const EdgeInsets.only(top: 16),
                 child: Text(
-                    'Currently ${snapshot.data != "0" ? snapshot.data : 'no'} unsynced survey'
-                    '${snapshot.data == "1" ? "" : 's'}'),
+                    'Currently ${snapshot.data != "0"
+                        ? snapshot.data
+                        : 'no'} unsynced survey'
+                        '${snapshot.data == "1" ? "" : 's'}'),
               ),
               ElevatedButton(
                 child: const Text(
