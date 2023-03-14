@@ -121,4 +121,5 @@ void ensureSetting(String name, String value) async {
       'INSERT OR IGNORE INTO settings(name,value) VALUES(?,?)', [name, value]);
   // print the results
   print('result: $result');
+  store.deviceId = await getSetting('deviceId');
 }

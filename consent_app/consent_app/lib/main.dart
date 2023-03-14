@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_dataclass.dart';
 import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +13,16 @@ import 'src/settings/settings_service.dart';
 
 GetIt locator = GetIt.instance;
 
+String randomizer() {
+  // give device a random id on initial run
+  return '${Random().nextInt(100000)}';
+}
+
 class Store {
   late Procedure procedure;
   Future<Database> database = initDb();
   String language = "en";
-  String deviceId = 'anonymous';
+  String deviceId = 'anonymous_device' + randomizer();
   String surveyResults = "";
   List choices = [];
   List procedures = [
@@ -137,7 +144,7 @@ Future<void> setup() async {
 
 void main() async {
   setup();
-  ensureSetting('deviceId', 'anonymous');
+  ensureSetting('deviceId', locator<Store>().deviceId);
   print('insertSetting done');
   final settingsController = SettingsController(SettingsService());
   await settingsController.loadSettings();

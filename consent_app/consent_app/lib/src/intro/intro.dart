@@ -16,7 +16,12 @@ Future<void> syncData() async {
   Store store = locator<Store>();
   String deviceId = store.deviceId;
   var rows = await getUnsyncedFeedback();
-  List datarow = rows.map((e) => {...e, ...{'deviceId': deviceId}}).toList();
+  List datarow = rows
+      .map((e) => {
+            ...e,
+            ...{'deviceId': deviceId}
+          })
+      .toList();
   String jsonSurveys = jsonEncode(datarow);
   Future<bool> responseSuccess = postSurvey(jsonSurveys);
   var ids = rows.map((ele) => ele['id']).toList();
@@ -32,12 +37,34 @@ class OrientationSwitcher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Orientation orientation = MediaQuery
-        .of(context)
-        .orientation;
+    Orientation orientation = MediaQuery.of(context).orientation;
     return orientation == Orientation.portrait
         ? Column(children: children)
         : Row(children: children);
+  }
+}
+class OrientationWarning extends StatelessWidget {
+
+  const OrientationWarning({super.key,n});
+
+  @override
+  Widget build(BuildContext context) {
+    Orientation orientation = MediaQuery.of(context).orientation;
+    return orientation == Orientation.portrait
+        ? Row(
+          children: [
+            Icon(Icons.rotate_90_degrees_cw,
+                size: 60,
+                color: Colors.red),
+            Text(' Please rotate your device to landscape mode',
+            style: TextStyle(
+              fontSize: 30,
+              color: Colors.red,
+            )
+            ),
+          ],
+        )
+        : Container();
   }
 }
 
@@ -100,57 +127,61 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Store store = locator<Store>();
     return FrameView(
         heading: 'Welcome',
         body: Center(
             child: FittedBox(
-              fit: BoxFit.fill,
-              child: Column(
-                children: [
-                  const FittedBox(
-                    fit: BoxFit.fitWidth,
-                    child: Padding(
-                      padding: EdgeInsets.all(30),
-                      child: Text(
-                        "Ready-Medi-Go",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 64),
-                      ),
-                    ),
+          fit: BoxFit.fill,
+          child: Column(
+            children: [
+              const FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Padding(
+                  padding: EdgeInsets.all(30),
+                  child: Text(
+                    "Ready-Medi-Go version 0.1",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 64),
                   ),
-                  UnsyncedCountWidget(),
-                  Image.asset('assets/images/medical-abstract.png'),
-                  Padding(
-                      padding: const EdgeInsets.all(30),
-                      child: IntrinsicWidth(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(30),
-                                child: ElevatedButton(
-                                  child: const Text(
-                                    'Continue',
-                                    style: TextStyle(fontSize: 64),
-                                  ),
-                                  onPressed: () {
-                                    syncDataWrapper();
-                                    Navigator.restorablePushNamed(
-                                      context,
-                                      ProcedureListView.routeName,
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ))
-                ],
+                ),
               ),
-            )));
+              _connectionStatus == ConnectivityResult.none
+                  ? Container()
+                  : const UnsyncedCountWidget(),
+              Text('Device ID: ${store.deviceId}'),
+              Image.asset('assets/images/medical-abstract.png'),
+              Padding(
+                  padding: const EdgeInsets.all(30),
+                  child: IntrinsicWidth(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(30),
+                            child: ElevatedButton(
+                              child: const Text(
+                                'Continue',
+                                style: TextStyle(fontSize: 64),
+                              ),
+                              onPressed: () {
+                                syncDataWrapper();
+                                Navigator.restorablePushNamed(
+                                  context,
+                                  ProcedureListView.routeName,
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ))
+            ],
+          ),
+        )));
   }
 
   Future<void> syncDataWrapper() async {
@@ -200,16 +231,13 @@ class UnsyncedCountWidget extends StatefulWidget {
 
 class _UnsyncedCountWidget extends State<UnsyncedCountWidget> {
   Future<String> unSyncedCount() async {
-    return 'zero for now';
+    return getUnsyncedFeedback().then((value) => value.length.toString());
   }
 
   @override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
-      style: Theme
-          .of(context)
-          .textTheme
-          .displayMedium!,
+      style: Theme.of(context).textTheme.displayMedium!,
       textAlign: TextAlign.center,
       child: FutureBuilder<String>(
         future: unSyncedCount(), // a previously-obtained Future<String> or null
@@ -217,24 +245,36 @@ class _UnsyncedCountWidget extends State<UnsyncedCountWidget> {
           List<Widget> children;
           if (snapshot.hasData) {
             children = <Widget>[
+              OrientationWarning(),
               Padding(
                 padding: const EdgeInsets.only(top: 16),
                 child: Text(
-                    'Currently ${snapshot.data != "0"
-                        ? snapshot.data
-                        : 'no'} unsynced survey'
-                        '${snapshot.data == "1" ? "" : 's'}'),
+                  style: const TextStyle(fontSize: 32),
+                    'Currently ${snapshot.data != "0" ? snapshot.data : 'no'} unsynced survey'
+                    '${snapshot.data == "1" ? "" : 's'}',
+                  ),
               ),
-              ElevatedButton(
-                child: const Text(
-                  'Sync Now',
-                  style: TextStyle(fontSize: 18),
-                ),
-                onPressed: () {
-                  syncData();
-                  setState(() {});
-                },
-              )
+              snapshot.data == "0"
+                  ? Container()
+                  : Row(
+                      children: [
+                        const Icon(
+                          Icons.sync,
+                          color: Colors.green,
+                          size: 60,
+                        ),
+                        ElevatedButton(
+                          child: const Text(
+                            'Sync Now',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          onPressed: () {
+                            syncData();
+                            setState(() {});
+                          },
+                        ),
+                      ],
+                    )
             ];
           } else if (snapshot.hasError) {
             children = <Widget>[
