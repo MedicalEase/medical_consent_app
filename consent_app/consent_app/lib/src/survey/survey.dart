@@ -23,7 +23,7 @@ class SurveyView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FrameView(heading: 'Survey'.i18n, body: Center(child: SurveyApp()));
+    return FrameView(heading: 'Survey'.i18n, body: const Center(child: SurveyApp()));
   }
 }
 

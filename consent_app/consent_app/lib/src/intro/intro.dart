@@ -52,7 +52,7 @@ class OrientationWarning extends StatelessWidget {
     Orientation orientation = MediaQuery.of(context).orientation;
     return orientation == Orientation.portrait
         ? Row(
-          children: [
+          children: const [
             Icon(Icons.rotate_90_degrees_cw,
                 size: 60,
                 color: Colors.red),
@@ -192,7 +192,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> syncData(ConnectivityResult connectionStatus) async {
-    Store store = locator<Store>();
     if (connectionStatus == ConnectivityResult.none) {
       print('No connection, not syncing surveys');
       return;
@@ -248,7 +247,7 @@ class _UnsyncedCountWidget extends State<UnsyncedCountWidget> {
           List<Widget> children;
           if (snapshot.hasData) {
             children = <Widget>[
-              OrientationWarning(),
+              const OrientationWarning(),
               Padding(
                 padding: const EdgeInsets.only(top: 16),
                 child: Text(

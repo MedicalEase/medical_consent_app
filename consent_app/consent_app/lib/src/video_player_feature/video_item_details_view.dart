@@ -9,7 +9,6 @@ import 'package:video_player/video_player.dart';
 
 import '../../main.dart';
 import '../components/frame.dart';
-import '../procedure_data.dart';
 
 goNext(
   BuildContext context,

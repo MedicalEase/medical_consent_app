@@ -23,7 +23,7 @@ class Store {
   Future<Database> database = initDb();
   String language = "en";
   bool debugMode = false;
-  String deviceId = 'anonymous_device' + randomizer();
+  String deviceId = 'anonymous_device_${randomizer()}';
   String surveyResults = "";
   List choices = [];
   List procedures = [
