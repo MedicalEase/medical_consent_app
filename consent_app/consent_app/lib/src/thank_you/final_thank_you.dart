@@ -80,7 +80,9 @@ class _FinalThankYouState extends State<FinalThankYou> {
             child: Column(children: [
           Text('Final Thank you for your participation!'.i18n),
           const SizedBox(height: 40),
-          Text('Connection Status: ${_connectionStatus.toString()}'),
+          locator<Store>().debugMode
+              ? Text('Connection Status: ${_connectionStatus.toString()}')
+              : Container(),
           const SizedBox(height: 10),
           Row(
             children: [

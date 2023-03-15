@@ -33,27 +33,34 @@ class SettingsView extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    const Text('Theme'),
-                    DropdownButton<ThemeMode>(
-                      // Read the selected themeMode from the controller
-                      value: controller.themeMode,
-                      // Call the updateThemeMode method any time the user selects a theme.
-                      onChanged: controller.updateThemeMode,
-                      items: const [
-                        DropdownMenuItem(
-                          value: ThemeMode.system,
-                          child: Text('System Theme'),
-                        ),
-                        DropdownMenuItem(
-                          value: ThemeMode.light,
-                          child: Text('Light Theme'),
-                        ),
-                        DropdownMenuItem(
-                          value: ThemeMode.dark,
-                          child: Text('Dark Theme'),
-                        )
-                      ],
+                    ElevatedButton(
+                      onPressed: ()  {
+                        Navigator.pop(context,
+                         locator<Store>().debugMode);
+                      },
+                      child: const Text('Back'),
                     ),
+                    // const Text('Theme'),
+                    // DropdownButton<ThemeMode>(
+                    //   // Read the selected themeMode from the controller
+                    //   value: controller.themeMode,
+                    //   // Call the updateThemeMode method any time the user selects a theme.
+                    //   onChanged: controller.updateThemeMode,
+                    //   items: const [
+                    //     DropdownMenuItem(
+                    //       value: ThemeMode.system,
+                    //       child: Text('System Theme'),
+                    //     ),
+                    //     DropdownMenuItem(
+                    //       value: ThemeMode.light,
+                    //       child: Text('Normal Theme'),
+                    //     ),
+                    //     DropdownMenuItem(
+                    //       value: ThemeMode.dark,
+                    //       child: Text('Accessible Theme'),
+                    //     )
+                    //   ],
+                    // ),
                     const SetIdentifierForm(),
                   ],
                 ),
@@ -87,6 +94,7 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
   final myController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   String deviceId = 'not set';
+  bool light1 = locator<Store>().debugMode;
 
   @override
   initState() {
@@ -105,6 +113,16 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
     super.dispose();
   }
 
+  final MaterialStateProperty<Icon?> thumbIcon =
+  MaterialStateProperty.resolveWith<Icon?>(
+        (Set<MaterialState> states) {
+      // Thumb icon when the switch is selected.
+      if (states.contains(MaterialState.selected)) {
+        return const Icon(Icons.check);
+      }
+      return const Icon(Icons.close);
+    },
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -114,8 +132,24 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Row(
+            children: [
+              const Text('Debug mode:'),
+              Switch(
+                thumbIcon: thumbIcon,
+                  value: light1,
+                onChanged: (bool value) {
+                  setState(() {
+                    light1 = value;
+                    locator<Store>().debugMode = value;
+                    print("debug mode: $value") ;
+                  });
+                },
+              ),
+            ],
+          ),
           const Text(
-              'Please enter a unique identifier for this device, currently:'),
+              'Enter new device identifier below. Currently:'),
           Text(deviceId),
           TextFormField(
             controller: myController,
@@ -136,7 +170,9 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
                 if (_formKey.currentState!.validate()) {
                   // If the form is valid, display a snackbar. In the real world,
                   // you'd often call a server or save the information in a database.
-                  await storeDeviceIdentifier(myController.text, );
+                  await storeDeviceIdentifier(
+                    myController.text
+                  );
                   // Load the user's preferred theme while the splash screen is displayed.
                   // This prevents a sudden theme change when the app is first displayed.
 
@@ -162,8 +198,6 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
     deviceId = name;
     Store store = locator<Store>();
     store.deviceId = name;
-  setState(() {
-
-  });
+    setState(() {});
   }
 }

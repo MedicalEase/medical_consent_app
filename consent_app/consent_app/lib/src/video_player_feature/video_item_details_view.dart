@@ -331,42 +331,47 @@ class VideoItemDetailsView extends StatelessWidget {
               item: item,
               controller: videoController,
             ),
-            const SizedBox(height: 16.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+          locator<Store>().debugMode ?
+            Column(
               children: [
-                ElevatedButton(
-                  child: Text('Next'.i18n),
-                  onPressed: () {
-                    goNext(context, videoId, item.nextVideoItemId ?? 0,
-                        videoController);
-                  },
+                const SizedBox(height: 16.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      child: Text('Next'.i18n),
+                      onPressed: () {
+                        goNext(context, videoId, item.nextVideoItemId ?? 0,
+                            videoController);
+                      },
+                    ),
+                    ElevatedButton(
+                      child: const Text('video index'),
+                      onPressed: () {
+                        // When the user taps the button, navigate back to the first
+                        // screen by popping the current route off the stack.
+                        videoController.dispose();
+                        Navigator.restorablePushNamed(
+                          context,
+                          VideoItemListView.routeName,
+                        );
+                      },
+                    ),
+                    ElevatedButton(
+                      child: const Text('Summary'),
+                      onPressed: () {
+                        videoController.dispose();
+                        Navigator.restorablePushNamed(
+                          context,
+                          SummaryView.routeName,
+                        );
+                      },
+                    )
+                  ],
                 ),
-                ElevatedButton(
-                  child: const Text('video index'),
-                  onPressed: () {
-                    // When the user taps the button, navigate back to the first
-                    // screen by popping the current route off the stack.
-                    videoController.dispose();
-                    Navigator.restorablePushNamed(
-                      context,
-                      VideoItemListView.routeName,
-                    );
-                  },
-                ),
-                ElevatedButton(
-                  child: const Text('Summary'),
-                  onPressed: () {
-                    videoController.dispose();
-                    Navigator.restorablePushNamed(
-                      context,
-                      SummaryView.routeName,
-                    );
-                  },
-                )
               ],
-            ),
+            ) : Container()
           ],
         ),
       ),

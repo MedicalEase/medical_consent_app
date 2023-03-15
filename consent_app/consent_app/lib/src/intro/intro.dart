@@ -150,6 +150,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ? Container()
                   : const UnsyncedCountWidget(),
               Text('Device ID: ${store.deviceId}'),
+              store.debugMode
+                  ? Text('Debug mode: ${store.debugMode}')
+                  : Container(),
               Image.asset('assets/images/medical-abstract.png'),
               Padding(
                   padding: const EdgeInsets.all(30),
