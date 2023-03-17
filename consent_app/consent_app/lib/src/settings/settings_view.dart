@@ -1,9 +1,90 @@
+import 'package:consent_app/src/intro/intro_video_layout.dart';
 import 'package:flutter/material.dart';
 
 import '../../database.dart';
 import '../../main.dart';
 import '../components/frame.dart';
 import 'settings_controller.dart';
+
+class PasswordProtect extends StatefulWidget {
+  const PasswordProtect({Key? key}) : super(key: key);
+  static const routeName = '/passwordzone';
+
+  @override
+  State<PasswordProtect> createState() => _PasswordProtectState();
+}
+
+class _PasswordProtectState extends State<PasswordProtect> {
+  final myController = TextEditingController();
+  final Widget child = Container();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FrameView(
+        heading: 'Admin',
+        body:
+
+      Column(
+      children: [
+        const Text('Password'),
+        TextFormField(
+          controller: myController,
+          obscureText: true,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'Password',
+          ),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            var v = myController.value.text;
+            print(v);
+            checkPassword();
+            Navigator.restorablePushNamed(
+              context,
+              SettingsView.routeName,
+            );
+          },
+          child: const Text('Submit'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            checkPassword();
+            Navigator.restorablePushNamed(
+              context,
+              IntroView.routeName,
+            );
+          },
+          child: const Text('Back'),
+        )
+      ],
+    ),
+    );
+  }
+
+  void checkPassword() {
+    print("check password ${myController.value.text}");
+    if (myController.value.text == "flower") {
+      locator<Store>().debugMode = true;
+      Navigator.restorablePushNamed(
+        context,
+        SettingsView.routeName,
+      );
+    } else {
+      print("wrong password");
+      Navigator.pop(
+        context,
+      );
+    }
+  }
+}
 
 /// Displays the various settings that can be customized by the user.
 ///
@@ -18,6 +99,9 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (!locator<Store>().debugMode) {
+      return const PasswordProtect();
+    }
     return FrameView(
       heading: 'Admin',
       body: DefaultTextStyle(
@@ -34,33 +118,14 @@ class SettingsView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     ElevatedButton(
-                      onPressed: ()  {
-                        Navigator.pop(context,
-                         locator<Store>().debugMode);
+                      onPressed: () {
+                        Navigator.restorablePushNamed(
+                            context,
+                            IntroView.routeName
+                        );
                       },
                       child: const Text('Back'),
                     ),
-                    // const Text('Theme'),
-                    // DropdownButton<ThemeMode>(
-                    //   // Read the selected themeMode from the controller
-                    //   value: controller.themeMode,
-                    //   // Call the updateThemeMode method any time the user selects a theme.
-                    //   onChanged: controller.updateThemeMode,
-                    //   items: const [
-                    //     DropdownMenuItem(
-                    //       value: ThemeMode.system,
-                    //       child: Text('System Theme'),
-                    //     ),
-                    //     DropdownMenuItem(
-                    //       value: ThemeMode.light,
-                    //       child: Text('Normal Theme'),
-                    //     ),
-                    //     DropdownMenuItem(
-                    //       value: ThemeMode.dark,
-                    //       child: Text('Accessible Theme'),
-                    //     )
-                    //   ],
-                    // ),
                     const SetIdentifierForm(),
                   ],
                 ),
@@ -114,8 +179,8 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
   }
 
   final MaterialStateProperty<Icon?> thumbIcon =
-  MaterialStateProperty.resolveWith<Icon?>(
-        (Set<MaterialState> states) {
+      MaterialStateProperty.resolveWith<Icon?>(
+    (Set<MaterialState> states) {
       // Thumb icon when the switch is selected.
       if (states.contains(MaterialState.selected)) {
         return const Icon(Icons.check);
@@ -137,19 +202,18 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
               const Text('Debug mode:'),
               Switch(
                 thumbIcon: thumbIcon,
-                  value: light1,
+                value: light1,
                 onChanged: (bool value) {
                   setState(() {
                     light1 = value;
                     locator<Store>().debugMode = value;
-                    print("debug mode: $value") ;
+                    print("debug mode: $value");
                   });
                 },
               ),
             ],
           ),
-          const Text(
-              'Enter new device identifier below. Currently:'),
+          const Text('Enter new device identifier below. Currently:'),
           Text(deviceId),
           TextFormField(
             controller: myController,
@@ -170,9 +234,7 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
                 if (_formKey.currentState!.validate()) {
                   // If the form is valid, display a snackbar. In the real world,
                   // you'd often call a server or save the information in a database.
-                  await storeDeviceIdentifier(
-                    myController.text
-                  );
+                  await storeDeviceIdentifier(myController.text);
                   // Load the user's preferred theme while the splash screen is displayed.
                   // This prevents a sudden theme change when the app is first displayed.
 

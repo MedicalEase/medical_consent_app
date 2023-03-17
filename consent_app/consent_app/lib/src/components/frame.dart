@@ -40,20 +40,22 @@ class _FrameViewState extends State<FrameView> {
               }
               final settingsController = SettingsController(SettingsService());
               await settingsController.loadSettings();
+              var store = locator<Store>();
+              if (store.debugMode == false) {
+                Navigator.restorablePushNamed(
+                  context,
+                  PasswordProtect.routeName,
+                );
+              }
               debug = await Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => SettingsView(
-                        controller: settingsController
-                        )),
+                    builder: (context) =>
+                        SettingsView(controller: settingsController)),
               );
               setState(() {
                 debug = debug;
               });
-
-              print('result!');
-              print(debug);
-              print('result!');
             },
           ),
         ],
