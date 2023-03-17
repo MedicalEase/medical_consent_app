@@ -17,6 +17,7 @@ class PasswordProtect extends StatefulWidget {
 class _PasswordProtectState extends State<PasswordProtect> {
   final myController = TextEditingController();
   final Widget child = Container();
+  String password = "";
 
   @override
   void dispose() {
@@ -45,7 +46,9 @@ class _PasswordProtectState extends State<PasswordProtect> {
         ElevatedButton(
           onPressed: () {
             var v = myController.value.text;
-            print(v);
+            setState(() {
+              password = v;
+            });
             checkPassword();
             Navigator.restorablePushNamed(
               context,
