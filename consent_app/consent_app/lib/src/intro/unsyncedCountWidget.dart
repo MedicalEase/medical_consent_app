@@ -2,9 +2,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../database.dart';
 import 'intro.dart';
 import 'orientationWidget.dart';
 
+Future<String> unSyncedCount() async {
+  return getUnsyncedFeedback().then((value) => value.length.toString());
+}
 class UnsyncedCountWidget extends StatefulWidget {
   const UnsyncedCountWidget({super.key});
 
