@@ -159,7 +159,7 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
   final myController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   String deviceId = 'not set';
-  bool light1 = locator<Store>().debugMode;
+  bool debug = locator<Store>().debugMode;
 
   @override
   initState() {
@@ -202,10 +202,10 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
               const Text('Debug mode:'),
               Switch(
                 thumbIcon: thumbIcon,
-                value: light1,
+                value: debug,
                 onChanged: (bool value) {
                   setState(() {
-                    light1 = value;
+                    debug = value;
                     locator<Store>().debugMode = value;
                     print("debug mode: $value");
                   });
