@@ -25,7 +25,7 @@ class Store {
   bool debugMode = false;
   String deviceId = 'anonymous_device_${randomizer()}';
   String surveyResults = "";
-  List choices = [];
+  List<String> choices = [];
   List procedures = [
     const Procedure(
         id: 0,

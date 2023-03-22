@@ -17,9 +17,9 @@ class SummaryView extends StatelessWidget {
         heading: 'Summary',
         body: Center(
             child: Column(children: [
-          Text('Procedure: ${store.procedure.name}'),
-          const SizedBox(height: 10),
           Text('Language: ${store.language}'),
+          const SizedBox(height: 10),
+          ChoicesTable(),
           const SizedBox(height: 10),
           Text('Result: ${store.choices}'),
           ElevatedButton(
@@ -32,5 +32,51 @@ class SummaryView extends StatelessWidget {
             child: Text('Restart'.i18n),
           )
         ])));
+  }
+}
+
+class ChoicesTable extends StatelessWidget {
+  const ChoicesTable({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    Store store = locator<Store>();
+    var tableRows = [
+      for (var item in store.choices)
+        DataRow(
+          cells: <DataCell>[
+            DataCell(Text(item)),
+          ],
+        ),
+    ];
+
+    return Column(
+      children: [
+        Text('Procedure Choices'),
+        DataTable(
+          columns: const <DataColumn>[
+            DataColumn(
+              label: Expanded(
+                child: Text(
+                  'Video Section',
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
+              ),
+            ),
+            DataColumn(
+              label: Expanded(
+                child: Text(
+                  'Selection',
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
+              ),
+            ),
+          ],
+          rows: tableRows,
+        ),
+      ],
+    );
   }
 }
