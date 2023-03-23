@@ -75,7 +75,7 @@ class _FinalThankYouState extends State<FinalThankYou> {
   @override
   Widget build(BuildContext context) {
     return FrameView(
-        heading: 'FiNAL Thank You'.i18n,
+        heading: 'FINAL Thank You'.i18n,
         body: Center(
             child: Column(children: [
           Text('Final Thank you for your participation!'.i18n),

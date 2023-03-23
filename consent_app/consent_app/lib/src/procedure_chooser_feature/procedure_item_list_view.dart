@@ -7,15 +7,15 @@ import '../components/frame.dart';
 import '../components/horizontal_chooser.dart';
 import '../../main.dart';
 
-onTap(item, store, context) {
-  print('clik');
-  store.procedure = item;
-  Navigator.restorablePushNamed(
-    context,
-    LanguageListView.routeName,
-    arguments: item.id,
-  );
-}
+// onTap(item, store, context) {
+//   print('clik');
+//   store.procedure = item;
+//   Navigator.restorablePushNamed(
+//     context,
+//     LanguageListView.routeName,
+//     arguments: item.id,
+//   );
+// }
 
 class ProcedureListView extends StatefulWidget {
   const ProcedureListView({
@@ -30,7 +30,7 @@ class ProcedureListView extends StatefulWidget {
 
 class _ProcedureListViewState extends State<ProcedureListView> {
   final controller = DragSelectGridViewController();
-  int selectedItem = 0;
+  int currentCount = 0;
 
   @override
   void initState() {
@@ -44,13 +44,17 @@ class _ProcedureListViewState extends State<ProcedureListView> {
     super.dispose();
   }
 
+  void setCount(int newCount) {
+        currentCount = newCount;
+      }
+
   void scheduleRebuild() => setState(() {});
 
   @override
   Widget build(BuildContext context) {
     Store store = locator<Store>();
     var items = store.procedures;
-
+    print(currentCount.toString() + ' currentCount');
 
     return FrameView(
       heading: 'Choose Procedure',
@@ -71,7 +75,7 @@ class _ProcedureListViewState extends State<ProcedureListView> {
                   return SelectableItem(
                     index: index,
                     selected: selected,
-
+                    setCount: setCount,
                   );
                 },
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -81,18 +85,21 @@ class _ProcedureListViewState extends State<ProcedureListView> {
                 ),
               ),
             ),
-            store.procedure.name == '' ? Text(store.procedure.toString()) :
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.restorablePushNamed(
-                    context,
-                    'MyHomePage.routeName',
-                  );
-                },
-                child: Text(
-                  'Continue'.i18n,
-                  style: const TextStyle(fontSize: 48),
-                )),
+            // Text(store.procedure.length.toString() + ' proc len selected currcount: '+ currentCount.toString()),
+            (store.userProcedures.length == 0)
+                ? Container()
+                : ElevatedButton(
+                    onPressed: () {
+
+                      Navigator.restorablePushNamed(
+                        context,
+                        LanguageListView.routeName,
+                      );
+                    },
+                    child: Text(
+                      'Continue'.i18n,
+                      style: const TextStyle(fontSize: 48),
+                    )),
           ],
         ),
       ),

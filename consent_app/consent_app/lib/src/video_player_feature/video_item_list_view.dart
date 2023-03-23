@@ -16,7 +16,7 @@ class VideoItemListView extends StatelessWidget {
   Widget build(BuildContext context) {
         Store store = locator<Store>();
 
-    var items = store.procedure.videos;
+    var items = store.userProcedures[store.currentProcedureIndex].videos;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Video Clips'),

@@ -18,6 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+import 'package:consent_app/src/procedure_chooser_feature/procedure_item_dataclass.dart';
+import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
 import 'package:flutter/material.dart';
 
@@ -28,10 +30,12 @@ class SelectableItem extends StatefulWidget {
     Key? key,
     required this.index,
     required this.selected,
+    required this.setCount,
   }) : super(key: key);
 
   final int index;
   final bool selected;
+  final Function setCount;
 
   @override
   _SelectableItemState createState() => _SelectableItemState();
@@ -41,6 +45,7 @@ class _SelectableItemState extends State<SelectableItem>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _scaleAnimation;
+
   @override
   void initState() {
     super.initState();
@@ -65,13 +70,22 @@ class _SelectableItemState extends State<SelectableItem>
     Store store = locator<Store>();
     if (oldWidget.selected != widget.selected) {
       if (widget.selected) {
+        print('add');
         _controller.forward();
-        store.procedure = store.procedures[widget.index];
+        store.userProcedures.add(store.procedures[widget.index]);
+        print(store.userProcedures.toString());
       } else {
-        print('back');
+        print('remove');
         _controller.reverse();
-        // store.procedure = null;
+        int index_loc_remove =
+            store.userProcedures.indexWhere((e) => e.id == widget.index);
+        store.userProcedures.removeAt(index_loc_remove);
+        print(store.userProcedures.toString());
       }
+
+      print('proc length ' + store.userProcedures.length.toString());
+      // print(store.procedure.length.toString());
+      widget.setCount(store.userProcedures.length);
     }
   }
 
@@ -100,25 +114,23 @@ class _SelectableItemState extends State<SelectableItem>
         );
       },
       child: Container(
-        alignment: Alignment.center,
-        child: SizedBox(
-          width: 800 / items.length,
-          child: Card(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset(item.icon),
-                Text(
-                  '${item.name}'.i18n,
-                  textAlign: TextAlign.center,
-                ),
-              ],
+          alignment: Alignment.center,
+          child: SizedBox(
+            width: 800 / items.length,
+            child: Card(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(item.icon),
+                  Text(
+                    '${item.name}'.i18n,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
             ),
-          ),
-        )
-      ),
+          )),
     );
   }
-
 }

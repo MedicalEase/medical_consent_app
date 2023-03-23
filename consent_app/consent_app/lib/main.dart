@@ -19,7 +19,8 @@ String randomizer() {
 }
 
 class Store {
-  late Procedure procedure;
+  List<Procedure> userProcedures = [];
+  int currentProcedureIndex = 0;
   Future<Database> database = initDb();
   String language = "en";
   bool debugMode = false;
