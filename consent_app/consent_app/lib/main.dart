@@ -20,7 +20,6 @@ String randomizer() {
 
 class Store {
   List<Procedure> userProcedures = [];
-  int currentProcedureIndex = 0;
   Future<Database> database = initDb();
   String language = "en";
   bool debugMode = false;

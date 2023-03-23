@@ -19,7 +19,7 @@ goNext(
   // function to go to next video or thank you page
   videoController.dispose();
   Store store = locator<Store>();
-  List<VideoItem> items = store.userProcedures[store.currentProcedureIndex].videos;
+  List<VideoItem> items = store.userProcedures.first.videos;
   VideoItem item = items.firstWhere((item) => item.id == videoId);
   if (item.nextVideoItemId == null) {
     Navigator.restorablePushNamed(
@@ -311,7 +311,7 @@ class VideoItemDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     // Use the videoId to create the UI.
     Store store = locator<Store>();
-    List<VideoItem> items = store.userProcedures[store.currentProcedureIndex].videos;
+    List<VideoItem> items = store.userProcedures.first.videos;
     VideoItem item = items.firstWhere((item) => item.id == videoId);
     final videoController = VideoPlayerController.asset(item.path);
     return FrameView(
