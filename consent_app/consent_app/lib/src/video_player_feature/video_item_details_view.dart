@@ -9,6 +9,7 @@ import 'package:video_player/video_player.dart';
 
 import '../../main.dart';
 import '../components/frame.dart';
+import '../survey/survey.dart';
 
 goNext(
   BuildContext context,
@@ -256,7 +257,7 @@ class _PlayerVideoAndPopPageState extends State<_PlayerVideoAndPopPage> {
     super.initState();
 
     _videoPlayerController =
-        VideoPlayerController.asset('assets/Butterfly-209.mp4');
+        VideoPlayerController.asset('assets/videos/1-2-intro.mp4');
     _videoPlayerController.addListener(() {
       if (startedPlaying && !_videoPlayerController.value.isPlaying) {
         Navigator.pop(context);
@@ -311,8 +312,21 @@ class VideoItemDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     // Use the videoId to create the UI.
     Store store = locator<Store>();
-    List<VideoItem> items = store.procedure.videos;
-    VideoItem item = items.firstWhere((item) => item.id == videoId);
+    if (store.procedure.videos.isEmpty) {
+      //redirect to the survey page: no videos to show!
+      Future(() {
+        Navigator.of(context).pushNamed(SurveyView.routeName);
+      });
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('Survey'.i18n),
+        ),
+        body: Center(
+          child: Text('Loading Survey'.i18n),
+        ),
+      );
+    }
+    VideoItem item = store.procedure.videos.firstWhere((item) => item.id == videoId);
     final videoController = VideoPlayerController.asset(item.path);
     return FrameView(
       heading: '${item.heading}'.i18n,

@@ -133,6 +133,11 @@ class Store {
                     'World', Duration(seconds: 0), Duration(seconds: 5), 'tk'),
               ])
         ]),
+    const Procedure(
+        id: 3,
+        name: 'Survey',
+        icon: 'assets/images/survey_icon.png',
+        videos: []),
   ];
 // todo SettingsController settingsController = SettingsController();
 }
