@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
             splashColor: const Color(0xFFF0F4F5),
             scaffoldBackgroundColor: const Color(0xFFF0F4F5),
             colorScheme: const ColorScheme.light(
-              primary: Color(0xFF005EB8),
+              primary: Color(0xFF3B63F0),
               secondary: Color(0xFF007F3B),
             ),
             primaryColor: Colors.lightGreen[800],

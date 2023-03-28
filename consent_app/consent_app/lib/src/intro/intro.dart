@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Padding(
                   padding: EdgeInsets.all(30),
                   child: Text(
-                    "Ready-Medi-Go version 0.1",
+                    "Consentease v 0.1",
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 64),
                   ),

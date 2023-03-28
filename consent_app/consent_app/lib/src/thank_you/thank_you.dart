@@ -18,6 +18,7 @@ class ThankYouView extends StatelessWidget {
         body: Center(
             child: Column(children: [
           Text('Thank you for your participation!'.i18n),
+          Text('Please return the iPad to your healthcare professional'.i18n),
           const SizedBox(height: 40),
           Row(
             children: [
