@@ -21,7 +21,6 @@ class SummaryView extends StatelessWidget {
           const SizedBox(height: 10),
           ChoicesTable(),
           const SizedBox(height: 10),
-          Text('Result: ${store.choices}'),
           ElevatedButton(
             onPressed: () {
               Navigator.restorablePushNamed(
@@ -43,40 +42,7 @@ class ChoicesTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Store store = locator<Store>();
-    var tableRows = [
-      for (var item in store.choices)
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text(item.toString())),
-          ],
-        ),
-    ];
 
-    return Column(
-      children: [
-        Text('Procedure Choices'),
-        DataTable(
-          columns: const <DataColumn>[
-            DataColumn(
-              label: Expanded(
-                child: Text(
-                  'Video Section',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-            ),
-            DataColumn(
-              label: Expanded(
-                child: Text(
-                  'Selection',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-            ),
-          ],
-          rows: tableRows,
-        ),
-      ],
-    );
+    return Column(children: [Text('Procedure Choices')]);
   }
 }

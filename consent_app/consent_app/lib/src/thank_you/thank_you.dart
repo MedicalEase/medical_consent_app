@@ -28,7 +28,9 @@ class ThankYouView extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   store.choices.add({
-                    'id':99,
+                    'procedure':store.procedure.name,
+                    'procedure_id':store.procedure.id,
+                    'video_id':99,
                     'event': 'Finished consent sequence',
                     'heading':'Done',
                     'timestamp': DateTime.now().toIso8601String(),

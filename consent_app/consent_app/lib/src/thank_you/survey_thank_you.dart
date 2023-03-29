@@ -13,6 +13,8 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/services.dart';
 
+import '../intro/intro.dart';
+
 class surveyThankYou extends StatefulWidget {
   const surveyThankYou({Key? key}) : super(key: key);
   static const routeName = '/Finalthankyou';
@@ -86,7 +88,7 @@ class _surveyThankYouState extends State<surveyThankYou> {
                 onPressed: () {
                   Navigator.restorablePushNamed(
                     context,
-                    SummaryView.routeName,
+                    MyHomePage.routeName,
                   );
                 },
                 child: Text('Ok Done'.i18n),
