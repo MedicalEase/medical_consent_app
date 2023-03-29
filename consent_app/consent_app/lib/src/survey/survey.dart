@@ -1,7 +1,8 @@
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
-import 'package:consent_app/src/thank_you/final_thank_you.dart';
+import 'package:consent_app/src/thank_you/survey_thank_you.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
+import '../../database.dart';
 import '../../main.dart';
 import '../components/frame.dart';
 
@@ -67,7 +68,7 @@ class _SurveyAppState extends State<SurveyApp> {
                   storeSurveyWrapper(result);
                   Navigator.restorablePushNamed(
                     context,
-                    FinalThankYou.routeName,
+                    surveyThankYou.routeName,
                   );
                 },
                 task: task,
@@ -157,7 +158,7 @@ class _SurveyAppState extends State<SurveyApp> {
     Store store = locator<Store>();
     print('jsonData');
     print(jsonData);
-    store.surveyResults = jsonData;
+    insertFeedback('',jsonData, store.language);
   }
 
   Future<Task> getQuizTask() {

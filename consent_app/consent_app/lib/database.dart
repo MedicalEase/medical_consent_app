@@ -41,6 +41,7 @@ void _createDb(Database db, int newVersion) async {
     'CREATE TABLE feedback(id integer primary key autoincrement , '
         'survey TEXT, '
         'videos TEXT, '
+        'language TEXT, '
         'ts TIMESTAMP DEFAULT (CURRENT_TIMESTAMP) NOT NULL,'
         'synced INTEGER default 0 );',
   );
@@ -89,13 +90,13 @@ Future<List<Map>> updateAllSurveyData(List<dynamic> ids) async {
   }
   return [];
 }
-Future<void> insertFeedback(String feedback, String survey) async {
+Future<void> insertFeedback(String feedback, String survey, String language) async {
   Store store = locator<Store>();
   Database db = await store.database;
   print('inserting feedback: $feedback, $survey');
   db.insert(
     'feedback',
-    {'survey': survey, 'videos': feedback},
+    {'survey': survey, 'videos': feedback, 'language': language},
     conflictAlgorithm: ConflictAlgorithm.ignore,
   );
 }

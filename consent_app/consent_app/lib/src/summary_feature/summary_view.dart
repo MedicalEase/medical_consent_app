@@ -47,7 +47,7 @@ class ChoicesTable extends StatelessWidget {
       for (var item in store.choices)
         DataRow(
           cells: <DataCell>[
-            DataCell(Text(item)),
+            DataCell(Text(item.toString())),
           ],
         ),
     ];

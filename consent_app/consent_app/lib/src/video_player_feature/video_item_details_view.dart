@@ -121,7 +121,12 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
             ElevatedButton(
               onPressed: () {
                 _controller.dispose();
-                store.choices.add('${widget.item.id} -${widget.item.heading}-Question');
+                store.choices.add({
+                  'event': 'Question',
+                  'id':widget.item.id,
+                  'heading': widget.item.heading,
+                  'timestamp': DateTime.now().toIso8601String(),
+                });
                 goNext(context, widget.item.id, widget.item.faqVideoItemId ?? 0,
                     _controller);
               },
@@ -130,7 +135,12 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
             ElevatedButton(
               onPressed: () {
                 _controller.dispose();
-                store.choices.add('${widget.item.id} -${widget.item.heading}-No');
+                store.choices.add({
+                  'event': 'No',
+                  'id':widget.item.id,
+                  'heading': widget.item.heading,
+                  'timestamp': DateTime.now().toIso8601String(),
+                });
                 goNext(context, widget.item.id,
                     widget.item.nextVideoItemId ?? 0, _controller);
               },
@@ -139,7 +149,12 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
             ElevatedButton(
               onPressed: () {
                 _controller.dispose();
-                store.choices.add('${widget.item.id}-${widget.item.heading}-OK');
+                store.choices.add({
+                  'event': 'OK',
+                  'id':widget.item.id,
+                  'heading': widget.item.heading,
+                  'timestamp': DateTime.now().toIso8601String(),
+                });
                 goNext(context, widget.item.id,
                     widget.item.nextVideoItemId ?? 0, _controller);
               },
@@ -150,8 +165,12 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                         Duration(seconds: 2).inSeconds)
                 ? ElevatedButton(
                     onPressed: () {
-                      store.choices
-                          .add('${widget.item.id}-${widget.item.heading}-replay');
+                      store.choices.add({
+                        'event': 'Replay',
+                        'id':widget.item.id,
+                        'heading': widget.item.heading,
+                        'timestamp': DateTime.now().toIso8601String(),
+                      });
                       _controller.seekTo(Duration(seconds: 0));
                       _controller.play();
                     },
@@ -168,6 +187,13 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
         ? Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
             ElevatedButton(
               onPressed: () {
+                Store store = locator<Store>();
+                store.choices.add({
+                  'event': 'Continue',
+                  'id':widget.item.id,
+                  'heading': widget.item.heading,
+                  'timestamp': DateTime.now().toIso8601String(),
+                });
                 goNext(context, widget.item.id,
                     widget.item.nextVideoItemId ?? 0, _controller);
               },

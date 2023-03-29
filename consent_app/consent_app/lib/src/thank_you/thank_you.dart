@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
 import 'package:consent_app/src/summary_feature/summary_view.dart';
 import 'package:flutter/material.dart';
 
+import '../../database.dart';
 import '../../main.dart';
 import '../components/frame.dart';
 
@@ -24,7 +27,14 @@ class ThankYouView extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  store.choices.add('Finished consent sequence');
+                  store.choices.add({
+                    'id':99,
+                    'event': 'Finished consent sequence',
+                    'heading':'Done',
+                    'timestamp': DateTime.now().toIso8601String(),
+                  });
+                  var jsonChoicesData = jsonEncode(store.choices);
+                  insertFeedback(jsonChoicesData, '', store.language);
                   Navigator.restorablePushNamed(
                     context,
                     SummaryView.routeName,

@@ -13,15 +13,15 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/services.dart';
 
-class FinalThankYou extends StatefulWidget {
-  const FinalThankYou({Key? key}) : super(key: key);
+class surveyThankYou extends StatefulWidget {
+  const surveyThankYou({Key? key}) : super(key: key);
   static const routeName = '/Finalthankyou';
 
   @override
-  State<FinalThankYou> createState() => _FinalThankYouState();
+  State<surveyThankYou> createState() => _surveyThankYouState();
 }
 
-class _FinalThankYouState extends State<FinalThankYou> {
+class _surveyThankYouState extends State<surveyThankYou> {
   ConnectivityResult _connectionStatus = ConnectivityResult.none;
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
@@ -30,10 +30,6 @@ class _FinalThankYouState extends State<FinalThankYou> {
   void initState() {
     super.initState();
     initConnectivity();
-    Store store = locator<Store>();
-    var choicesJson = jsonEncode(store.choices);
-
-    insertFeedback(choicesJson, store.surveyResults);
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
   }
@@ -75,10 +71,10 @@ class _FinalThankYouState extends State<FinalThankYou> {
   @override
   Widget build(BuildContext context) {
     return FrameView(
-        heading: 'FiNAL Thank You'.i18n,
+        heading: 'Survey Thank You'.i18n,
         body: Center(
             child: Column(children: [
-          Text('Final Thank you for your participation!'.i18n),
+          Text('Survey Thank you for your participation!'.i18n),
           const SizedBox(height: 40),
           locator<Store>().debugMode
               ? Text('Connection Status: ${_connectionStatus.toString()}')
