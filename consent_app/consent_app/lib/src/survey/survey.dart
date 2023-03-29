@@ -8,22 +8,35 @@ import '../components/frame.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:survey_kit/survey_kit.dart';
 
-const yesNoNotSure = SingleChoiceAnswerFormat(
-  textChoices: [
-    TextChoice(text: 'Yes', value: 'Yes'),
-    TextChoice(text: 'No', value: 'No'),
-    TextChoice(text: 'Not Sure', value: 'Not Sure'),
-  ],
-);
+SingleChoiceAnswerFormat Function() yesNoNotSure =
+    () => SingleChoiceAnswerFormat(
+          textChoices: [
+            TextChoice(text: multiLingualText('Yes'), value: 'Yes'),
+            TextChoice(text: multiLingualText('No'), value: 'No'),
+            TextChoice(text: multiLingualText('Not Sure'), value: 'Not Sure'),
+          ],
+        );
 
-class SurveyView extends StatelessWidget {
+multiLingualText(String txt) {
+  return (locator<Store>().language == 'en')
+      ? txt
+      : '${"${txt}".i18n} (${txt})';
+}
+
+class SurveyView extends StatefulWidget {
   const SurveyView({super.key});
 
   static const routeName = '/Survey';
 
   @override
+  State<SurveyView> createState() => _SurveyViewState();
+}
+
+class _SurveyViewState extends State<SurveyView> {
+  @override
   Widget build(BuildContext context) {
-    return FrameView(heading: 'Survey'.i18n, body: const Center(child: SurveyApp()));
+    return FrameView(
+        heading: 'Survey'.i18n, body: const Center(child: SurveyApp()));
   }
 }
 
@@ -144,11 +157,11 @@ class _SurveyAppState extends State<SurveyApp> {
     Store store = locator<Store>();
     print('jsonData');
     print(jsonData);
-
     store.surveyResults = jsonData;
   }
 
   Future<Task> getQuizTask() {
+    Store store = locator<Store>();
     var task = NavigableTask(
       id: TaskIdentifier(),
       steps: [
@@ -160,12 +173,15 @@ class _SurveyAppState extends State<SurveyApp> {
         QuestionStep(
           title:
               'Was it made clear to you WHAT procedure you were having?'.i18n,
-          answerFormat: yesNoNotSure,
+          text: (store.language == 'en')
+              ? ''
+              : 'Was it made clear to you WHAT procedure you were having?',
+          answerFormat: yesNoNotSure(),
           isOptional: true,
         ),
         QuestionStep(
           title: 'Was it made clear to you WHY you were having the procedure?',
-          answerFormat: yesNoNotSure,
+          answerFormat: yesNoNotSure(),
         ),
         // QuestionStep(
         //   title: 'Were the risks of the procedure explained to you?',

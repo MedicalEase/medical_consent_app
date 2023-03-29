@@ -30,10 +30,27 @@ extension Localization on String {
         "en": "OGD",
         "tr": "OGD (but in TURKISH)",
         "gr": "OGD (but in GREEK)",
+  } + {
+    "en": "Next",
+    "tr": "Next TURKISH",
+    "gr": "Next GREEK",
+  } + {
+    "en": "Yes",
+    "tr": "yep  39: tr",
+    "gr": "yep 40 GR",
+  } + {
+    "en": "No",
+    "tr": "NO 43 tr",
+    "gr": "NO 44 GR",
+  } +
 
+      {
+    'en' : 'Was it made clear to you WHAT procedure you were having?',
+    'tr' : 'Was it made clear to you WHAT procedure you were having? tr',
+    'gr' : 'Was it made clear to you WHAT procedure you were having? gr',
   }
-      ;
+
+  ;
 
   String get i18n => localize(this, _t);
 }
-// Choose Procedure in greek:
