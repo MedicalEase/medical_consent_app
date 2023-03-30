@@ -19,7 +19,6 @@ class SummaryView extends StatelessWidget {
             child: Column(children: [
           Text('Language: ${store.language}'),
           const SizedBox(height: 10),
-          ChoicesTable(),
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () {
@@ -34,15 +33,3 @@ class SummaryView extends StatelessWidget {
   }
 }
 
-class ChoicesTable extends StatelessWidget {
-  const ChoicesTable({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    Store store = locator<Store>();
-
-    return Column(children: [Text('Procedure Choices')]);
-  }
-}

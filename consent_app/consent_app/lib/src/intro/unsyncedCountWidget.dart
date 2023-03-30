@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -36,31 +35,31 @@ class _UnsyncedCountWidget extends State<UnsyncedCountWidget> {
                 child: Text(
                   style: const TextStyle(fontSize: 32),
                   'Currently ${snapshot.data != "0" ? snapshot.data : 'no'} unsynced survey'
-                      '${snapshot.data == "1" ? "" : 's'}',
+                  '${snapshot.data == "1" ? "" : 's'}',
                 ),
               ),
               //show the 'sync now' button if there are unsynced surveys
               snapshot.data == "0"
                   ? Container()
                   : Row(
-                children: [
-                  const Icon(
-                    Icons.sync,
-                    color: Colors.green,
-                    size: 60,
-                  ),
-                  ElevatedButton(
-                    child: const Text(
-                      'Sync Now',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    onPressed: () {
-                      syncData();
-                      setState(() {});
-                    },
-                  ),
-                ],
-              )
+                      children: [
+                        const Icon(
+                          Icons.sync,
+                          color: Colors.green,
+                          size: 60,
+                        ),
+                        ElevatedButton(
+                          child: const Text(
+                            'Sync Now',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          onPressed: () {
+                            syncData();
+                            setState(() {});
+                          },
+                        ),
+                      ],
+                    )
             ];
           } else if (snapshot.hasError) {
             children = <Widget>[

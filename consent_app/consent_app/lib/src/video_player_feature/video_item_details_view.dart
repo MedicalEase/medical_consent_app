@@ -168,7 +168,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
             ),
             (widget.position.inSeconds >
                     _controller.value.duration.inSeconds -
-                        Duration(seconds: 2).inSeconds)
+                        const Duration(seconds: 2).inSeconds)
                 ? ElevatedButton(
                     onPressed: () {
                       store.choices.add({
@@ -179,7 +179,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                         'heading': widget.item.heading,
                         'timestamp': DateTime.now().toIso8601String(),
                       });
-                      _controller.seekTo(Duration(seconds: 0));
+                      _controller.seekTo(const Duration(seconds: 0));
                       _controller.play();
                     },
                     child: Text('Play again'.i18n),

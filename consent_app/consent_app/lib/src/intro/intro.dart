@@ -11,7 +11,6 @@ import 'package:http/http.dart' as http;
 
 import '../../database.dart';
 import '../../main.dart';
-import 'orientationWidget.dart';
 
 Future<void> syncData() async {
   print('sync database');
@@ -24,14 +23,13 @@ Future<void> syncData() async {
             ...{'deviceId': deviceId}
           })
       .toList();
-  String jsonSurveys = jsonEncode(datarow);
-  Future<bool> responseSuccess = postSurvey(jsonSurveys);
+  String jsonData = jsonEncode(datarow);
+  Future<bool> responseSuccess = postData(jsonData);
   var ids = rows.map((ele) => ele['id']).toList();
   if (await responseSuccess) {
     await updateAllSurveyData(ids);
   }
 }
-
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -72,7 +70,11 @@ class _MyHomePageState extends State<MyHomePage> {
       print(e);
       return;
     }
-
+    print('connectivityStatus: $connectivityStatus');
+    if (connectivityStatus != ConnectivityResult.none) {
+      print('attempting to sync');
+      await syncData();
+    }
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
@@ -153,18 +155,18 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> syncDataWrapper() async {
-    await syncData(_connectionStatus);
+    await connectivityCheck(_connectionStatus);
   }
 
-  Future<void> syncData(ConnectivityResult connectionStatus) async {
+  Future<void> connectivityCheck(ConnectivityResult connectionStatus) async {
     if (connectionStatus == ConnectivityResult.none) {
-      print('No connection, not syncing surveys');
+      print('No connection');
       return;
     }
   }
 }
 
-Future<bool> postSurvey(String jsonString) async {
+Future<bool> postData(String jsonString) async {
   try {
     final response = await http.post(
       Uri.parse('http://localhost:8080'),

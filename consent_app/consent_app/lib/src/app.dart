@@ -110,7 +110,7 @@ class MyApp extends StatelessWidget {
                   case LanguageListView.routeName:
                     return const LanguageListView();
                   case PasswordProtect.routeName:
-                    return PasswordProtect();
+                    return const PasswordProtect();
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
                   case SummaryView.routeName:
