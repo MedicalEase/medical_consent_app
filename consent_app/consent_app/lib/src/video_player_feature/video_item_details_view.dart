@@ -1,6 +1,7 @@
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
 import 'package:consent_app/src/summary_feature/summary_view.dart';
 import 'package:consent_app/src/thank_you/thank_you.dart';
+import 'package:consent_app/src/video_player_feature/patient_button.dart';
 import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
 import 'package:consent_app/src/video_player_feature/video_item_list_view.dart';
 import 'package:consent_app/src/video_player_feature/video_subtitle.dart';
@@ -10,6 +11,7 @@ import 'package:video_player/video_player.dart';
 import '../../main.dart';
 import '../components/frame.dart';
 import '../survey/survey.dart';
+
 
 goNext(
   BuildContext context,
@@ -169,22 +171,10 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
             (widget.position.inSeconds >
                     _controller.value.duration.inSeconds -
                         const Duration(seconds: 2).inSeconds)
-                ? ElevatedButton(
-                    onPressed: () {
-                      store.choices.add({
-                        'procedure':store.procedure.name,
-                        'procedure_id':store.procedure.id,
-                        'video_id':widget.item.id,
-                        'event': 'Replay',
-                        'heading': widget.item.heading,
-                        'timestamp': DateTime.now().toIso8601String(),
-                      });
-                      _controller.seekTo(const Duration(seconds: 0));
-                      _controller.play();
-                    },
-                    child: Text('Play again'.i18n),
-                  )
-                : Container(),
+                ?       PatientButton(text: 'Replay', function: (){
+                  _controller.seekTo(const Duration(seconds: 0));
+                _controller.play();
+                })  : Container(),
           ])
         : Container();
   }
@@ -362,65 +352,67 @@ class VideoItemDetailsView extends StatelessWidget {
         ),
       );
     }
-    VideoItem item = store.procedure.videos.firstWhere((item) => item.id == videoId);
+    VideoItem item =
+        store.procedure.videos.firstWhere((item) => item.id == videoId);
     final videoController = VideoPlayerController.asset(item.path);
     return FrameView(
       heading: '${item.heading}'.i18n,
-      admin_pre_action:() => videoController.dispose(),
+      admin_pre_action: () => videoController.dispose(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('${item.summary}'.i18n),
+            // Text('${item.summary}'.i18n),
             ExplainerAssetVideo(
               key: Key(item.id.toString()),
               path: item.path,
               item: item,
               controller: videoController,
             ),
-          locator<Store>().debugMode ?
-            Column(
-              children: [
-                const SizedBox(height: 16.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      child: Text('Next'.i18n),
-                      onPressed: () {
-                        goNext(context, videoId, item.nextVideoItemId ?? 0,
-                            videoController);
-                      },
-                    ),
-                    ElevatedButton(
-                      child: const Text('video index'),
-                      onPressed: () {
-                        // When the user taps the button, navigate back to the first
-                        // screen by popping the current route off the stack.
-                        videoController.dispose();
-                        Navigator.restorablePushNamed(
-                          context,
-                          VideoItemListView.routeName,
-                        );
-                      },
-                    ),
-                    ElevatedButton(
-                      child: const Text('Summary'),
-                      onPressed: () {
-                        videoController.dispose();
-                        Navigator.restorablePushNamed(
-                          context,
-                          SummaryView.routeName,
-                        );
-                      },
-                    )
-                  ],
-                ),
-              ],
-            ) : Container()
+            // locator<Store>().debugMode
+            //     ? Column(
+            //         children: [
+            //           const SizedBox(height: 16.0),
+            //           Row(
+            //             mainAxisAlignment: MainAxisAlignment.center,
+            //             crossAxisAlignment: CrossAxisAlignment.center,
+            //             children: [
+            //               ElevatedButton(
+            //                 child: Text('Next'.i18n),
+            //                 onPressed: () {
+            //                   goNext(context, videoId,
+            //                       item.nextVideoItemId ?? 0, videoController);
+            //                 },
+            //               ),
+            //               ElevatedButton(
+            //                 child: const Text('video index'),
+            //                 onPressed: () {
+            //                   // When the user taps the button, navigate back to the first
+            //                   // screen by popping the current route off the stack.
+            //                   videoController.dispose();
+            //                   Navigator.restorablePushNamed(
+            //                     context,
+            //                     VideoItemListView.routeName,
+            //                   );
+            //                 },
+            //               ),
+            //               ElevatedButton(
+            //                 child: const Text('Summary'),
+            //                 onPressed: () {
+            //                   videoController.dispose();
+            //                   Navigator.restorablePushNamed(
+            //                     context,
+            //                     SummaryView.routeName,
+            //                   );
+            //                 },
+            //               )
+            //             ],
+            //           ),
+            //         ],
+            //       )
+            //     : Container()
           ],
         ),
       ),

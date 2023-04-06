@@ -1,3 +1,6 @@
+import 'package:consent_app/src/video_player_feature/patient_button.dart';
+import 'package:consent_app/src/video_player_feature/video_item_details_view.dart';
+
 import '../../main.dart';
 
 /// A dataclass for a video clip
@@ -11,6 +14,8 @@ class VideoItem {
     required this.subtitles,
     this.nextVideoItemId,
     this.faqVideoItemId,
+    this.questionBank = const [],
+
   });
 
   final int id;
@@ -21,6 +26,7 @@ class VideoItem {
   final int? questionAfter;
   final int? nextVideoItemId;
   final int? faqVideoItemId;
+  final List<PatientButton> questionBank;
 
   String getSubtitle({Duration position = Duration.zero}) {
     Store store = locator<Store>();
