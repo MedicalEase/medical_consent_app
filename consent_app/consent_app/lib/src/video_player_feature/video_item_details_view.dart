@@ -1,9 +1,7 @@
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
-import 'package:consent_app/src/summary_feature/summary_view.dart';
 import 'package:consent_app/src/thank_you/thank_you.dart';
 import 'package:consent_app/src/video_player_feature/patient_button.dart';
 import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
-import 'package:consent_app/src/video_player_feature/video_item_list_view.dart';
 import 'package:consent_app/src/video_player_feature/video_subtitle.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -120,54 +118,55 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
     return (widget.item.faqVideoItemId != null) &&
             (widget.position.inSeconds > (widget.item.questionAfter ?? 999999))
         ? Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                _controller.dispose();
-                store.choices.add({
-                  'procedure':store.procedure.name,
-                  'procedure_id':store.procedure.id,
-                  'video_id':widget.item.id,
-                  'heading': widget.item.heading,
-                  'event': 'Question',
-                  'timestamp': DateTime.now().toIso8601String(),
-                });
-                goNext(context, widget.item.id, widget.item.faqVideoItemId ?? 0,
-                    _controller);
-              },
-              child: Text('Questions'.i18n),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                _controller.dispose();
-                store.choices.add({
-                  'procedure':store.procedure.name,
-                  'procedure_id':store.procedure.id,
-                  'video_id':widget.item.id,
-                  'heading': widget.item.heading,
-                  'event': 'No',
-                  'timestamp': DateTime.now().toIso8601String(),
-                });
-                goNext(context, widget.item.id,
-                    widget.item.nextVideoItemId ?? 0, _controller);
-              },
-              child: Text('No'.i18n),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                _controller.dispose();
-                store.choices.add({
-                  'procedure':store.procedure.name,
-                  'procedure_id':store.procedure.id,
-                  'video_id':widget.item.id,
-                  'heading': widget.item.heading,
-                  'event': 'OK',
-                  'timestamp': DateTime.now().toIso8601String(),
-                });
-                goNext(context, widget.item.id,
-                    widget.item.nextVideoItemId ?? 0, _controller);
-              },
-              child: Text('OK'.i18n),
-            ),
+    Row(mainAxisAlignment: MainAxisAlignment.center, children: widget.item.questionBank) ,
+            // ElevatedButton(
+            //   onPressed: () {
+            //     _controller.dispose();
+            //     store.choices.add({
+            //       'procedure': store.procedure.name,
+            //       'procedure_id': store.procedure.id,
+            //       'video_id': widget.item.id,
+            //       'heading': widget.item.heading,
+            //       'event': 'Question',
+            //       'timestamp': DateTime.now().toIso8601String(),
+            //     });
+            //     goNext(context, widget.item.id, widget.item.faqVideoItemId ?? 0,
+            //         _controller);
+            //   },
+            //   child: Text('Questions'.i18n),
+            // ),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     _controller.dispose();
+            //     store.choices.add({
+            //       'procedure': store.procedure.name,
+            //       'procedure_id': store.procedure.id,
+            //       'video_id': widget.item.id,
+            //       'heading': widget.item.heading,
+            //       'event': 'No',
+            //       'timestamp': DateTime.now().toIso8601String(),
+            //     });
+            //     goNext(context, widget.item.id,
+            //         widget.item.nextVideoItemId ?? 0, _controller);
+            //   },
+            //   child: Text('No'.i18n),
+            // ),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     _controller.dispose();
+            //     store.choices.add({
+            //       'procedure': store.procedure.name,
+            //       'procedure_id': store.procedure.id,
+            //       'video_id': widget.item.id,
+            //       'heading': widget.item.heading,
+            //       'event': 'OK',
+            //       'timestamp': DateTime.now().toIso8601String(),
+            //     });
+            //     goNext(context, widget.item.id,
+            //         widget.item.nextVideoItemId ?? 0, _controller);
+            //   },
+            //   child: Text('OK'.i18n),
+            // ),
             (widget.position.inSeconds >
                     _controller.value.duration.inSeconds -
                         const Duration(seconds: 2).inSeconds)
