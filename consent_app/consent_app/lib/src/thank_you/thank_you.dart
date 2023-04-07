@@ -37,6 +37,8 @@ class ThankYouView extends StatelessWidget {
                   });
                   var jsonChoicesData = jsonEncode(store.choices);
                   insertFeedback(jsonChoicesData, '', store.language);
+                  //reset the choices collected data
+                  store.choices = [];
                   Navigator.restorablePushNamed(
                     context,
                     SummaryView.routeName,

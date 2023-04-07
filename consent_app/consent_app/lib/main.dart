@@ -23,6 +23,7 @@ class Store {
   late Procedure procedure;
   Future<Database> database = initDb();
   String language = "en";
+  late VideoItem videoItem;
   bool debugMode = false;
   String deviceId = 'anonymous_device_${randomizer()}';
   String surveyResults = "";

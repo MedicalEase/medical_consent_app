@@ -353,6 +353,7 @@ class VideoItemDetailsView extends StatelessWidget {
     }
     VideoItem item =
         store.procedure.videos.firstWhere((item) => item.id == videoId);
+    store.videoItem = item;
     final videoController = VideoPlayerController.asset(item.path);
     return FrameView(
       heading: '${item.heading}'.i18n,

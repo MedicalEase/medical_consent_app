@@ -39,9 +39,9 @@ class PatientButtonState extends State<PatientButton> {
           store.choices.add({
             'procedure': store.procedure.name,
             'procedure_id': store.procedure.id,
-            // 'video_id': widget.item.id,
-            'event': 'Replay',
-            // 'heading': widget.item.heading,
+            'video_id': store.videoItem.id,
+            'event': widget.text,
+            'heading': store.videoItem.heading,
             'timestamp': DateTime.now().toIso8601String(),
           });
           widget.function();
