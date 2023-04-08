@@ -1,9 +1,9 @@
-import 'package:consent_app/src/intro/intro_video_layout.dart';
 import 'package:flutter/material.dart';
 
 import '../../database.dart';
 import '../../main.dart';
 import '../components/frame.dart';
+import '../intro/intro.dart';
 import 'settings_controller.dart';
 
 class PasswordProtect extends StatefulWidget {
@@ -62,7 +62,7 @@ class _PasswordProtectState extends State<PasswordProtect> {
             checkPassword();
             Navigator.restorablePushNamed(
               context,
-              IntroView.routeName,
+              MyHomePage.routeName,
             );
           },
           child: const Text('Back'),
@@ -124,7 +124,7 @@ class SettingsView extends StatelessWidget {
                       onPressed: () {
                         Navigator.restorablePushNamed(
                             context,
-                            IntroView.routeName
+                            MyHomePage.routeName
                         );
                       },
                       child: const Text('Back'),

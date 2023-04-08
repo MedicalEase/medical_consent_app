@@ -11,7 +11,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'intro/intro.dart';
 import 'video_player_feature/video_item_details_view.dart';
-import 'video_player_feature/video_item_list_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 import 'package:i18n_extension/i18n_widget.dart';
@@ -107,8 +106,6 @@ class MyApp extends StatelessWidget {
               settings: routeSettings,
               builder: (BuildContext context) {
                 switch (routeSettings.name) {
-                  case VideoItemListView.routeName:
-                    return const VideoItemListView();
                   case LanguageListView.routeName:
                     return const LanguageListView();
                   case PasswordProtect.routeName:
