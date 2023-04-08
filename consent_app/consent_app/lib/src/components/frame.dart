@@ -11,12 +11,10 @@ class FrameView extends StatefulWidget {
     super.key,
     required this.heading,
     required this.body,
-    this.admin_pre_action,
   });
 
   final String heading;
   final Widget body;
-  final Function? admin_pre_action;
 
   @override
   State<FrameView> createState() => _FrameViewState();
@@ -35,9 +33,6 @@ class _FrameViewState extends State<FrameView> {
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () async {
-              if (widget.admin_pre_action != null) {
-                widget.admin_pre_action!();
-              }
               final settingsController = SettingsController(SettingsService());
               await settingsController.loadSettings();
               var store = locator<Store>();

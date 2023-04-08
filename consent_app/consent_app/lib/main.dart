@@ -171,6 +171,7 @@ class Store {
   ];
 // todo SettingsController settingsController = SettingsController();
 }
+RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
 Future<void> setup() async {
   WidgetsFlutterBinding.ensureInitialized();

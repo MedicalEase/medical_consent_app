@@ -1,3 +1,4 @@
+import 'package:consent_app/main.dart';
 import 'package:consent_app/src/language_chooser_feature/language_item_list_view.dart';
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
 import 'package:consent_app/src/summary_feature/summary_view.dart';
@@ -98,6 +99,7 @@ class MyApp extends StatelessWidget {
           themeMode: settingsController.themeMode,
           debugShowCheckedModeBanner: false,
           debugShowMaterialGrid: false,
+              navigatorObservers: [routeObserver],
           // Define a function to handle named routes in order to supporting
           // Flutter web url navigation and deep linking.
           onGenerateRoute: (RouteSettings routeSettings) {
