@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_dataclass.dart';
 import 'package:consent_app/src/video_player_feature/patient_button.dart';
 import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
+import 'package:consent_app/src/video_player_feature/video_item_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sqflite/sqflite.dart';
@@ -45,17 +46,28 @@ class Store {
           questionBank: [
             PatientButton(
                 text: 'Yes',
-                function: () {
+                function: (BuildContext context) {
                   print('yes');
-                }),
+                  Navigator.restorablePushNamed(
+                    context,
+                    VideoItemDetailsView.routeName,
+                    arguments: 1,
+                  );
+                }
+                ),
             PatientButton(
                 text: 'No',
-                function: () {
+                function: (BuildContext context) {
                   print('no');
+                  Navigator.restorablePushNamed(
+                    context,
+                    VideoItemDetailsView.routeName,
+                    arguments: 2,
+                  );
                 }),
             PatientButton(
                 text: 'Not Sure',
-                function: () {
+                function: (BuildContext context) {
                   print('maybe');
                 }),
           ],

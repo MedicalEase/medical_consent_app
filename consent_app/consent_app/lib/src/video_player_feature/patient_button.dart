@@ -36,6 +36,7 @@ class PatientButtonState extends State<PatientButton> {
         ),
         onPressed: () {
           Store store = locator<Store>();
+          print('clicked ${widget.text}') ;
           store.choices.add({
             'procedure': store.procedure.name,
             'procedure_id': store.procedure.id,
@@ -44,7 +45,7 @@ class PatientButtonState extends State<PatientButton> {
             'heading': store.videoItem.heading,
             'timestamp': DateTime.now().toIso8601String(),
           });
-          widget.function();
+          widget.function(context);
         },
         child: Text(widget.text),
       ),
