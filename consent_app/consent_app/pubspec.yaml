@@ -28,6 +28,7 @@ dependencies:
   connectivity_plus: ^3.0.3
   drift_db_viewer: ^2.0.0
   http: ^0.13.5
+  flutter_animate: ^4.1.1+1
 
 dev_dependencies:
   flutter_test:

@@ -5,12 +5,12 @@ import '../../main.dart';
 
 /// A dataclass for a video clip
 class VideoItem {
-  const VideoItem({
+   VideoItem({
     required this.id,
     required this.path,
     required this.heading,
     required this.summary,
-     this.questionAfter,
+     this.questionAfter = 1,
     required this.subtitles,
     this.nextVideoItemId,
     this.faqVideoItemId,
@@ -23,7 +23,7 @@ class VideoItem {
   final String heading;
   final String summary;
   final List<SubtitleLine> subtitles;
-  final int? questionAfter;
+   int? questionAfter = 1;
   final int? nextVideoItemId;
   final int? faqVideoItemId;
   final List<PatientButton> questionBank;

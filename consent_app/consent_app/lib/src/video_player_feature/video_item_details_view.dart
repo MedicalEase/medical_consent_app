@@ -8,10 +8,9 @@ import '../components/explainerAssetVideo.dart';
 import '../components/frame.dart';
 import '../survey/survey.dart';
 
-
 class VideoItemDetailsView extends StatefulWidget {
   // In the constructor, require a videoId.
-   VideoItemDetailsView({super.key, required this.videoId});
+  VideoItemDetailsView({super.key, required this.videoId});
 
   // Declare a field that holds the videoId.
   final int videoId;
@@ -21,7 +20,8 @@ class VideoItemDetailsView extends StatefulWidget {
   State<VideoItemDetailsView> createState() => _VideoItemDetailsViewState();
 }
 
-class _VideoItemDetailsViewState extends State<VideoItemDetailsView>  with RouteAware{
+class _VideoItemDetailsViewState extends State<VideoItemDetailsView>
+    with RouteAware {
   Store store = locator<Store>();
 
   late VideoItem item;
@@ -51,8 +51,8 @@ class _VideoItemDetailsViewState extends State<VideoItemDetailsView>  with Route
     // Route was pushed onto navigator and is now topmost route.
     print('did PushNext');
     this.videoController.dispose();
-
   }
+
   @override
   void didPop() {
     // Route was pushed onto navigator and is now topmost route.
@@ -72,42 +72,34 @@ class _VideoItemDetailsViewState extends State<VideoItemDetailsView>  with Route
     VideoItem item =
         store.procedure.videos.firstWhere((item) => item.id == widget.videoId);
     store.videoItem = item;
-     this.videoController = VideoPlayerController.asset(item.path);
+    this.videoController = VideoPlayerController.asset(item.path);
+    Orientation orientation = MediaQuery.of(context).orientation;
     return FrameView(
         heading: '${item.heading}'.i18n,
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: Center(
+              flex: 1,
+              child: Container(
+                color:Color(0xC5D0D7FF),
                 child: ExplainerAssetVideo(
-                    key: Key(item.id.toString()),
-                    path: item.path,
-                    item: item,
-                    controller: videoController,
+                  key: Key(item.id.toString()),
+                  path: item.path,
+                  item: item,
+                  controller: videoController,
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Yes'),
+            Expanded(
+              flex: orientation == Orientation.portrait ? 1 : 0,
+              child: Container(
+                padding: EdgeInsets.all(31),
 
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text('No'),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Maybe'),
-                ),
-              ],
+              ),
             ),
           ],
-        )
-        );
+        ));
   }
 }

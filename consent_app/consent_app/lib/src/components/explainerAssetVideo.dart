@@ -3,12 +3,12 @@ import 'package:consent_app/src/video_player_feature/patient_button.dart';
 import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
 import 'package:consent_app/src/video_player_feature/video_subtitle.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../main.dart';
 import '../components/frame.dart';
 import '../survey/survey.dart';
-
 
 class ExplainerAssetVideo extends StatefulWidget {
   final String path;
@@ -18,9 +18,9 @@ class ExplainerAssetVideo extends StatefulWidget {
 
   ExplainerAssetVideo(
       {Key? key,
-        required this.path,
-        required this.item,
-        required this.controller})
+      required this.path,
+      required this.item,
+      required this.controller})
       : super(key: key);
 
   @override
@@ -53,53 +53,84 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: <Widget>[
-      Container(
-        child: AspectRatio(
-          aspectRatio: _controller.value.aspectRatio,
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: <Widget>[
-              VideoPlayer(_controller),
-              _ControlsOverlay(controller: _controller, item: widget.item),
-              VideoProgressIndicator(
-                _controller,
-                allowScrubbing: true,
-                colors: const VideoProgressColors(
-                  playedColor: Color(0xFF005EB8),
-                  bufferedColor: Color(0xFFF0F4F5),
-                  backgroundColor: Color(0xFFD8DDE0),
+    var buttonBarStyle = TextStyle(
+      color: Colors.white,
+      fontSize: 50,
+      fontWeight: FontWeight.bold,
+    );
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            child: Container(
+              child: AspectRatio(
+                aspectRatio: _controller.value.aspectRatio,
+                child: Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: <Widget>[
+                    VideoPlayer(_controller),
+                    _ControlsOverlay(
+                        controller: _controller, item: widget.item),
+                    VideoProgressIndicator(
+                      _controller,
+                      allowScrubbing: true,
+                      colors: const VideoProgressColors(
+                        playedColor: Color(0xFF005EB8),
+                        bufferedColor: Color(0xFFF0F4F5),
+                        backgroundColor: Color(0xFFD8DDE0),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
-        ),
-      ),
-      // we show the answer buttons when timer is up & if there's a FAQ video
-      // continueButton(context),
-    ]);
+          Container(
+            padding: EdgeInsets.all(13),
+            child: Center(
+              child: Column(
+                children: [
+                  (widget.position.inSeconds.toInt() >=
+                          (widget.item.questionAfter ?? 0))
+                      ? Animate(
+                          effects: const [
+                              FadeEffect(),
+                            ],
+                          child: Text(
+                              'in vodeo item details view' +
+                                  widget.position.inSeconds.toString(),
+                              style: buttonBarStyle))
+                      : Text(
+                          ' ',
+                          style: buttonBarStyle,
+                        ),
+                ],
+              ),
+            ),
+          )
+        ]);
   }
 
-  Widget PatientChoicesButtons(BuildContext context) {
-    // show the question bank when timer is up
-    return  (widget.position.inSeconds > (widget.item.questionAfter ?? 999999))
-        ? Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-      Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: widget.item.questionBank),
-      (widget.position.inSeconds >
-          _controller.value.duration.inSeconds -
-              const Duration(seconds: 2).inSeconds)
-          ? PatientButton(
-          text: 'Replay',
-          function: () {
-            _controller.seekTo(const Duration(seconds: 0));
-            _controller.play();
-          })
-          : Container(),
-    ])
-        : Container();
-  }
+// Widget PatientChoicesButtons(BuildContext context) {
+//   // show the question bank when timer is up
+//   return  (widget.position.inSeconds > (widget.item.questionAfter ?? 999999))
+//       ? Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+//     Row(
+//         mainAxisAlignment: MainAxisAlignment.center,
+//         children: widget.item.questionBank),
+//     (widget.position.inSeconds >
+//         _controller.value.duration.inSeconds -
+//             const Duration(seconds: 2).inSeconds)
+//         ? PatientButton(
+//         text: 'Replay',
+//         function: () {
+//           _controller.seekTo(const Duration(seconds: 0));
+//           _controller.play();
+//         })
+//         : Container(),
+//   ])
+//       : Container();
+// }
 
 // Widget continueButton(BuildContext context) {
 //   return (widget.item.faqVideoItemId == null) &&
@@ -142,11 +173,11 @@ class _ControlsOverlay extends StatelessWidget {
           duration: const Duration(milliseconds: 200),
           reverseDuration: const Duration(milliseconds: 200),
           child: (controller.value.position > const Duration(seconds: 1) &&
-              controller.value.position == controller.value.duration)
+                  controller.value.position == controller.value.duration)
               ? overlayIcon(Icons.replay, 'Replay')
               : controller.value.isPlaying
-              ? const SizedBox.shrink()
-              : overlayIcon(Icons.play_arrow, 'Play'),
+                  ? const SizedBox.shrink()
+                  : overlayIcon(Icons.play_arrow, 'Play'),
         ),
         GestureDetector(
           onTap: () {
