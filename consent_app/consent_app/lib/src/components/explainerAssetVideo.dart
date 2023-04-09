@@ -53,11 +53,6 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
 
   @override
   Widget build(BuildContext context) {
-    var buttonBarStyle = TextStyle(
-      color: Colors.white,
-      fontSize: 50,
-      fontWeight: FontWeight.bold,
-    );
     return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
@@ -96,13 +91,16 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                           effects: const [
                               FadeEffect(),
                             ],
-                          child: Text(
-                              'in vodeo item details view' +
-                                  widget.position.inSeconds.toString(),
-                              style: buttonBarStyle))
+                          child: Row(
+                            children: widget.item.questionBank,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                          ))
                       : Text(
                           ' ',
-                          style: buttonBarStyle,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 60,
+                          ),
                         ),
                 ],
               ),
@@ -110,51 +108,6 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
           )
         ]);
   }
-
-// Widget PatientChoicesButtons(BuildContext context) {
-//   // show the question bank when timer is up
-//   return  (widget.position.inSeconds > (widget.item.questionAfter ?? 999999))
-//       ? Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-//     Row(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: widget.item.questionBank),
-//     (widget.position.inSeconds >
-//         _controller.value.duration.inSeconds -
-//             const Duration(seconds: 2).inSeconds)
-//         ? PatientButton(
-//         text: 'Replay',
-//         function: () {
-//           _controller.seekTo(const Duration(seconds: 0));
-//           _controller.play();
-//         })
-//         : Container(),
-//   ])
-//       : Container();
-// }
-
-// Widget continueButton(BuildContext context) {
-//   return (widget.item.faqVideoItemId == null) &&
-//           (widget.position.inSeconds > (widget.item.questionAfter ?? 999999))
-//       ? Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-//           ElevatedButton(
-//             onPressed: () {
-//               Store store = locator<Store>();
-//               store.choices.add({
-//                 'event': 'Continue',
-//                 'procedure': store.procedure.name,
-//                 'procedure_id': store.procedure.id,
-//                 'video_id': widget.item.id,
-//                 'heading': widget.item.heading,
-//                 'timestamp': DateTime.now().toIso8601String(),
-//               });
-//               goNext(context, widget.item.id,
-//                   widget.item.nextVideoItemId ?? 0, _controller);
-//             },
-//             child: Text('Continue'.i18n),
-//           ),
-//         ])
-//       : Container();
-// }
 }
 
 class _ControlsOverlay extends StatelessWidget {
