@@ -8,7 +8,6 @@ class VideoItem {
     required this.id,
     required this.path,
     required this.heading,
-    required this.summary,
      this.questionAfter = 1,
     required this.subtitles,
     this.nextVideoItemId,
@@ -20,7 +19,6 @@ class VideoItem {
   final int id;
   final String path;
   final String heading;
-  final String summary;
   final List<SubtitleLine> subtitles;
    int? questionAfter = 1;
   final int? nextVideoItemId;

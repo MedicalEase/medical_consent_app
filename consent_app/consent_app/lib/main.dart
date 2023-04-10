@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_dataclass.dart';
+import 'package:consent_app/src/thank_you/thank_you.dart';
 import 'package:consent_app/src/video_player_feature/patient_button.dart';
 import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
 import 'package:consent_app/src/video_player_feature/video_item_details_view.dart';
@@ -12,6 +13,7 @@ import 'database.dart';
 import 'src/app.dart';
 import 'src/settings/settings_controller.dart';
 import 'src/settings/settings_service.dart';
+import 'dart:developer' as developer;
 
 GetIt locator = GetIt.instance;
 
@@ -34,9 +36,7 @@ class Store {
       VideoItem(
           id: 0,
           path: 'assets/video/1-2-intro.mp4',
-          heading: 'Risks and benefits',
-          summary:
-              'This video shows your options and discusses some unlikely side-effects',
+          heading: '0 Risks and benefits',
           questionAfter: 2,
           nextVideoItemId: 1,
           faqVideoItemId: 3,
@@ -44,7 +44,7 @@ class Store {
             PatientButton(
                 text: 'Yes',
                 function: (BuildContext context) {
-                  print('yes');
+                  developer.log('yes');
                   Navigator.restorablePushNamed(
                     context,
                     VideoItemDetailsView.routeName,
@@ -65,6 +65,11 @@ class Store {
                 text: 'Not Sure',
                 function: (BuildContext context) {
                   print('maybe');
+                  Navigator.restorablePushNamed(
+                    context,
+                    VideoItemDetailsView.routeName,
+                    arguments: 2,
+                  );
                 }),
           ],
           subtitles: [
@@ -81,8 +86,6 @@ class Store {
           id: 1,
           path: 'assets/video/2-3-ogd_explanation.mp4',
           heading: '2: What is and OGD?',
-          summary: '2 An OGD means we will take some photos for further '
-              'investigation.',
           questionAfter: 3,
           nextVideoItemId: 2,
           faqVideoItemId: 3,
@@ -108,8 +111,18 @@ class Store {
           id: 2,
           path: 'assets/video/3-4-ogd_question.mp4',
           heading: '3 Are you happy to proceed?',
-          summary: 'PLease press Yes, No or Not Sure.',
           questionAfter: 3,
+          questionBank: [
+            PatientButton(
+                text: 'finish!',
+                function: (BuildContext context) {
+                  print('ok');
+                  Navigator.restorablePushNamed(
+                    context,
+                    ThankYouView.routeName,
+                  );
+                })
+          ],
           subtitles: [
             const SubtitleLine(
                 'Hello', Duration(seconds: 0), Duration(seconds: 5), 'en'),
@@ -122,7 +135,6 @@ class Store {
         id: 3,
         path: 'assets/video/4-5-sedation_question.mp4',
         heading: ' 4 Sedation question',
-        summary: 'This video has details about sedation',
         nextVideoItemId: 0,
         questionAfter: 3,
         subtitles: [
@@ -142,8 +154,6 @@ class Store {
               id: 0,
               path: 'assets/video/2-3-ogd_explanation.mp4',
               heading: 'What is  Flexible Sigmoidoscopy?',
-              summary:
-                  'An Flexible Sigmoidoscopy means we will take some photos for further investigation.',
               questionAfter: 3,
               questionBank: [],
               subtitles: [
@@ -163,8 +173,6 @@ class Store {
               path: 'assets/video/2-3-ogd_explanation.mp4',
               heading: 'What is  Flexible Sigmoidoscopy?',
               questionBank: [],
-              summary:
-                  'An Flexible Sigmoidoscopy means we will take some photos for further investigation.',
               questionAfter: 3,
               subtitles: [
                 const SubtitleLine(
