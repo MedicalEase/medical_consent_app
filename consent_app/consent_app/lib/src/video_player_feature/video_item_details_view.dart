@@ -73,6 +73,7 @@ class _VideoItemDetailsViewState extends State<VideoItemDetailsView>
     store.videoItem = item;
     this.videoController = VideoPlayerController.asset(item.path);
     Orientation orientation = MediaQuery.of(context).orientation;
+    double footerPadding = (orientation == Orientation.portrait  ? 10.0 : 0.0);
     return FrameView(
         heading: '${item.heading}'.i18n,
         body: Column(
@@ -94,7 +95,8 @@ class _VideoItemDetailsViewState extends State<VideoItemDetailsView>
             Expanded(
               flex: orientation == Orientation.portrait ? 1 : 0,
               child: Container(
-                padding: const EdgeInsets.all(31),
+                color: Theme.of(context).scaffoldBackgroundColor,
+                padding:  EdgeInsets.all(footerPadding),
 
               ),
             ),
