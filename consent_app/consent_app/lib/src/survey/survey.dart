@@ -5,6 +5,7 @@ import 'dart:convert';
 import '../../database.dart';
 import '../../main.dart';
 import '../components/frame.dart';
+import 'dart:developer' as developer;
 
 import 'package:flutter/cupertino.dart';
 import 'package:survey_kit/survey_kit.dart';
@@ -68,7 +69,7 @@ class _SurveyAppState extends State<SurveyApp> {
                   storeSurveyWrapper(result);
                   Navigator.restorablePushNamed(
                     context,
-                    surveyThankYou.routeName,
+                    SurveyThankYou.routeName,
                   );
                 },
                 task: task,
@@ -138,7 +139,6 @@ class _SurveyAppState extends State<SurveyApp> {
   storeSurveyWrapper(SurveyResult result) async => await storeSurvey(result);
 
   Future<void> storeSurvey(SurveyResult result) async {
-    print(result.finishReason);
     List resultArray = [];
     for (var element in result.results) {
       List innerResult = [];
@@ -156,8 +156,8 @@ class _SurveyAppState extends State<SurveyApp> {
     }
     var jsonData = jsonEncode(resultArray);
     Store store = locator<Store>();
-    print('jsonData');
-    print(jsonData);
+    developer.log('jsonData');
+    developer.log(jsonData);
     insertFeedback('',jsonData, store.language);
   }
 

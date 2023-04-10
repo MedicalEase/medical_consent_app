@@ -5,6 +5,7 @@ import '../../main.dart';
 import '../components/frame.dart';
 import '../intro/intro.dart';
 import 'settings_controller.dart';
+import 'dart:developer' as developer;
 
 class PasswordProtect extends StatefulWidget {
   const PasswordProtect({Key? key}) : super(key: key);
@@ -73,7 +74,7 @@ class _PasswordProtectState extends State<PasswordProtect> {
   }
 
   void checkPassword() {
-    print("check password ${myController.value.text}");
+    developer.log("check password ${myController.value.text}");
     if (myController.value.text == "flower") {
       locator<Store>().debugMode = true;
       Navigator.restorablePushNamed(
@@ -81,7 +82,7 @@ class _PasswordProtectState extends State<PasswordProtect> {
         SettingsView.routeName,
       );
     } else {
-      print("wrong password");
+      developer.log("wrong password");
       Navigator.pop(
         context,
       );
@@ -167,7 +168,7 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
   @override
   initState() {
     getSetting("deviceId").then((result) {
-      print("result: $result");
+      developer.log("result: $result");
       deviceId = result;
       setState(() {});
     });
@@ -210,7 +211,7 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
                   setState(() {
                     debug = value;
                     locator<Store>().debugMode = value;
-                    print("debug mode: $value");
+                    developer.log("debug mode: $value");
                   });
                 },
               ),

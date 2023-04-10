@@ -8,6 +8,7 @@ import 'package:consent_app/src/thank_you/thank_you.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+ import 'dart:developer' as developer;
 
 import 'intro/intro.dart';
 import 'video_player_feature/video_item_details_view.dart';
@@ -118,15 +119,15 @@ class MyApp extends StatelessWidget {
                     return const SurveyView();
                   case ThankYouView.routeName:
                     return const ThankYouView();
-                  case surveyThankYou.routeName:
-                    return const surveyThankYou();
+                  case SurveyThankYou.routeName:
+                    return const SurveyThankYou();
                   case MyHomePage.routeName:
                     return const MyHomePage();
                   case ProcedureListView.routeName:
                     return const ProcedureListView();
                   case VideoItemDetailsView.routeName:
                     final value = routeSettings.arguments as int;
-                    print('VideoItemDetailsView.routeName value: $value');
+                    developer.log('VideoItemDetailsView.routeName value: $value');
                     return VideoItemDetailsView(videoId: value);
                   default:
                     return const MyHomePage();

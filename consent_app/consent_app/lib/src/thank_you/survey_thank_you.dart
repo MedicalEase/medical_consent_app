@@ -1,10 +1,7 @@
-import 'dart:convert';
 
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
-import 'package:consent_app/src/summary_feature/summary_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../database.dart';
 import '../../main.dart';
 import '../components/frame.dart';
 
@@ -15,15 +12,15 @@ import 'package:flutter/services.dart';
 
 import '../intro/intro.dart';
 
-class surveyThankYou extends StatefulWidget {
-  const surveyThankYou({Key? key}) : super(key: key);
+class SurveyThankYou extends StatefulWidget {
+  const SurveyThankYou({Key? key}) : super(key: key);
   static const routeName = '/Finalthankyou';
 
   @override
-  State<surveyThankYou> createState() => _surveyThankYouState();
+  State<SurveyThankYou> createState() => _SurveyThankYouState();
 }
 
-class _surveyThankYouState extends State<surveyThankYou> {
+class _SurveyThankYouState extends State<SurveyThankYou> {
   ConnectivityResult _connectionStatus = ConnectivityResult.none;
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;

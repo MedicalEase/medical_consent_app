@@ -4,8 +4,7 @@ import '../components/frame.dart';
 import '../components/horizontal_chooser.dart';
 import '../../main.dart';
 
-onTap(item, store, context) {
-  print('clik');
+onTapChooseProcedure(item, store, context) {
   store.procedure = item;
   Navigator.restorablePushNamed(
       context,
@@ -27,7 +26,7 @@ class ProcedureListView extends StatelessWidget {
     var items = store.procedures;
     return FrameView(
       heading: 'Choose Procedure',
-      body: horizontalChooser(items, store, context, onTap),
+      body: horizontalChooser(items, store, context, onTapChooseProcedure),
     );
   }
 }

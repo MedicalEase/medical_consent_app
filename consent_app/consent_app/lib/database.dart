@@ -2,6 +2,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'main.dart';
+import 'dart:developer' as developer;
 
 class Setting {
   final String name;
@@ -18,15 +19,13 @@ class Setting {
     };
   }
 
-  // Implement toString to make it easier to see information about
-  // each dog when using the print statement.
   @override
   String toString() {
     return 'Setting{id: $name, : $value}';
   }
 }
 void _createDb(Database db, int newVersion) async {
-  print('create table settings');
+  developer.log('create table settings');
   // await db.execute(
   //     'DROP TABLE IF EXISTS settings;'
   // );
@@ -36,7 +35,7 @@ void _createDb(Database db, int newVersion) async {
   await db.execute(
       'CREATE TABLE settings(id integer primary key autoincrement , name TEXT UNIQUE, value TEXT);'
   );
-  print('create table feedback');
+  developer.log('create table feedback');
   await db.execute(
     'CREATE TABLE feedback(id integer primary key autoincrement , '
         'survey TEXT, '
@@ -48,11 +47,11 @@ void _createDb(Database db, int newVersion) async {
 }
 Future<Database> initDb() async {
   var dbLocation = (join(await getDatabasesPath(), 'consent.sqlite'));
-  print('dbLocation: $dbLocation');
+  developer.log('dbLocation: $dbLocation');
   final Database database = await openDatabase(
     dbLocation,
     onCreate: (db, version) {
-      print('creating database');
+      developer.log('creating database');
       _createDb(db, version);
     },
 // Set the version. This executes the onCreate function and provides a
@@ -65,7 +64,7 @@ Future<Database> initDb() async {
 Future<void> upsertSetting(Setting setting) async {
   Store store = locator<Store>();
   Database db = await store.database;
-  print('inserting setting: $setting');
+  developer.log('inserting setting: $setting');
   db.insert(
     'settings',
     setting.toMap(),
@@ -76,24 +75,24 @@ Future<List<Map>> getUnsyncedFeedback() async {
   Store store = locator<Store>();
   Database db = await store.database;
   List<Map> result = await db.rawQuery('SELECT * FROM feedback WHERE synced=?', [0]);
-  print('result: $result');
+  developer.log('result: $result');
   return result;
   }
 Future<List<Map>> updateAllSurveyData(List<dynamic> ids) async {
   Store store = locator<Store>();
   Database db = await store.database;
   for (var id in ids) {
-    print('updating id: $id');
+    developer.log('updating id: $id');
     List<Map> result = await db.rawQuery('''update feedback set synced=1 
     WHERE id=?''', [id]);
-    print('result: $result');
+    developer.log('result: $result');
   }
   return [];
 }
 Future<void> insertFeedback(String feedback, String survey, String language) async {
   Store store = locator<Store>();
   Database db = await store.database;
-  print('inserting feedback: $feedback, $survey');
+  developer.log('inserting feedback: $feedback, $survey');
   db.insert(
     'feedback',
     {'survey': survey, 'videos': feedback, 'language': language},
@@ -120,7 +119,7 @@ void ensureSetting(String name, String value) async {
   Database db = await store.database;
   var result = await db.rawQuery(
       'INSERT OR IGNORE INTO settings(name,value) VALUES(?,?)', [name, value]);
-  // print the results
-  print('result: $result');
+  // developer.log the results
+  developer.log('result: $result');
   store.deviceId = await getSetting('deviceId');
 }

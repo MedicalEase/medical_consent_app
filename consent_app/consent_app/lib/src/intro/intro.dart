@@ -11,9 +11,10 @@ import 'package:http/http.dart' as http;
 
 import '../../database.dart';
 import '../../main.dart';
+import 'dart:developer' as developer;
 
 Future<void> syncData() async {
-  print('sync database');
+  developer.log('sync database');
   Store store = locator<Store>();
   String deviceId = store.deviceId;
   var rows = await getUnsyncedFeedback();
@@ -66,13 +67,13 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       connectivityStatus = await _connectivity.checkConnectivity();
     } on PlatformException catch (e) {
-      print('Couldn\'t check connectivity status');
-      print(e);
+      developer.log('Couldn\'t check connectivity status');
+      developer.log(e.toString());
       return;
     }
-    print('connectivityStatus: $connectivityStatus');
+    developer.log('connectivityStatus: $connectivityStatus');
     if (connectivityStatus != ConnectivityResult.none) {
-      print('attempting to sync');
+      developer.log('attempting to sync');
       await syncData();
     }
     // If the widget was removed from the tree while the asynchronous platform
@@ -160,7 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> connectivityCheck(ConnectivityResult connectionStatus) async {
     if (connectionStatus == ConnectivityResult.none) {
-      print('No connection');
+      developer.log('No connection');
       return;
     }
   }
@@ -178,15 +179,15 @@ Future<bool> postData(String jsonString) async {
       }),
     );
 
-    print(response.statusCode.toString());
+    developer.log(response.statusCode.toString());
     if (response.statusCode < 300) {
       return true;
     } else {
-      print('Failed to sync data.');
+      developer.log('Failed to sync data.');
       return false;
     }
   } catch (err) {
-    print('Caught error: $err');
+    developer.log('Caught error: $err');
     return false;
   }
 }

@@ -7,8 +7,7 @@ import '../components/frame.dart';
 import '../components/horizontal_chooser.dart';
 import 'language_dataclass.dart';
 
-onTap(language, store, context) {
-  print('clik2');
+onTapChooseLanguage(language, store, context) {
   store.language = language.code;
   I18n.of(context).locale = Locale(language.code);
   Navigator.restorablePushNamed(
@@ -35,7 +34,7 @@ class LanguageListView extends StatelessWidget {
     return FrameView(
         heading: 'Choose Language',
         body:
-          horizontalChooser(languages, store, context, onTap)
+          horizontalChooser(languages, store, context, onTapChooseLanguage)
     );
   }
 }

@@ -1,14 +1,9 @@
-import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
-import 'package:consent_app/src/video_player_feature/patient_button.dart';
 import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
 import 'package:consent_app/src/video_player_feature/video_subtitle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:video_player/video_player.dart';
 
-import '../../main.dart';
-import '../components/frame.dart';
-import '../survey/survey.dart';
 
 class ExplainerAssetVideo extends StatefulWidget {
   final String path;
@@ -92,10 +87,10 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                               FadeEffect(),
                             ],
                           child: Row(
-                            children: widget.item.questionBank,
                             mainAxisAlignment: MainAxisAlignment.center,
+                            children: widget.item.questionBank,
                           ))
-                      : Text(
+                      : const Text(
                           ' ',
                           style: TextStyle(
                             color: Colors.white,

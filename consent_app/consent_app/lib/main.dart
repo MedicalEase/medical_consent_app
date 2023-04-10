@@ -30,10 +30,7 @@ class Store {
   String surveyResults = "";
   List<Map<dynamic, dynamic>> choices = [];
   List procedures = [
-    Procedure(id: 0,
-        name: 'OGD',
-        icon: 'assets/images/ogd_icon.png',
-        videos: [
+    Procedure(id: 0, name: 'OGD', icon: 'assets/images/ogd_icon.png', videos: [
       VideoItem(
           id: 0,
           path: 'assets/video/1-2-intro.mp4',
@@ -53,8 +50,7 @@ class Store {
                     VideoItemDetailsView.routeName,
                     arguments: 1,
                   );
-                }
-                ),
+                }),
             PatientButton(
                 text: 'No',
                 function: (BuildContext context) {
@@ -81,7 +77,7 @@ class Store {
             const SubtitleLine(
                 'World2 en', Duration(seconds: 4), Duration(seconds: 7), 'en'),
           ]),
-       VideoItem(
+      VideoItem(
           id: 1,
           path: 'assets/video/2-3-ogd_explanation.mp4',
           heading: '2: What is and OGD?',
@@ -100,14 +96,12 @@ class Store {
                     VideoItemDetailsView.routeName,
                     arguments: 0,
                   );
-                }
-            )
-
+                })
           ],
           subtitles: [
-            SubtitleLine(
+            const SubtitleLine(
                 'Hello', Duration(seconds: 0), Duration(seconds: 5), 'en'),
-            SubtitleLine(
+            const SubtitleLine(
                 'World', Duration(seconds: 5), Duration(seconds: 10), 'en'),
           ]),
       VideoItem(
@@ -119,9 +113,9 @@ class Store {
           subtitles: [
             const SubtitleLine(
                 'Hello', Duration(seconds: 0), Duration(seconds: 5), 'en'),
-            SubtitleLine(
+            const SubtitleLine(
                 'Hello2', Duration(seconds: 1), Duration(seconds: 4), 'en'),
-            SubtitleLine(
+            const SubtitleLine(
                 'World', Duration(seconds: 5), Duration(seconds: 10), 'en'),
           ]),
       VideoItem(
@@ -132,14 +126,14 @@ class Store {
         nextVideoItemId: 0,
         questionAfter: 3,
         subtitles: [
-          SubtitleLine(
+          const SubtitleLine(
               'Hello', Duration(seconds: 0), Duration(seconds: 5), 'en'),
-          SubtitleLine(
+          const SubtitleLine(
               'World', Duration(seconds: 5), Duration(seconds: 10), 'en'),
         ],
       )
     ]),
-     Procedure(
+    Procedure(
         id: 1,
         name: 'Flexible Sigmoidoscopy',
         icon: 'assets/images/sigmoidoscopy_icon.png',
@@ -151,15 +145,15 @@ class Store {
               summary:
                   'An Flexible Sigmoidoscopy means we will take some photos for further investigation.',
               questionAfter: 3,
-              questionBank: []  ,
+              questionBank: [],
               subtitles: [
-                SubtitleLine(
+                const SubtitleLine(
                     'Hello', Duration(seconds: 0), Duration(seconds: 5), 'en'),
-                SubtitleLine(
+                const SubtitleLine(
                     'World', Duration(seconds: 0), Duration(seconds: 5), 'tk'),
               ])
         ]),
-     Procedure(
+    Procedure(
         id: 2,
         name: 'Colonoscopy',
         icon: 'assets/images/colonscopy_icon.png',
@@ -173,9 +167,9 @@ class Store {
                   'An Flexible Sigmoidoscopy means we will take some photos for further investigation.',
               questionAfter: 3,
               subtitles: [
-                SubtitleLine(
+                const SubtitleLine(
                     'Hello', Duration(seconds: 0), Duration(seconds: 5), 'en'),
-                SubtitleLine(
+                const SubtitleLine(
                     'World', Duration(seconds: 0), Duration(seconds: 5), 'tk'),
               ])
         ]),
@@ -187,6 +181,7 @@ class Store {
   ];
 // todo SettingsController settingsController = SettingsController();
 }
+
 RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
 Future<void> setup() async {

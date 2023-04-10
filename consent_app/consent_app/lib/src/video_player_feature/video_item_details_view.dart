@@ -6,7 +6,6 @@ import 'package:video_player/video_player.dart';
 import '../../main.dart';
 import '../components/explainerAssetVideo.dart';
 import '../components/frame.dart';
-import '../survey/survey.dart';
 
 class VideoItemDetailsView extends StatefulWidget {
   // In the constructor, require a videoId.
@@ -83,7 +82,7 @@ class _VideoItemDetailsViewState extends State<VideoItemDetailsView>
             Expanded(
               flex: 1,
               child: Container(
-                color:Color(0xC5D0D7FF),
+                color: Theme.of(context).scaffoldBackgroundColor,
                 child: ExplainerAssetVideo(
                   key: Key(item.id.toString()),
                   path: item.path,
@@ -95,7 +94,7 @@ class _VideoItemDetailsViewState extends State<VideoItemDetailsView>
             Expanded(
               flex: orientation == Orientation.portrait ? 1 : 0,
               child: Container(
-                padding: EdgeInsets.all(31),
+                padding: const EdgeInsets.all(31),
 
               ),
             ),

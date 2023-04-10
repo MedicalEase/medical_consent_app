@@ -1,5 +1,4 @@
 import 'package:consent_app/src/video_player_feature/patient_button.dart';
-import 'package:consent_app/src/video_player_feature/video_item_details_view.dart';
 
 import '../../main.dart';
 
