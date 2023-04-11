@@ -18,36 +18,42 @@ class ThankYouView extends StatelessWidget {
     Store store = locator<Store>();
     return FrameView(
         heading: 'Thank You'.i18n,
-        body: Center(
-            child: Column(children: [
-          Text('Thank you for your participation!'.i18n),
-          Text('Please return the iPad to your healthcare professional'.i18n),
-          const SizedBox(height: 40),
-          Row(
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  store.choices.add({
-                    'procedure':store.procedure.name,
-                    'procedure_id':store.procedure.id,
-                    'video_id':99,
-                    'event': 'Finished consent sequence',
-                    'heading':'Done',
-                    'timestamp': DateTime.now().toIso8601String(),
-                  });
-                  var jsonChoicesData = jsonEncode(store.choices);
-                  insertFeedback(jsonChoicesData, '', store.language);
-                  //reset the choices collected data
-                  store.choices = [];
-                  Navigator.restorablePushNamed(
-                    context,
-                    SummaryView.routeName,
-                  );
-                },
-                child: Text('Ok Return to Clinician'.i18n),
-              ),
-            ],
-          )
-        ])));
+        body: Container(
+          padding: const EdgeInsets.all(20),
+          child: Center(
+              child: Column(
+                  children: [
+
+            Text('Thank you for your participation!'.i18n),
+            Text('Please return the iPad to your healthcare professional'.i18n),
+            const SizedBox(height: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    store.choices.add({
+                      'procedure':store.procedure.name,
+                      'procedure_id':store.procedure.id,
+                      'video_id':99,
+                      'event': 'Finished consent sequence',
+                      'heading':'Done',
+                      'timestamp': DateTime.now().toIso8601String(),
+                    });
+                    var jsonChoicesData = jsonEncode(store.choices);
+                    insertFeedback(jsonChoicesData, '', store.language);
+                    //reset the choices collected data
+                    store.choices = [];
+                    Navigator.restorablePushNamed(
+                      context,
+                      SummaryView.routeName,
+                    );
+                  },
+                  child: Text('Ok Return to Clinician'.i18n),
+                ),
+              ],
+            )
+          ])),
+        ));
   }
 }

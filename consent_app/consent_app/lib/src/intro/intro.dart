@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       connectivityStatus = await _connectivity.checkConnectivity();
     } on PlatformException catch (e) {
-      developer.log('Couldn\'t check connectivity status');
+      developer.log('Couldnt check connectivity status');
       developer.log(e.toString());
       return;
     }
@@ -118,9 +118,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   ? Container()
                   : const UnsyncedCountWidget(),
               Text('Device ID: ${store.deviceId}'),
-              store.debugMode
-                  ? Text('Debug mode: ${store.debugMode}')
-                  : Container(),
               Image.asset('assets/images/medical-abstract.png'),
               Padding(
                   padding: const EdgeInsets.all(30),

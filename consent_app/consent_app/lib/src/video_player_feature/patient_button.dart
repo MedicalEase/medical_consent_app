@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../main.dart';
 
+import 'dart:developer' as developer;
 
 class PatientButton extends StatefulWidget {
   final String text;
@@ -25,18 +26,18 @@ class PatientButtonState extends State<PatientButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.symmetric(horizontal:48.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: widget.backColor,
           foregroundColor: widget.textColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(7.0),
           ),
         ),
         onPressed: () {
           Store store = locator<Store>();
-          print('clicked ${widget.text}') ;
+          developer.log('clicked ${widget.text}') ;
           store.choices.add({
             'procedure': store.procedure.name,
             'procedure_id': store.procedure.id,
@@ -47,7 +48,8 @@ class PatientButtonState extends State<PatientButton> {
           });
           widget.function(context);
         },
-        child: Text(widget.text),
+        child: Text(widget.text, style: TextStyle(fontSize: 20),
+        ),
       ),
     );
   }

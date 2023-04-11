@@ -43,6 +43,7 @@ class Store {
           questionBank: [
             PatientButton(
                 text: 'Yes',
+                backColor: Colors.green,
                 function: (BuildContext context) {
                   developer.log('yes');
                   Navigator.restorablePushNamed(
@@ -53,6 +54,7 @@ class Store {
                 }),
             PatientButton(
                 text: 'No',
+                backColor: Colors.red,
                 function: (BuildContext context) {
                   print('no');
                   Navigator.restorablePushNamed(
@@ -181,8 +183,44 @@ class Store {
                     'World', Duration(seconds: 0), Duration(seconds: 5), 'tk'),
               ])
         ]),
-    const Procedure(
+    Procedure(
         id: 3,
+        name: 'OGD \n+ Flexible Sigmoidoscopy',
+        icon: 'assets/images/ogd_icon.png',
+        videos: [
+          VideoItem(
+              id: 0,
+              path: 'assets/video/2-3-ogd_explanation.mp4',
+              heading: 'What is  Flexible Sigmoidoscopy?',
+              questionBank: [],
+              questionAfter: 3,
+              subtitles: [
+                const SubtitleLine(
+                    'Hello', Duration(seconds: 0), Duration(seconds: 5), 'en'),
+                const SubtitleLine(
+                    'World', Duration(seconds: 0), Duration(seconds: 5), 'tk'),
+              ])
+        ]),
+    Procedure(
+        id: 4,
+        name: 'OGD + colonoscopy',
+        icon: 'assets/images/ogd_icon.png',
+        videos: [
+          VideoItem(
+              id: 0,
+              path: 'assets/video/2-3-ogd_explanation.mp4',
+              heading: 'What is  Flexible Sigmoidoscopy?',
+              questionBank: [],
+              questionAfter: 3,
+              subtitles: [
+                const SubtitleLine(
+                    'Hello', Duration(seconds: 0), Duration(seconds: 5), 'en'),
+                const SubtitleLine(
+                    'World', Duration(seconds: 0), Duration(seconds: 5), 'tk'),
+              ])
+        ]),
+    const Procedure(
+        id: 5,
         name: 'Survey',
         icon: 'assets/images/survey_icon.png',
         videos: []),

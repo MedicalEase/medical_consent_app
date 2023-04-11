@@ -16,20 +16,45 @@ class SummaryView extends StatelessWidget {
     return FrameView(
         heading: 'Summary',
         body: Center(
-            child: Column(children: [
-          Text('Language: ${store.language}'),
+            child: Container(
+              padding: const EdgeInsets.all(20),
+
+              child: Column(
+
+                  children: [
+          Text('Based on the information you provided, we recommend the following:'),
+
           const SizedBox(height: 10),
+                    const Icon(
+                      Icons.check_circle,
+                      color: Colors.green,
+                      size: 160,
+                    ),
+                    Text('Proceed'),
+                    const Icon(
+                      Icons.flag_circle,
+                      color: Colors.orange,
+                      size: 160,
+                    ),
+                    Text('Flagged'),
+                    const Icon(
+                      Icons.cancel,
+                      color: Colors.red,
+                      size: 160,
+                    ),
+                    Text('Consent not obtained'),
           const SizedBox(height: 10),
           ElevatedButton(
-            onPressed: () {
-              Navigator.restorablePushNamed(
-                context,
-                MyHomePage.routeName,
-              );
-            },
-            child: Text('Restart'.i18n),
+              onPressed: () {
+                Navigator.restorablePushNamed(
+                  context,
+                  MyHomePage.routeName,
+                );
+              },
+              child: Text('Restart'.i18n),
           )
-        ])));
+        ]),
+            )));
   }
 }
 
