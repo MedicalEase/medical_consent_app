@@ -10,6 +10,11 @@ class Procedure {
     required this.videos,
   });
 
+  @override
+  String toString() {
+    return 'Procedure{id: $id, name: $name}';
+  }
+
   final int id;
   final String name;
   final String icon;
