@@ -23,7 +23,8 @@ String randomizer() {
 }
 
 class Store {
-  List<Procedure> userProcedures = [];
+  late Procedure procedure;
+  int currentProcedureIndex = 0;
   Future<Database> database = initDb();
   String language = "en";
   late VideoItem videoItem;

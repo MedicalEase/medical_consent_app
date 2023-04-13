@@ -35,6 +35,7 @@ class _VideoItemDetailsViewState extends State<VideoItemDetailsView>
 
   @override
   void dispose() {
+    videoController.dispose();
     routeObserver.unsubscribe(this);
     super.dispose();
   }
