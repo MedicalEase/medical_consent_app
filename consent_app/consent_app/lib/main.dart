@@ -46,7 +46,7 @@ class Store {
                 backColor: Colors.green,
                 function: (BuildContext context) {
                   developer.log('yes');
-                  Navigator.restorablePushNamed(
+                  Navigator.pushReplacementNamed(
                     context,
                     VideoItemDetailsView.routeName,
                     arguments: 1,
@@ -57,7 +57,7 @@ class Store {
                 backColor: Colors.red,
                 function: (BuildContext context) {
                   print('no');
-                  Navigator.restorablePushNamed(
+                  Navigator.pushReplacementNamed(
                     context,
                     VideoItemDetailsView.routeName,
                     arguments: 2,
@@ -67,7 +67,7 @@ class Store {
                 text: 'Not Sure',
                 function: (BuildContext context) {
                   print('maybe');
-                  Navigator.restorablePushNamed(
+                  Navigator.pushReplacementNamed(
                     context,
                     VideoItemDetailsView.routeName,
                     arguments: 2,
@@ -96,7 +96,7 @@ class Store {
                 text: 'ok!',
                 function: (BuildContext context) {
                   print('ok');
-                  Navigator.restorablePushNamed(
+                  Navigator.pushReplacementNamed(
                     context,
                     VideoItemDetailsView.routeName,
                     arguments: 0,
@@ -119,7 +119,7 @@ class Store {
                 text: 'finish!',
                 function: (BuildContext context) {
                   print('ok');
-                  Navigator.restorablePushNamed(
+                  Navigator.pushReplacementNamed(
                     context,
                     ThankYouView.routeName,
                   );
