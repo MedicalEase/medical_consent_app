@@ -97,7 +97,6 @@ class _VideoItemDetailsViewState extends State<VideoItemDetailsView>
               child: Container(
                 color: Theme.of(context).scaffoldBackgroundColor,
                 padding:  EdgeInsets.all(footerPadding),
-
               ),
             ),
           ],

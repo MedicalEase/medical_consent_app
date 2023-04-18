@@ -76,7 +76,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(13),
+            padding: const EdgeInsets.all(0),
             child: Center(
               child: Column(
                 children: [

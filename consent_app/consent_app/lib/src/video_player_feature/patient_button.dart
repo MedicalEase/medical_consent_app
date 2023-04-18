@@ -26,7 +26,7 @@ class PatientButtonState extends State<PatientButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal:48.0),
+      padding: const EdgeInsets.only(left:48.0,right:48, top :14, bottom: 10),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: widget.backColor,
