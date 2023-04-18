@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import '../../database.dart';
 import '../../main.dart';
 import '../components/frame.dart';
-import '../video_player_feature/video_item_details_view.dart';
 
 class ThankYouView extends StatelessWidget {
   const ThankYouView({super.key});
