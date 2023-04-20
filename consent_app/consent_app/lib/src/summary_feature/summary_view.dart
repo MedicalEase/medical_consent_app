@@ -1,5 +1,6 @@
 import 'package:consent_app/src/intro/intro.dart';
-import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
+import 'package:consent_app/src/summary_feature/summary_icon.dart';
+import 'package:consent_app/src/summary_feature/summary_statement.dart';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
@@ -17,44 +18,88 @@ class SummaryView extends StatelessWidget {
         heading: 'Summary',
         body: Center(
             child: Container(
-              padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
+          child: Column(children: [
+            // Text('Based on the information you provided, we recommend the following:'),
+            DataTable(columns: <DataColumn>[
+              DataColumn(
+                label: Expanded(
+                  child: Text(
+                    ' ',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+              ),
+              DataColumn(
+                label: Expanded(
+                  child: Text(
+                    ' ',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+              ),
+            ], rows: <DataRow>[
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text('Does the patient want a throat spray?')),
+                  DataCell(SummaryIcon(
+                    value: store.summary.throatSpray,
+                  )),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text('Does the patient want sedation?')),
+                  DataCell(SummaryIcon(
+                    value: store.summary.sedation,
+                  )),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(
+                      Text('Does the patient have someone collecting them?')),
+                  DataCell(SummaryIcon(value: store.summary.beingCollected)),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text(
+                      'Does the patient have someone with them for 24hrs?')),
+                  DataCell(SummaryIcon(
+                    value: store.summary.beingAccompianied,
+                  )),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text('Does the patient understand the risks?')),
+                  DataCell(SummaryIcon(
+                    value: store.summary.knowsRisks,
+                  )),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text('Does the patient want to proceed?')),
+                  DataCell(SummaryIcon(
+                    value: store.summary.willProceed,
+                  )),
+                ],
+              ),
+            ]),
 
-              child: Column(
-
-                  children: [
-          Text('Based on the information you provided, we recommend the following:'),
-
-          const SizedBox(height: 10),
-                    const Icon(
-                      Icons.check_circle,
-                      color: Colors.green,
-                      size: 160,
-                    ),
-                    Text('Proceed'),
-                    const Icon(
-                      Icons.flag_circle,
-                      color: Colors.orange,
-                      size: 160,
-                    ),
-                    Text('Flagged'),
-                    const Icon(
-                      Icons.cancel,
-                      color: Colors.red,
-                      size: 160,
-                    ),
-                    Text('Consent not obtained'),
-          const SizedBox(height: 10),
-          ElevatedButton(
+            SummaryStatement( value: store.summary.willProceed,),
+            ElevatedButton(
               onPressed: () {
                 Navigator.restorablePushNamed(
                   context,
                   MyHomePage.routeName,
                 );
               },
-              child: Text('Restart'.i18n),
-          )
-        ]),
-            )));
+              child: Text('Restart'),
+            )
+          ]),
+        )));
   }
 }
-

@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_dataclass.dart';
+import 'package:consent_app/src/summary_feature/summary_data.dart';
+import 'package:consent_app/src/summary_feature/summary_view.dart';
 import 'package:consent_app/src/thank_you/thank_you.dart';
 import 'package:consent_app/src/video_player_feature/patient_button.dart';
 import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
@@ -23,13 +25,14 @@ String randomizer() {
 }
 
 class Store {
-  late Procedure procedure ;
+  late Procedure procedure;
   Future<Database> database = initDb();
   String language = "en";
   late VideoItem videoItem;
   bool debugMode = false;
   String deviceId = 'anonymous_device_${randomizer()}';
   String surveyResults = "";
+  SummaryData summary  = SummaryData();
   List<Map<dynamic, dynamic>> choices = [];
   List procedures = [
     Procedure(id: 0, name: 'OGD', icon: 'assets/images/ogd_icon.png', videos: [
@@ -64,13 +67,12 @@ class Store {
                   );
                 }),
             PatientButton(
-                text: 'Not Sure',
+                text: 'Quit',
                 function: (BuildContext context) {
-                  print('maybe');
+                  print('quit');
                   Navigator.pushReplacementNamed(
                     context,
-                    VideoItemDetailsView.routeName,
-                    arguments: 2,
+                    SummaryView.routeName,
                   );
                 }),
           ],
