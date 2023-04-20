@@ -8,14 +8,13 @@ import 'package:video_player/video_player.dart';
 class ExplainerAssetVideo extends StatefulWidget {
   final String path;
   final VideoItem item;
-  final VideoPlayerController controller;
+  final VideoPlayerController? controller;
   Duration position = const Duration(seconds: 0);
 
-  ExplainerAssetVideo(
-      {Key? key,
-      required this.path,
-      required this.item,
-      required this.controller})
+  ExplainerAssetVideo({Key? key,
+    required this.path,
+    required this.item,
+    required this.controller})
       : super(key: key);
 
   @override
@@ -23,26 +22,38 @@ class ExplainerAssetVideo extends StatefulWidget {
 }
 
 class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
-  late VideoPlayerController _controller;
+  VideoPlayerController? _controller = null;
 
   @override
   void initState() {
+    print('asset video init started');
     super.initState();
     _controller = widget.controller;
-
-    _controller.addListener(() {
+    _controller!.addListener(() {
       setState(() {
-        widget.position = _controller.value.position;
+        widget.position = _controller!.value.position;
       });
     });
-    _controller.setLooping(false);
-    _controller.initialize().then((_) => setState(() {}));
-    _controller.play();
+    _controller!.setLooping(false);
+    _controller!.initialize().then((_) => setState(() {}));
+    _controller!.play();
+    print('asset video init done');
+  }
+
+
+  @override
+  void deactivate() {
+    print('47 deactivate');
+    super.deactivate();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    print('53 asset video dispose');
+    if (_controller != null) {
+      _controller!.pause();
+      _controller!.dispose();
+    }
     super.dispose();
   }
 
@@ -54,15 +65,15 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
           Expanded(
             child: Container(
               child: AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
+                aspectRatio: _controller!.value.aspectRatio,
                 child: Stack(
                   alignment: Alignment.bottomCenter,
                   children: <Widget>[
-                    VideoPlayer(_controller),
+                    VideoPlayer(_controller!),
                     _ControlsOverlay(
                         controller: _controller, item: widget.item),
                     VideoProgressIndicator(
-                      _controller,
+                      _controller!,
                       allowScrubbing: true,
                       colors: const VideoProgressColors(
                         playedColor: Color(0xFF005EB8),
@@ -75,28 +86,28 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
               ),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.all(0),
+            SizedBox(
+            height: 82,
             child: Center(
               child: Column(
                 children: [
                   (widget.position.inSeconds.toInt() >=
-                          (widget.item.questionAfter ?? 0))
+                      (widget.item.questionAfter ?? 0))
                       ? Animate(
-                          effects: const [
-                              FadeEffect(),
-                            ],
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: widget.item.questionBank,
-                          ))
-                      : const Text(
-                          ' ',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 60,
-                          ),
-                        ),
+                    effects: const [
+                      FadeEffect(),
+                    ],
+                    child:  Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: widget.item.questionBank,
+                        ))
+                        : const Text(
+                    ' ',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 60,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -106,11 +117,10 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
 }
 
 class _ControlsOverlay extends StatelessWidget {
-  const _ControlsOverlay(
-      {Key? key, required this.controller, required this.item})
+  _ControlsOverlay({Key? key, required this.controller, required this.item})
       : super(key: key);
 
-  final VideoPlayerController controller;
+  VideoPlayerController? controller = null;
   final VideoItem item;
 
   @override
@@ -120,20 +130,21 @@ class _ControlsOverlay extends StatelessWidget {
         AnimatedSwitcher(
           duration: const Duration(milliseconds: 200),
           reverseDuration: const Duration(milliseconds: 200),
-          child: (controller.value.position > const Duration(seconds: 1) &&
-                  controller.value.position == controller.value.duration)
+          child: (controller!.value.position > const Duration(seconds: 1) &&
+              controller!.value.position == controller!.value.duration)
               ? overlayIcon(Icons.replay, 'Replay')
-              : controller.value.isPlaying
-                  ? const SizedBox.shrink()
-                  : overlayIcon(Icons.play_arrow, 'Play'),
+              : controller!.value.isPlaying
+              ? const SizedBox.shrink()
+              : overlayIcon(Icons.play_arrow, 'Play'),
         ),
         GestureDetector(
           onTap: () {
-            if (controller.value.position == controller.value.duration) {
-              controller.seekTo(const Duration(seconds: 0));
-              controller.play();
+            if (controller!.value.position == controller!.value.duration) {
+              controller!.seekTo(const Duration(seconds: 0));
+              controller!.play();
             }
-            controller.value.isPlaying ? controller.pause() : controller.play();
+            controller!.value.isPlaying ? controller!.pause() : controller!
+                .play();
           },
         ),
         Align(
@@ -147,7 +158,7 @@ class _ControlsOverlay extends StatelessWidget {
                 horizontal: 16,
               ),
               child: SubtitleContent(
-                controller: controller,
+                controller: controller!,
                 item: item,
               )),
         ),

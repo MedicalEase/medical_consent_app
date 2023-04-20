@@ -23,20 +23,57 @@ class _VideoItemDetailsViewState extends State<VideoItemDetailsView>
     with RouteAware {
   Store store = locator<Store>();
 
-  late VideoItem item;
+  VideoItem? item;
+  Orientation orientation = Orientation.landscape;
+  double footerPadding = 0.0;
 
-  late VideoPlayerController videoController;
+  VideoPlayerController? videoController = null;
 
   @override
-  void didChangeDependencies() {
+  initState() {
+    super.initState();
+    print('initState  18');
+    Store store = locator<Store>();
+    store.videoItem =
+        store.procedure.videos.firstWhere((itm) => itm.id == widget.videoId);
+    videoController = VideoPlayerController.asset(store.videoItem.path);
+  }
+
+  @override
+  void deactivate() {
+    print('32 deactivate');
+    super.deactivate();
+  }
+
+  @override
+  didChangeDependencies() {
+    orientation = MediaQuery.of(context).orientation;
+    footerPadding = (orientation == Orientation.portrait ? 10.0 : 0.0);
+    print('didChangeDependencies  35');
+    // if (this.videoController != null) {
+    //   print('vid controller not null  35');
+    //   this.videoController?.pause();
+    //   this.videoController?.dispose();
+    // }
+    // print('didChangeDependencies  37');
     super.didChangeDependencies();
-    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute<dynamic>);
+  }
+
+  @override
+  void didUpdateWidget(covariant VideoItemDetailsView oldWidget) {
+    // TODO: implement didUpdateWidget
+    print('didUpdateWidget  39');
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
   void dispose() {
-    videoController.dispose();
+    print('39 dispose');
     routeObserver.unsubscribe(this);
+    if (this.videoController != null) {
+      this.videoController?.pause();
+      this.videoController?.dispose();
+    }
     super.dispose();
   }
 
@@ -50,7 +87,6 @@ class _VideoItemDetailsViewState extends State<VideoItemDetailsView>
   void didPushNext() {
     // Route was pushed onto navigator and is now topmost route.
     print('did PushNext');
-    this.videoController.dispose();
   }
 
   @override
@@ -67,16 +103,11 @@ class _VideoItemDetailsViewState extends State<VideoItemDetailsView>
 
   @override
   Widget build(BuildContext context) {
+    print('72 playing video ${widget.videoId}  ${widget.key}');
+    var item   = this.store.videoItem;
     // Use the videoId to create the UI.
-    Store store = locator<Store>();
-    VideoItem item =
-        store.procedure.videos.firstWhere((item) => item.id == widget.videoId);
-    store.videoItem = item;
-    this.videoController = VideoPlayerController.asset(item.path);
-    Orientation orientation = MediaQuery.of(context).orientation;
-    double footerPadding = (orientation == Orientation.portrait  ? 10.0 : 0.0);
     return FrameView(
-        heading: '${item.heading}'.i18n,
+        heading: '${this.store.videoItem == null ?  Placeholder() : this.store.videoItem.heading}'.i18n,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -85,19 +116,21 @@ class _VideoItemDetailsViewState extends State<VideoItemDetailsView>
               flex: 1,
               child: Container(
                 color: Theme.of(context).scaffoldBackgroundColor,
-                child: ExplainerAssetVideo(
-                  key: Key(item.id.toString()),
-                  path: item.path,
-                  item: item,
-                  controller: videoController,
-                ),
+                child: item == null
+                    ? Placeholder()
+                    : ExplainerAssetVideo(
+                        key: Key(item!.id.toString()),
+                        path: item!.path,
+                        item: item!,
+                        controller: videoController,
+                      ),
               ),
             ),
             Expanded(
               flex: orientation == Orientation.portrait ? 1 : 0,
               child: Container(
                 color: Theme.of(context).scaffoldBackgroundColor,
-                padding:  EdgeInsets.all(footerPadding),
+                padding: EdgeInsets.all(footerPadding),
               ),
             ),
           ],
