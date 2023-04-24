@@ -33,11 +33,12 @@ class _FrameViewState extends State<FrameView> {
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () async {
+              Navigator.of(context).pop();
               final settingsController = SettingsController(SettingsService());
               await settingsController.loadSettings();
               var store = locator<Store>();
               if (store.debugMode == false) {
-                Navigator.restorablePushNamed(
+                Navigator.pushReplacementNamed(
                   context,
                   PasswordProtect.routeName,
                 );

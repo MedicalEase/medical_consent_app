@@ -48,6 +48,7 @@ void _createDb(Database db, int newVersion) async {
 Future<Database> initDb() async {
   var dbLocation = (join(await getDatabasesPath(), 'consent.sqlite'));
   developer.log('dbLocation: $dbLocation');
+  print('dbLocation: $dbLocation');
   final Database database = await openDatabase(
     dbLocation,
     onCreate: (db, version) {
@@ -122,4 +123,7 @@ void ensureSetting(String name, String value) async {
   // developer.log the results
   developer.log('result: $result');
   store.deviceId = await getSetting('deviceId');
+  store.consentMessages['consentSuccessMessage'] = await getSetting('consentSuccessMessage');
+  store.consentMessages['consentFailMessage'] = await getSetting('consentFailMessage');
+  store.consentMessages['consentInfoMessage'] = await getSetting('consentInfoMessage');
 }

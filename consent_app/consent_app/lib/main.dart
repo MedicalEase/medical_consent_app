@@ -34,27 +34,26 @@ class Store {
   String surveyResults = "";
   SummaryData summary  = SummaryData();
   List<Map<dynamic, dynamic>> choices = [];
+  Map<String, String> consentMessages = {};
   List procedures = [
-    Procedure(id: 0, name: 'OGD', icon: 'assets/images/ogd_icon.png', videos: [
-      VideoItem(
-          id: 0,
-          path: 'assets/video/1-2-intro.mp4',
-          heading: '0 Risks and benefits',
-          questionAfter: 2,
-          nextVideoItemId: 1,
-          faqVideoItemId: 3,
-          questionBank: [
-            PatientButton(
-                text: 'Yes',
-                backColor: Colors.green,
-                function: (BuildContext context) {
-                  developer.log('yes');
-                  Navigator.pushReplacementNamed(
-                    context,
-                    VideoItemDetailsView.routeName,
-                    arguments: 1,
-                  );
-                }),
+Procedure(id: 0, name: 'OGD', icon: 'assets/images/ogd_icon.png', videos: [
+  VideoItem(
+      id: 0,
+      path: 'assets/video/1-2-intro.mp4',
+      heading: '0 Risks and benefits',
+      questionAfter: 2,
+      questionBank: [
+        PatientButton(
+            text: 'Yes',
+            backColor: Colors.green,
+            function: (BuildContext context) {
+              developer.log('yes');
+              Navigator.pushReplacementNamed(
+                context,
+                VideoItemDetailsView.routeName,
+                arguments: 1,
+              );
+            }),
             PatientButton(
                 text: 'No',
                 backColor: Colors.red,
@@ -91,8 +90,6 @@ class Store {
           path: 'assets/video/2-3-ogd_explanation.mp4',
           heading: '2: What is and OGD?',
           questionAfter: 3,
-          nextVideoItemId: 2,
-          faqVideoItemId: 3,
           questionBank: [
             PatientButton(
                 text: 'ok!',
@@ -139,7 +136,6 @@ class Store {
         id: 3,
         path: 'assets/video/4-5-sedation_question.mp4',
         heading: ' 4 Sedation question',
-        nextVideoItemId: 0,
         questionAfter: 3,
         subtitles: [
           const SubtitleLine(

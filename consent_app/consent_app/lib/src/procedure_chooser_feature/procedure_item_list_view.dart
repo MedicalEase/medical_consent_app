@@ -6,7 +6,7 @@ import '../../main.dart';
 
 onTapChooseProcedure(item, store, context) {
   store.procedure = item;
-  Navigator.restorablePushNamed(
+  Navigator.pushReplacementNamed(
       context,
       LanguageListView.routeName,
       arguments: item.id,

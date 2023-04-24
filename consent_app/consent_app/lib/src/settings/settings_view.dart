@@ -30,54 +30,52 @@ class _PasswordProtectState extends State<PasswordProtect> {
   @override
   Widget build(BuildContext context) {
     return FrameView(
-        heading: 'Admin',
-        body:
-
-      Column(
-      children: [
-        const Text('Password'),
-        TextFormField(
-          controller: myController,
-          obscureText: true,
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Password',
+      heading: 'Admin',
+      body: Column(
+        children: [
+          const Text('Password'),
+          TextFormField(
+            controller: myController,
+            obscureText: true,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Password',
+            ),
           ),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            var v = myController.value.text;
-            setState(() {
-              password = v;
-            });
-            checkPassword();
-            Navigator.restorablePushNamed(
-              context,
-              SettingsView.routeName,
-            );
-          },
-          child: const Text('Submit'),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            checkPassword();
-            Navigator.restorablePushNamed(
-              context,
-              MyHomePage.routeName,
-            );
-          },
-          child: const Text('Back'),
-        )
-      ],
-    ),
+          ElevatedButton(
+            onPressed: () {
+              var v = myController.value.text;
+              setState(() {
+                password = v;
+              });
+              checkPassword();
+              Navigator.pushReplacementNamed(
+                context,
+                SettingsView.routeName,
+              );
+            },
+            child: const Text('Submit'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              checkPassword();
+              Navigator.pushReplacementNamed(
+                context,
+                MyHomePage.routeName,
+              );
+            },
+            child: const Text('Back'),
+          )
+        ],
+      ),
     );
   }
 
   void checkPassword() {
     developer.log("check password ${myController.value.text}");
     if (myController.value.text == "flower") {
-      locator<Store>().debugMode = true;
-      Navigator.restorablePushNamed(
+      locator<Store>().debugMode = false;
+      Navigator.pushReplacementNamed(
         context,
         SettingsView.routeName,
       );
@@ -123,10 +121,8 @@ class SettingsView extends StatelessWidget {
                   children: <Widget>[
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.restorablePushNamed(
-                            context,
-                            MyHomePage.routeName
-                        );
+                        Navigator.pushReplacementNamed(
+                            context, MyHomePage.routeName);
                       },
                       child: const Text('Back'),
                     ),
@@ -160,9 +156,15 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
   //
   // Note: This is a GlobalKey<FormState>,
   // not a GlobalKey<MyCustomFormState>.
-  final myController = TextEditingController();
+  final deviceIdController = TextEditingController();
+  final consentSuccessMessageController = TextEditingController();
+  final consentFailMessageController = TextEditingController();
+  final consentInfoMessageController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   String deviceId = 'not set';
+  String consentSuccessMessage = 'consent Success Message not set';
+  String consentFailMessage = 'consent Fail Message not set';
+  String consentInfoMessage = 'consent Info Message not set';
   bool debug = locator<Store>().debugMode;
 
   @override
@@ -172,13 +174,31 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
       deviceId = result;
       setState(() {});
     });
+    getSetting("consentSuccessMessage").then((result) {
+      developer.log("result (consentSuccessMessage): $result");
+      consentSuccessMessage = result;
+      setState(() {});
+    });
+    getSetting("consentFailMessage").then((result) {
+      developer.log("result (consentFailMessage): $result");
+      consentFailMessage = result;
+      setState(() {});
+    });
+    getSetting("consentInfoMessage").then((result) {
+      developer.log("result (consentInfoMessage): $result");
+      consentInfoMessage = result;
+      setState(() {});
+    });
     super.initState();
   }
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    myController.dispose();
+    deviceIdController.dispose();
+    consentSuccessMessageController.dispose();
+    consentFailMessageController.dispose();
+    consentInfoMessageController.dispose();
     super.dispose();
   }
 
@@ -220,7 +240,7 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
           const Text('Enter new device identifier below. Currently:'),
           Text(deviceId),
           TextFormField(
-            controller: myController,
+            controller: deviceIdController,
             // The validator receives the text that the user has entered.
             validator: (value) {
               if (value == null || value.isEmpty || value.length < 5) {
@@ -230,26 +250,68 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
               return null;
             },
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: ElevatedButton(
-              onPressed: () async {
-                // Validate returns true if the form is valid, or false otherwise.
-                if (_formKey.currentState!.validate()) {
-                  // If the form is valid, display a snackbar. In the real world,
-                  // you'd often call a server or save the information in a database.
-                  await storeDeviceIdentifier(myController.text);
-                  // Load the user's preferred theme while the splash screen is displayed.
-                  // This prevents a sudden theme change when the app is first displayed.
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Identifier Updated')),
-                  );
-                }
-              },
-              child: const Text('Submit'),
-            ),
+          const Text('Enter new consent Success message. Currently:'),
+          Text(consentSuccessMessage),
+          TextFormField(
+            controller: consentSuccessMessageController,
+            // The validator receives the text that the user has entered.
+            validator: (value) {
+              if (value == null || value.isEmpty || value.length < 5) {
+                return 'Please enter a message at least '
+                    '5 characters long';
+              }
+              return null;
+            },
           ),
+          const Text('Enter new consent Fail message. Currently:'),
+          Text(consentFailMessage),
+          TextFormField(
+            controller: consentFailMessageController,
+            // The validator receives the text that the user has entered.
+            validator: (value) {
+              if (value == null || value.isEmpty || value.length < 5) {
+                return 'Please enter a message at least '
+                    '5 characters long';
+              }
+              return null;
+            },
+          ),
+          const Text('Enter new consent info message. Currently:'),
+          Text(consentInfoMessage),
+          TextFormField(
+            controller: consentInfoMessageController,
+            // The validator receives the text that the user has entered.
+            validator: (value) {
+              if (value == null || value.isEmpty || value.length < 5) {
+                return 'Please enter a message at least '
+                    '5 characters long';
+              }
+              return null;
+            },
+          ),
+          Center(
+              child:
+              ElevatedButton(
+                    onPressed: () async {
+                      // Validate returns true if the form is valid, or false otherwise.
+                      if (_formKey.currentState!.validate()) {
+                        // If the form is valid, display a snackbar.
+                        await storeDeviceIdentifier(deviceIdController.text);
+                        await storeConsentMessageSetting(
+                            'consentSuccessMessage',
+                            consentSuccessMessageController.text);
+                        await storeConsentMessageSetting('consentFailMessage',
+                            consentFailMessageController.text);
+                        await storeConsentMessageSetting('consentInfoMessage',
+                            consentInfoMessageController.text);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Identifier Updated')),
+                        );
+                      }
+                    },
+                    child: const Text('Submits'),
+                  ),
+              )
         ],
       ),
     );
@@ -264,6 +326,18 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
     deviceId = name;
     Store store = locator<Store>();
     store.deviceId = name;
+    setState(() {});
+  }
+
+  Future<void> storeConsentMessageSetting(
+      String settingKey, String value) async {
+    var keyValueSetting = Setting(
+      name: settingKey,
+      value: value,
+    );
+    upsertSetting(keyValueSetting);
+    Store store = locator<Store>();
+    store.consentMessages[settingKey] = value;
     setState(() {});
   }
 }

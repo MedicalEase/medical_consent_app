@@ -10,7 +10,7 @@ import 'language_dataclass.dart';
 onTapChooseLanguage(language, store, context) {
   store.language = language.code;
   I18n.of(context).locale = Locale(language.code);
-  Navigator.restorablePushNamed(
+  Navigator.pushReplacementNamed(
     context,
     VideoItemDetailsView.routeName,
     arguments: 0,

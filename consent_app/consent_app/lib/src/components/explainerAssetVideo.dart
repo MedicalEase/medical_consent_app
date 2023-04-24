@@ -75,6 +75,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
                     VideoProgressIndicator(
                       _controller!,
                       allowScrubbing: true,
+                      //todo remove scrubbing
                       colors: const VideoProgressColors(
                         playedColor: Color(0xFF005EB8),
                         bufferedColor: Color(0xFFF0F4F5),

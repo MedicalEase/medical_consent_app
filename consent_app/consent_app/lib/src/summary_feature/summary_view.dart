@@ -23,20 +23,16 @@ class SummaryView extends StatelessWidget {
             // Text('Based on the information you provided, we recommend the following:'),
             DataTable(columns: <DataColumn>[
               DataColumn(
-                label: Expanded(
-                  child: Text(
+                label: Text(
                     ' ',
                     style: TextStyle(fontStyle: FontStyle.italic),
                   ),
-                ),
               ),
               DataColumn(
-                label: Expanded(
-                  child: Text(
+                label:  Text(
                     ' ',
                     style: TextStyle(fontStyle: FontStyle.italic),
                   ),
-                ),
               ),
             ], rows: <DataRow>[
               DataRow(
@@ -92,7 +88,7 @@ class SummaryView extends StatelessWidget {
             SummaryStatement( value: store.summary.willProceed,),
             ElevatedButton(
               onPressed: () {
-                Navigator.restorablePushNamed(
+                Navigator.pushReplacementNamed(
                   context,
                   MyHomePage.routeName,
                 );

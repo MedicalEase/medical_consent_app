@@ -10,8 +10,6 @@ class VideoItem {
     required this.heading,
      this.questionAfter = 1,
     required this.subtitles,
-    this.nextVideoItemId,
-    this.faqVideoItemId,
     this.questionBank = const [],
 
   });
@@ -21,8 +19,6 @@ class VideoItem {
   final String heading;
   final List<SubtitleLine> subtitles;
    int? questionAfter = 1;
-  final int? nextVideoItemId;
-  final int? faqVideoItemId;
   final List<PatientButton> questionBank;
 
   String getSubtitle({Duration position = Duration.zero}) {

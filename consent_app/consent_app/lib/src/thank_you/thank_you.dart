@@ -44,7 +44,7 @@ class ThankYouView extends StatelessWidget {
                     insertFeedback(jsonChoicesData, '', store.language);
                     //reset the choices collected data
                     store.choices = [];
-                    Navigator.restorablePushNamed(
+                    Navigator.pushReplacementNamed(
                       context,
                       SummaryView.routeName,
                     );

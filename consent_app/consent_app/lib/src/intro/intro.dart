@@ -136,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                               onPressed: () {
                                 syncDataWrapper();
-                                Navigator.restorablePushNamed(
+                                Navigator.pushReplacementNamed(
                                   context,
                                   ProcedureListView.routeName,
                                 );
