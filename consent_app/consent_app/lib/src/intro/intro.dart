@@ -166,6 +166,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
 Future<bool> postData(String jsonString) async {
   try {
+    if (jsonString == '[]') {
+      return false;
+    }
     final response = await http.post(
       Uri.parse('http://localhost:8080'),
       headers: <String, String>{
