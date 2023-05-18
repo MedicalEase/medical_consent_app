@@ -9,12 +9,14 @@ class PatientButton extends StatefulWidget {
   final Function function;
   final Color? backColor;
   final Color? textColor;
+  final Icon? icon;
 
   PatientButton({
     Key? key,
     required this.text,
     required this.function,
     this.backColor = const Color(0xFF005EB8),
+    this.icon = const Icon(Icons.fast_forward),
     this.textColor =  Colors.white,
   }) : super(key: key);
 

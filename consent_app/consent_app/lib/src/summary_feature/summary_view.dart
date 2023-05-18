@@ -63,7 +63,7 @@ class SummaryView extends StatelessWidget {
                   DataCell(Text(
                       'Does the patient have someone with them for 24hrs?')),
                   DataCell(SummaryIcon(
-                    value: store.summary.beingAccompianied,
+                    value: store.summary.beingAccompanied,
                   )),
                 ],
               ),

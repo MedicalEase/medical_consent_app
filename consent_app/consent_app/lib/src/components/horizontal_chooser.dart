@@ -39,8 +39,8 @@ Center horizontalChooser(
                   children: [
                     Image.asset(
                       item.icon,
-                      width: 200,
-                      height: 200,
+                      width: 140,
+                      height: 140,
                     ),
                     Text('${item.name}'.i18n,
                         textAlign: TextAlign.center,

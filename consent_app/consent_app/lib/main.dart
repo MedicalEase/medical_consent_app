@@ -147,7 +147,7 @@ Procedure(id: 0, name: 'OGD', icon: 'assets/images/ogd_icon.png', videos: [
     ]),
     Procedure(
         id: 1,
-        name: 'Flexible Sigmoidoscopy',
+        name: 'Flexi-Sigmoidoscopy',
         icon: 'assets/images/sigmoidoscopy_icon.png',
         videos: [
           VideoItem(
@@ -183,8 +183,8 @@ Procedure(id: 0, name: 'OGD', icon: 'assets/images/ogd_icon.png', videos: [
         ]),
     Procedure(
         id: 3,
-        name: 'OGD \n+ Flexible Sigmoidoscopy',
-        icon: 'assets/images/ogd_icon.png',
+        name: 'OGD \n+ Flexi-Sigmoidoscopy',
+        icon: 'assets/images/ogd+flexi_icon.png',
         videos: [
           VideoItem(
               id: 0,
@@ -202,7 +202,7 @@ Procedure(id: 0, name: 'OGD', icon: 'assets/images/ogd_icon.png', videos: [
     Procedure(
         id: 4,
         name: 'OGD + colonoscopy',
-        icon: 'assets/images/ogd_icon.png',
+        icon: 'assets/images/ogd+colon_icon.png',
         videos: [
           VideoItem(
               id: 0,
