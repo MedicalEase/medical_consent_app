@@ -49,7 +49,7 @@ class _PasswordProtectState extends State<PasswordProtect> {
                 password = v;
               });
               checkPassword();
-              Navigator.pushReplacementNamed(
+              Navigator.restorablePushNamed(
                 context,
                 SettingsView.routeName,
               );
@@ -59,7 +59,7 @@ class _PasswordProtectState extends State<PasswordProtect> {
           ElevatedButton(
             onPressed: () {
               checkPassword();
-              Navigator.pushReplacementNamed(
+              Navigator.restorablePushNamed(
                 context,
                 MyHomePage.routeName,
               );
@@ -74,8 +74,8 @@ class _PasswordProtectState extends State<PasswordProtect> {
   void checkPassword() {
     developer.log("check password ${myController.value.text}");
     if (myController.value.text == "flower") {
-      locator<Store>().debugMode = false;
-      Navigator.pushReplacementNamed(
+      locator<Store>().debugMode = true;
+      Navigator.restorablePushNamed(
         context,
         SettingsView.routeName,
       );
@@ -121,8 +121,10 @@ class SettingsView extends StatelessWidget {
                   children: <Widget>[
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pushReplacementNamed(
-                            context, MyHomePage.routeName);
+                        Navigator.restorablePushNamed(
+                            context,
+                            MyHomePage.routeName
+                        );
                       },
                       child: const Text('Back'),
                     ),
