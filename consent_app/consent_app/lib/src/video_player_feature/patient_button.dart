@@ -9,14 +9,14 @@ class PatientButton extends StatefulWidget {
   final Function function;
   final Color? backColor;
   final Color? textColor;
-  final Icon? icon;
+  final IconData icon;
 
   PatientButton({
     Key? key,
     required this.text,
     required this.function,
     this.backColor = const Color(0xFF005EB8),
-    this.icon = const Icon(Icons.fast_forward),
+    this.icon =  Icons.fast_forward,
     this.textColor =  Colors.white,
   }) : super(key: key);
 
@@ -25,6 +25,8 @@ class PatientButton extends StatefulWidget {
 }
 
 class PatientButtonState extends State<PatientButton> {
+  get icon => this.widget.icon;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,7 +52,16 @@ class PatientButtonState extends State<PatientButton> {
           });
           widget.function(context);
         },
-        child: Text(widget.text, style: TextStyle(fontSize: 20),
+        child: Row(
+          children: [
+             Icon(
+              this.icon,
+              color: this.widget.textColor,
+              opticalSize: 60,
+            ),
+            Text( widget.text, style: TextStyle(fontSize: 20),
+            ),
+          ],
         ),
       ),
     );

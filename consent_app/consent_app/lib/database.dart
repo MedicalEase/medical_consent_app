@@ -111,7 +111,7 @@ Future<String> getSetting(String name) async {
   try {
     return result[0]['value'];
   } catch (e) {
-    return 'Unknown';
+    return 'Unknown + $name';
   }
 }
 
@@ -122,8 +122,5 @@ void ensureSetting(String name, String value) async {
       'INSERT OR IGNORE INTO settings(name,value) VALUES(?,?)', [name, value]);
   // developer.log the results
   developer.log('result: $result');
-  store.deviceId = await getSetting('deviceId');
-  store.consentMessages['consentSuccessMessage'] = await getSetting('consentSuccessMessage');
-  store.consentMessages['consentFailMessage'] = await getSetting('consentFailMessage');
-  store.consentMessages['consentInfoMessage'] = await getSetting('consentInfoMessage');
+
 }

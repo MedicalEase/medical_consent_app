@@ -93,6 +93,9 @@ Procedure(id: 0, name: 'OGD', icon: 'assets/images/ogd_icon.png', videos: [
           questionBank: [
             PatientButton(
                 text: 'ok!',
+                icon: Icons.check ,
+                backColor: Colors.green,
+                textColor: Colors.white,
                 function: (BuildContext context) {
                   print('ok');
                   Navigator.pushReplacementNamed(
@@ -236,7 +239,36 @@ Future<void> setup() async {
 
 void main() async {
   setup();
-  ensureSetting('deviceId', locator<Store>().deviceId);
+  Store store = locator<Store>();
+  ensureSetting('deviceId', store.deviceId);
+  store.deviceId = await getSetting('deviceId');
+
+  ensureSetting(
+      'consentSuccessMessage',
+      store.consentMessages['consentSuccessMessage'] ??
+          'The patient has successfully consented, you MAY OFFER '
+              'the patient your Trust consent form to sign');
+  store.consentMessages['consentSuccessMessage'] =
+      await getSetting('consentSuccessMessage');
+  ensureSetting(
+      'consentFailMessage',
+      store.consentMessages['consentFailMessage'] ??
+          'The patient does not want to proceed, you SHOULD NOT CONSENT the patient.'
+              '  Please call BigWord on XXXXXXXXXXXX, using access code XXX '
+              'and select Greek/Turkish by typing XXX/XXX when prompted to'
+              ' understand their decision.');
+  store.consentMessages['consentInfoMessage'] =
+      await getSetting('consentInfoMessage');
+  ensureSetting(
+      'consentInfoMessage',
+      store.consentMessages['consentInfoMessage'] ??
+          'The patient requires some further '
+              'information, you SHOULD NOT CONSENT YET.'
+              'Please call BigWord on XXXXXXXXXXXX, using access code XXX '
+              'and select Greek/Turkish by typing XXX/XXX when prompted to '
+              'help provide the additional information required.');
+  store.consentMessages['consentFailMessage'] =
+      await getSetting('consentFailMessage');
   print('insertSetting done');
   final settingsController = SettingsController(SettingsService());
   await settingsController.loadSettings();

@@ -122,9 +122,7 @@ class SettingsView extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {
                         Navigator.restorablePushNamed(
-                            context,
-                            MyHomePage.routeName
-                        );
+                            context, MyHomePage.routeName);
                       },
                       child: const Text('Back'),
                     ),
@@ -240,12 +238,12 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
             ],
           ),
           const Text('Enter new device identifier below. Currently:'),
-          Text(deviceId),
+          Text(deviceId, style: Theme.of(context).textTheme.bodySmall!),
           TextFormField(
             controller: deviceIdController,
             // The validator receives the text that the user has entered.
             validator: (value) {
-              if (value == null || value.isEmpty || value.length < 5) {
+              if (value!.isNotEmpty && value.length  < 5 ) {
                 return 'Please enter an identifier for this device at least '
                     '5 characters long';
               }
@@ -253,12 +251,13 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
             },
           ),
           const Text('Enter new consent Success message. Currently:'),
-          Text(consentSuccessMessage),
+          Text(consentSuccessMessage,
+              style: Theme.of(context).textTheme.bodySmall!),
           TextFormField(
             controller: consentSuccessMessageController,
             // The validator receives the text that the user has entered.
             validator: (value) {
-              if (value == null || value.isEmpty || value.length < 5) {
+              if (value!.isNotEmpty && value.length  < 5 ) {
                 return 'Please enter a message at least '
                     '5 characters long';
               }
@@ -266,12 +265,13 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
             },
           ),
           const Text('Enter new consent Fail message. Currently:'),
-          Text(consentFailMessage),
+          Text(consentFailMessage,
+              style: Theme.of(context).textTheme.bodySmall!),
           TextFormField(
             controller: consentFailMessageController,
             // The validator receives the text that the user has entered.
             validator: (value) {
-              if (value == null || value.isEmpty || value.length < 5) {
+              if (value!.isNotEmpty && value.length  < 5 ) {
                 return 'Please enter a message at least '
                     '5 characters long';
               }
@@ -279,12 +279,12 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
             },
           ),
           const Text('Enter new consent info message. Currently:'),
-          Text(consentInfoMessage),
+          Text(consentInfoMessage ,  style: Theme.of(context).textTheme.bodySmall!),
           TextFormField(
             controller: consentInfoMessageController,
             // The validator receives the text that the user has entered.
             validator: (value) {
-              if (value == null || value.isEmpty || value.length < 5) {
+              if (value!.isNotEmpty && value.length  < 5 ) {
                 return 'Please enter a message at least '
                     '5 characters long';
               }
@@ -292,34 +292,35 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
             },
           ),
           Center(
-              child:
-              ElevatedButton(
-                    onPressed: () async {
-                      // Validate returns true if the form is valid, or false otherwise.
-                      if (_formKey.currentState!.validate()) {
-                        // If the form is valid, display a snackbar.
-                        await storeDeviceIdentifier(deviceIdController.text);
-                        await storeConsentMessageSetting(
-                            'consentSuccessMessage',
-                            consentSuccessMessageController.text);
-                        await storeConsentMessageSetting('consentFailMessage',
-                            consentFailMessageController.text);
-                        await storeConsentMessageSetting('consentInfoMessage',
-                            consentInfoMessageController.text);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Identifier Updated')),
-                        );
-                      }
-                    },
-                    child: const Text('Submits'),
-                  ),
-              )
+            child: ElevatedButton(
+              onPressed: () async {
+                // Validate returns true if the form is valid, or false otherwise.
+                if (_formKey.currentState!.validate()) {
+                  // If the form is valid, display a snackbar.
+                  await storeDeviceIdentifier(deviceIdController.text);
+                  await storeConsentMessageSetting('consentSuccessMessage',
+                      consentSuccessMessageController.text);
+                  await storeConsentMessageSetting(
+                      'consentFailMessage', consentFailMessageController.text);
+                  await storeConsentMessageSetting(
+                      'consentInfoMessage', consentInfoMessageController.text);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Identifier Updated')),
+                  );
+                }
+              },
+              child: const Text('Submits'),
+            ),
+          )
         ],
       ),
     );
   }
 
   Future<void> storeDeviceIdentifier(String name) async {
+    if (name.isEmpty) {
+      return;
+    }
     var deviceName = Setting(
       name: 'deviceId',
       value: name,
@@ -333,6 +334,9 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
 
   Future<void> storeConsentMessageSetting(
       String settingKey, String value) async {
+    if (value.isEmpty) {
+      return;
+    }
     var keyValueSetting = Setting(
       name: settingKey,
       value: value,
