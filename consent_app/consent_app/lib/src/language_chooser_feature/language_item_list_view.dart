@@ -33,6 +33,7 @@ class LanguageListView extends StatelessWidget {
     Store store = locator<Store>();
     return FrameView(
         heading: 'Choose Language',
+        showSettings: true,
         body:
           horizontalChooser(languages, store, context, onTapChooseLanguage)
     );

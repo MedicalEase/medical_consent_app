@@ -11,10 +11,12 @@ class FrameView extends StatefulWidget {
     super.key,
     required this.heading,
     required this.body,
+    this.showSettings = false,
   });
 
   final String heading;
   final Widget body;
+  final bool showSettings;
 
   @override
   State<FrameView> createState() => _FrameViewState();
@@ -23,6 +25,7 @@ class FrameView extends StatefulWidget {
 class _FrameViewState extends State<FrameView> {
   bool debug = false;
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,29 +33,30 @@ class _FrameViewState extends State<FrameView> {
         automaticallyImplyLeading: locator<Store>().debugMode,
         title: Text('${widget.heading}'.i18n),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () async {
-              final settingsController = SettingsController(SettingsService());
-              await settingsController.loadSettings();
-              var store = locator<Store>();
-              if (store.debugMode == false) {
-                Navigator.restorablePushNamed(
-                  context,
-                  PasswordProtect.routeName,
-                );
-              }
-              debug = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        SettingsView(controller: settingsController)),
-              );
-              setState(() {
-                debug = debug;
-              });
-            },
-          ),
+          (widget.showSettings)?           IconButton(
+        icon: const Icon(Icons.settings),
+        onPressed: () async {
+          final settingsController = SettingsController(SettingsService());
+          await settingsController.loadSettings();
+          var store = locator<Store>();
+          if (store.debugMode == false) {
+            Navigator.restorablePushNamed(
+              context,
+              PasswordProtect.routeName,
+            );
+          }
+          debug = await Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    SettingsView(controller: settingsController)),
+          );
+          setState(() {
+            debug = debug;
+          });
+        },
+      ): Container() ,
+
         ],
       ),
       body: widget.body,

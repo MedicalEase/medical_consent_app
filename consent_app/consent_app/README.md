@@ -23,6 +23,11 @@ include with your application.
 This project generates localized messages based on arb files found in
 the `lib/src/localization` directory.
 
-To support additional languages, please visit the tutorial on
-[Internationalizing Flutter
-apps](https://flutter.dev/docs/development/accessibility-and-localization/internationalization)
+For other languages dont forget to add video paths in the pubspec.yaml file
+
+Xcode build 
+https://flutter.dev/docs/deployment/ios#build-an-archive-of-the-app
+* open xcode and open the ios/Runner.xcworkspace file
+* select product -> archive
+* distribute using xcode distribute to create an .ipa file
+* upload the .ipa file

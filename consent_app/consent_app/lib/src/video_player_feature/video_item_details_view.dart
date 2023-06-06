@@ -36,7 +36,7 @@ class _VideoItemDetailsViewState extends State<VideoItemDetailsView>
     Store store = locator<Store>();
     store.videoItem =
         store.procedure.videos.firstWhere((itm) => itm.id == widget.videoId);
-    videoController = VideoPlayerController.asset(store.videoItem.path);
+    videoController = VideoPlayerController.asset(store.videoItem.getFullPath());
   }
 
   @override
@@ -120,7 +120,7 @@ class _VideoItemDetailsViewState extends State<VideoItemDetailsView>
                     ? Placeholder()
                     : ExplainerAssetVideo(
                         key: Key(item!.id.toString()),
-                        path: item!.path,
+                        path: item!.getFullPath(),
                         item: item!,
                         controller: videoController,
                       ),

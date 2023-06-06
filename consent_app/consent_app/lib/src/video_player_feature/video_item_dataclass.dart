@@ -21,6 +21,14 @@ class VideoItem {
    int? questionAfter = 1;
   final List<PatientButton> questionBank;
 
+  String getFullPath() {
+    Store store = locator<Store>();
+    String lang = store.language;
+    var fullPath = 'assets/video/$lang/$path';
+    print('full path: $fullPath ');
+    return fullPath;
+  }
+
   String getSubtitle({Duration position = Duration.zero}) {
     Store store = locator<Store>();
     for (final subtitle in subtitles) {

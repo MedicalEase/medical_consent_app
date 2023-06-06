@@ -98,6 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Store store = locator<Store>();
     return FrameView(
         heading: 'Welcome',
+        showSettings: true,
         body: Center(
             child: FittedBox(
           fit: BoxFit.fill,

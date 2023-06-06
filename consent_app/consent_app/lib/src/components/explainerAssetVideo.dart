@@ -92,8 +92,7 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
             child: Center(
               child: Column(
                 children: [
-                  (widget.position.inSeconds.toInt() >=
-                      (widget.item.questionAfter ?? 0))
+                  should_show_instructions()
                       ? Animate(
                     effects: const [
                       FadeEffect(),
@@ -114,6 +113,19 @@ class ExplainerAssetVideoState extends State<ExplainerAssetVideo> {
             ),
           )
         ]);
+  }
+
+  bool should_show_instructions() {
+    if (widget.item.questionAfter! > 0) {
+      // do calc from start of video
+      return (widget.position.inSeconds.toInt() >=
+          (widget.item.questionAfter ?? 0));
+    } else {
+      // do calc from end of video: nb: questionAfter is negative! so we add!
+      int showPoint = widget.controller!.value.duration.inSeconds +
+          widget.item.questionAfter!;
+      return (widget.position.inSeconds.toInt() >= (showPoint ?? 0));
+    }
   }
 }
 

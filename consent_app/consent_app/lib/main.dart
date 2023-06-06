@@ -32,7 +32,7 @@ class Store {
   bool debugMode = false;
   String deviceId = 'anonymous_device_${randomizer()}';
   String surveyResults = "";
-  SummaryData summary  = SummaryData();
+  SummaryData summary = SummaryData();
   List<Map<dynamic, dynamic>> choices = [];
   Map<String, String> consentMessages = {};
   List procedures = [

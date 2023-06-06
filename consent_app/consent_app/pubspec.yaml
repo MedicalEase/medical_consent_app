@@ -58,6 +58,9 @@ flutter:
     - assets/images/
     - assets/icon/
     - assets/video/
+    - assets/video/gr/
+    - assets/video/tr/
+    - assets/video/en/
 
 fonts:
   - family: Frutiger
