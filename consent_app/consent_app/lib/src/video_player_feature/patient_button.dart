@@ -1,3 +1,4 @@
+import 'package:consent_app/main.i18n.dart';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
@@ -59,7 +60,7 @@ class PatientButtonState extends State<PatientButton> {
               color: this.widget.textColor,
               opticalSize: 60,
             ),
-            Text( widget.text, style: TextStyle(fontSize: 20),
+            Text( '${widget.text}'.i18n, style: TextStyle(fontSize: 20),
             ),
           ],
         ),

@@ -6,7 +6,7 @@ import 'package:video_player/video_player.dart';
 import '../../main.dart';
 import '../components/explainerAssetVideo.dart';
 import '../components/frame.dart';
-
+import 'package:i18n_extension/i18n_widget.dart';
 class VideoItemDetailsView extends StatefulWidget {
   // In the constructor, require a videoId.
   VideoItemDetailsView({super.key, required this.videoId});

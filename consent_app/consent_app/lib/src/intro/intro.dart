@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Padding(
                   padding: EdgeInsets.all(30),
                   child: Text(
-                    "Consentease v 0.1",
+                    "Consentease v 0.1.2",
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 64),
                   ),
@@ -171,7 +171,7 @@ Future<bool> postData(String jsonString) async {
       return false;
     }
     final response = await http.post(
-      Uri.parse('http://localhost:8080'),
+      Uri.parse('https://medicalease-data-collect.herokuapp.com/api/feedback'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
