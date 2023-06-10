@@ -34,7 +34,7 @@ class _UnsyncedCountWidget extends State<UnsyncedCountWidget> {
                 padding: const EdgeInsets.only(top: 16),
                 child: Text(
                   style: const TextStyle(fontSize: 32),
-                  'Currently ${snapshot.data != "0" ? snapshot.data : 'no'} unsynced survey'
+                  'Currently ${snapshot.data != "0" ? snapshot.data : 'no'} unsynced result'
                   '${snapshot.data == "1" ? "" : 's'}',
                 ),
               ),

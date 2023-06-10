@@ -34,6 +34,7 @@ class _VideoItemDetailsViewState extends State<VideoItemDetailsView>
     super.initState();
     print('initState  18');
     Store store = locator<Store>();
+    print('summary: ${store.summary}');
     store.videoItem =
         store.procedure.videos.firstWhere((itm) => itm.id == widget.videoId);
     videoController = VideoPlayerController.asset(store.videoItem.getFullPath());
