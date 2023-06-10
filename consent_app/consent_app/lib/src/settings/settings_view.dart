@@ -305,7 +305,7 @@ class SetIdentifierFormState extends State<SetIdentifierForm> {
                   await storeConsentMessageSetting(
                       'consentInfoMessage', consentInfoMessageController.text);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Identifier Updated')),
+                    const SnackBar(content: Text('Data Updated')),
                   );
                 }
               },
