@@ -42,15 +42,7 @@ extension Localization on String {
     "en": "No",
     "tr": "NO 43 tr",
     "gr": "NO 44 GR",
-  } +
-
-      {
-    'en' : 'Was it made clear to you WHAT procedure you were having?',
-    'tr' : 'Was it made clear to you WHAT procedure you were having? tr',
-    'gr' : 'Was it made clear to you WHAT procedure you were having? gr',
-  }
-
-  ;
+  }   ;
 
   String get i18n => localize(this, _t);
 }

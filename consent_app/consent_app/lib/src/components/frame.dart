@@ -31,7 +31,7 @@ class _FrameViewState extends State<FrameView> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: locator<Store>().debugMode,
-        title: Text('${widget.heading}'.i18n),
+        title: Text(widget.heading),
         actions: [
           (widget.showSettings)?           IconButton(
         icon: const Icon(Icons.settings),
