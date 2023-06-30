@@ -30,17 +30,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 fit: BoxFit.fill,
                 child: Column(
                   children: [
-                    const FittedBox(
-                      fit: BoxFit.fitWidth,
-                      child: Padding(
-                        padding: EdgeInsets.all(30),
-                        child: Text(
-                          "Consentease v 0.1.3",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 16,color: Colors.white),
-                        ),
-                      ),
-                    ),
                     Image.asset('assets/images/medical-abstract.png'),
                     Padding(
                         padding: const EdgeInsets.all(30),
