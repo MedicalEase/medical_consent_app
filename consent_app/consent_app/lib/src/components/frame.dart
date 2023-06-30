@@ -32,10 +32,10 @@ class _FrameViewState extends State<FrameView> {
         backgroundColor: const Color(0xffF1F4F5),
         automaticallyImplyLeading: locator<Store>().debugMode,
         elevation: 0,
-        title: Text(widget.heading, style: const TextStyle(color: Colors.black)),
+        title: Text(widget.heading, style: const TextStyle(color: Color(0xff325FF9))),
         actions: [
           (widget.showSettings)?  IconButton(
-        icon: const Icon(Icons.settings, color: Colors.blue),
+        icon: const Icon(Icons.settings, color: Color(0xff325FF9)),
         onPressed: () async {
           final settingsController = SettingsController(SettingsService());
           await settingsController.loadSettings();

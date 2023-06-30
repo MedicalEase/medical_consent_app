@@ -25,7 +25,7 @@ class ProcedureListView extends StatelessWidget {
     Store store = locator<Store>();
     var items = store.procedures;
     return FrameView(
-      heading: 'Choose Procedure',
+      heading: 'Choose the procedure the patient is having',
       showSettings: true,
       body: horizontalChooser(items, store, context, onTapChooseProcedure),
     );
