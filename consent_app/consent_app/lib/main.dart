@@ -8,7 +8,6 @@ import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
 import 'package:consent_app/src/video_player_feature/video_item_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:i18n_extension/i18n_widget.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'database.dart';
@@ -43,18 +42,7 @@ class Store {
           questionAfter: -5,
           subtitles: [],
           questionBank: [
-            PatientButton(
-                text: 'Replay',
-                icon: Icons.fast_rewind,
-                backColor: Colors.black,
-                textColor: Colors.white,
-                function: (BuildContext context) {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    VideoItemDetailsView.routeName,
-                    arguments: 0,
-                  );
-                }),
+
             PatientButton(
                 text: 'Yes',
                 icon: Icons.done,
@@ -88,18 +76,6 @@ class Store {
           subtitles: [],
           questionBank: [
             PatientButton(
-                text: 'Replay',
-                icon: Icons.fast_rewind,
-                backColor: Colors.black,
-                textColor: Colors.white,
-                function: (BuildContext context) {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    VideoItemDetailsView.routeName,
-                    arguments: 1,
-                  );
-                }),
-            PatientButton(
                 text: 'Yes',
                 icon: Icons.done,
                 backColor: Colors.green,
@@ -132,18 +108,6 @@ class Store {
           questionAfter: -6,
           subtitles: [],
           questionBank: [
-            PatientButton(
-                text: 'Replay',
-                icon: Icons.fast_rewind,
-                backColor: Colors.black,
-                textColor: Colors.white,
-                function: (BuildContext context) {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    VideoItemDetailsView.routeName,
-                    arguments: 2,
-                  );
-                }),
             PatientButton(
                 text: 'Yes',
                 icon: Icons.done,
@@ -191,18 +155,6 @@ class Store {
           subtitles: [],
           questionBank: [
             PatientButton(
-                text: 'Replay',
-                icon: Icons.fast_rewind,
-                backColor: Colors.black,
-                textColor: Colors.white,
-                function: (BuildContext context) {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    VideoItemDetailsView.routeName,
-                    arguments: 3,
-                  );
-                }),
-            PatientButton(
                 text: 'Yes',
                 icon: Icons.done,
                 backColor: Colors.green,
@@ -249,18 +201,6 @@ class Store {
           questionAfter: -7,
           subtitles: [],
           questionBank: [
-            PatientButton(
-                text: 'Replay',
-                icon: Icons.fast_rewind,
-                backColor: Colors.black,
-                textColor: Colors.white,
-                function: (BuildContext context) {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    VideoItemDetailsView.routeName,
-                    arguments: 4,
-                  );
-                }),
             PatientButton(
                 text: 'Yes',
                 icon: Icons.done,
@@ -320,18 +260,6 @@ class Store {
           questionAfter: -7,
           subtitles: [],
           questionBank: [
-            PatientButton(
-                text: 'Replay',
-                icon: Icons.fast_rewind,
-                backColor: Colors.black,
-                textColor: Colors.white,
-                function: (BuildContext context) {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    VideoItemDetailsView.routeName,
-                    arguments: 5,
-                  );
-                }),
             PatientButton(
                 text: 'Yes',
                 icon: Icons.done,
@@ -393,18 +321,6 @@ class Store {
           subtitles: [],
           questionBank: [
             PatientButton(
-                text: 'Replay',
-                icon: Icons.fast_rewind,
-                backColor: Colors.black,
-                textColor: Colors.white,
-                function: (BuildContext context) {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    VideoItemDetailsView.routeName,
-                    arguments: 6,
-                  );
-                }),
-            PatientButton(
                 text: 'Yes',
                 icon: Icons.done,
                 backColor: Colors.green,
@@ -437,18 +353,6 @@ class Store {
           questionAfter: -6,
           subtitles: [],
           questionBank: [
-            PatientButton(
-                text: 'Replay',
-                icon: Icons.fast_rewind,
-                backColor: Colors.black,
-                textColor: Colors.white,
-                function: (BuildContext context) {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    VideoItemDetailsView.routeName,
-                    arguments: 7,
-                  );
-                }),
             PatientButton(
                 text: 'Yes',
                 icon: Icons.done,
@@ -496,18 +400,6 @@ class Store {
           subtitles: [],
           questionBank: [
             PatientButton(
-                text: 'Replay',
-                icon: Icons.fast_rewind,
-                backColor: Colors.black,
-                textColor: Colors.white,
-                function: (BuildContext context) {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    VideoItemDetailsView.routeName,
-                    arguments: 8,
-                  );
-                }),
-            PatientButton(
                 text: 'Yes',
                 icon: Icons.done,
                 backColor: Colors.green,
@@ -553,18 +445,6 @@ class Store {
           questionAfter: -6,
           subtitles: [],
           questionBank: [
-            PatientButton(
-                text: 'Replay',
-                icon: Icons.fast_rewind,
-                backColor: Colors.black,
-                textColor: Colors.white,
-                function: (BuildContext context) {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    VideoItemDetailsView.routeName,
-                    arguments: 9,
-                  );
-                }),
             PatientButton(
                 text: 'Yes',
                 icon: Icons.done,
@@ -613,18 +493,6 @@ class Store {
           subtitles: [],
           questionBank: [
             PatientButton(
-                text: 'Replay',
-                icon: Icons.fast_rewind,
-                backColor: Colors.black,
-                textColor: Colors.white,
-                function: (BuildContext context) {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    VideoItemDetailsView.routeName,
-                    arguments: 10,
-                  );
-                }),
-            PatientButton(
                 text: 'Yes',
                 icon: Icons.done,
                 backColor: Colors.green,
@@ -672,18 +540,6 @@ class Store {
           subtitles: [],
           questionBank: [
             PatientButton(
-                text: 'Replay',
-                icon: Icons.fast_rewind,
-                backColor: Colors.black,
-                textColor: Colors.white,
-                function: (BuildContext context) {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    VideoItemDetailsView.routeName,
-                    arguments: 11,
-                  );
-                }),
-            PatientButton(
                 text: 'Yes',
                 icon: Icons.done,
                 backColor: Colors.green,
@@ -730,18 +586,6 @@ class Store {
           subtitles: [],
           questionBank: [
             PatientButton(
-                text: 'Replay',
-                icon: Icons.fast_rewind,
-                backColor: Colors.black,
-                textColor: Colors.white,
-                function: (BuildContext context) {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    VideoItemDetailsView.routeName,
-                    arguments: 12,
-                  );
-                }),
-            PatientButton(
                 text: 'Yes',
                 icon: Icons.done,
                 backColor: Colors.green,
@@ -787,18 +631,6 @@ class Store {
           questionAfter: -6,
           subtitles: [],
           questionBank: [
-            PatientButton(
-                text: 'Replay',
-                icon: Icons.fast_rewind,
-                backColor: Colors.black,
-                textColor: Colors.white,
-                function: (BuildContext context) {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    VideoItemDetailsView.routeName,
-                    arguments: 13,
-                  );
-                }),
             PatientButton(
                 text: 'Yes',
                 icon: Icons.done,
@@ -847,18 +679,6 @@ class Store {
           subtitles: [],
           questionBank: [
             PatientButton(
-                text: 'Replay',
-                icon: Icons.fast_rewind,
-                backColor: Colors.black,
-                textColor: Colors.white,
-                function: (BuildContext context) {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    VideoItemDetailsView.routeName,
-                    arguments: 14,
-                  );
-                }),
-            PatientButton(
                 text: 'Yes',
                 icon: Icons.done,
                 backColor: Colors.green,
@@ -906,18 +726,6 @@ class Store {
           subtitles: [],
           questionBank: [
             PatientButton(
-                text: 'Replay',
-                icon: Icons.fast_rewind,
-                backColor: Colors.black,
-                textColor: Colors.white,
-                function: (BuildContext context) {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    VideoItemDetailsView.routeName,
-                    arguments: 15,
-                  );
-                }),
-            PatientButton(
                 text: 'Yes',
                 icon: Icons.done,
                 backColor: Colors.green,
@@ -950,18 +758,6 @@ class Store {
           questionAfter: -5,
           subtitles: [],
           questionBank: [
-            PatientButton(
-                text: 'Replay',
-                icon: Icons.fast_rewind,
-                backColor: Colors.black,
-                textColor: Colors.white,
-                function: (BuildContext context) {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    VideoItemDetailsView.routeName,
-                    arguments: 16,
-                  );
-                }),
             PatientButton(
                 text: 'Yes',
                 icon: Icons.done,
@@ -996,21 +792,6 @@ class Store {
           subtitles: [],
           questionBank: [
             PatientButton(
-                text: 'Replay',
-                icon: Icons.fast_rewind,
-                backColor: Colors.black,
-                textColor: Colors.white,
-                function: (BuildContext context) {
-                  Store store = locator<Store>();
-                  String languageCode = store.language;
-                  I18n.of(context).locale = Locale(languageCode);
-                  Navigator.pushReplacementNamed(
-                    context,
-                    VideoItemDetailsView.routeName,
-                    arguments: 17,
-                  );
-                }),
-            PatientButton(
                 text: 'Yes',
                 icon: Icons.done,
                 backColor: Colors.green,
@@ -1044,18 +825,6 @@ class Store {
           questionAfter: -6,
           subtitles: [],
           questionBank: [
-            PatientButton(
-                text: 'Replay',
-                icon: Icons.fast_rewind,
-                backColor: Colors.black,
-                textColor: Colors.white,
-                function: (BuildContext context) {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    VideoItemDetailsView.routeName,
-                    arguments: 18,
-                  );
-                }),
             PatientButton(
                 text: 'Yes',
                 icon: Icons.done,
