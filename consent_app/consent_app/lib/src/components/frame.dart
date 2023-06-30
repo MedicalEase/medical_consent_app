@@ -28,6 +28,8 @@ class _FrameViewState extends State<FrameView> {
 
   @override
   Widget build(BuildContext context) {
+    print('this.widget.showSettings');
+    print(this.widget.showSettings);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: locator<Store>().debugMode,
