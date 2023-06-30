@@ -27,33 +27,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
                   children: [
                     Image.asset('assets/images/medical-abstract.png'),
-                    Padding(
-                        padding: const EdgeInsets.all(30),
-                        child: IntrinsicWidth(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(30),
-                                  child: ElevatedButton(
-                                    child: const Text(
-                                      'Continue',
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.pushReplacementNamed(
-                                        context,
-                                        ProcedureListView.routeName,
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ))
                   ],
                 ),
               )),
