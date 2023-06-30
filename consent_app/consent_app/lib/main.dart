@@ -1,9 +1,8 @@
 import 'dart:math';
 
-import 'package:consent_app/main.i18n.dart';
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_dataclass.dart';
 import 'package:consent_app/src/summary_feature/summary_data.dart';
-import 'package:consent_app/src/thank_you/thank_you.dart';
+import 'package:consent_app/src/summary_feature/summary_view.dart';
 import 'package:consent_app/src/video_player_feature/patient_button.dart';
 import 'package:consent_app/src/video_player_feature/video_item_dataclass.dart';
 import 'package:consent_app/src/video_player_feature/video_item_details_view.dart';
@@ -16,7 +15,6 @@ import 'database.dart';
 import 'src/app.dart';
 import 'src/settings/settings_controller.dart';
 import 'src/settings/settings_service.dart';
-import 'dart:developer' as developer;
 
 GetIt locator = GetIt.instance;
 
@@ -1110,7 +1108,7 @@ class Store {
                 function: (BuildContext context) {
                   Navigator.pushReplacementNamed(
                     context,
-                    ThankYouView.routeName,
+                    SummaryView.routeName,
                   );
                 })
           ]),
@@ -1129,7 +1127,7 @@ class Store {
                 function: (BuildContext context) {
                   Navigator.pushReplacementNamed(
                     context,
-                    ThankYouView.routeName,
+                    SummaryView.routeName,
                   );
                 })
           ]),
@@ -1148,7 +1146,7 @@ class Store {
                 function: (BuildContext context) {
                   Navigator.pushReplacementNamed(
                     context,
-                    ThankYouView.routeName,
+                    SummaryView.routeName,
                   );
                 })
           ]),
