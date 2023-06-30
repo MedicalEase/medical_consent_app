@@ -1,4 +1,3 @@
-import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
 import 'package:flutter/material.dart';
 import '../../main.dart';
 
@@ -42,9 +41,9 @@ Center horizontalChooser(
                       width: 140,
                       height: 140,
                     ),
-                    Text('${item.name}'.i18n,
+                    Text(item.name,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20,
                           color: Colors.black,
                         )),
