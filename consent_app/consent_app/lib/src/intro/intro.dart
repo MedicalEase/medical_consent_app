@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:consent_app/src/components/frame.dart';
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
 import 'package:flutter/material.dart';
 
@@ -20,10 +19,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return FrameView(
-        heading: '',
-        showSettings: true,
-        body: Container(
+    return Container(
           decoration: const BoxDecoration(color: Color(0xff325FF9)),
           child: Center(
               child: FittedBox(
@@ -61,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               )),
-        ));
+        );
   }
 
   void onClose() {
