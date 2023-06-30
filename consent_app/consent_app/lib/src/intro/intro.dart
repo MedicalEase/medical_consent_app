@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:consent_app/src/components/frame.dart';
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
 import 'package:flutter/material.dart';
-import '../../main.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -21,7 +20,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Store store = locator<Store>();
     return FrameView(
         heading: '',
         showSettings: true,
@@ -39,11 +37,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Text(
                           "Consentease v 0.1.3",
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 64),
+                          style: TextStyle(fontSize: 16,color: Colors.white),
                         ),
                       ),
                     ),
-                    Text('Device ID: ${store.deviceId}'),
                     Image.asset('assets/images/medical-abstract.png'),
                     Padding(
                         padding: const EdgeInsets.all(30),

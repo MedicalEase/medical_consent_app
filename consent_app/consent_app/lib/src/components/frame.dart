@@ -1,10 +1,6 @@
-import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.i18n.dart';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
-import '../settings/settings_controller.dart';
-import '../settings/settings_service.dart';
-import '../settings/settings_view.dart';
 
 class FrameView extends StatefulWidget {
   const FrameView({
@@ -34,32 +30,6 @@ class _FrameViewState extends State<FrameView> {
       appBar: AppBar(
         automaticallyImplyLeading: locator<Store>().debugMode,
         title: Text(widget.heading),
-        actions: [
-          (widget.showSettings)?           IconButton(
-        icon: const Icon(Icons.settings),
-        onPressed: () async {
-          final settingsController = SettingsController(SettingsService());
-          await settingsController.loadSettings();
-          var store = locator<Store>();
-          if (store.debugMode == false) {
-            Navigator.restorablePushNamed(
-              context,
-              PasswordProtect.routeName,
-            );
-          }
-          debug = await Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    SettingsView(controller: settingsController)),
-          );
-          setState(() {
-            debug = debug;
-          });
-        },
-      ): Container() ,
-
-        ],
       ),
       body: widget.body,
     );
