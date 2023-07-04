@@ -34,7 +34,7 @@ class SummaryStatement extends StatelessWidget {
       child: Container(
         padding:
             const EdgeInsets.only(top: 40, bottom: 20, left: 40, right: 40),
-        child: Flexible(child: Text(softWrap: true, maxLines: 3, value)),
+        child:  Text(softWrap: true, maxLines: 3, value),
       ),
     );
   }
