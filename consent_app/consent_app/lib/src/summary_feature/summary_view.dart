@@ -141,14 +141,31 @@ class _StatefullButtonState extends State<StatefullButton> {
           opacity: 1,
           duration: const Duration(seconds: 3),
           child: ElevatedButton(
-            onPressed: () {
-              Navigator.pushReplacementNamed(
-                context,
-                MyHomePage.routeName,
-              );
-            },
-            child: Text('Restart'),
-          ));
+              child: Text('Restart'),
+              onPressed: () => showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Restart?'),
+                        content: const Text('By confirming you will restart the app and the patient’s answers will be lost.'
+                            ' Are you sure you want to confirm?'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'Cancel'),
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context, 'OK');
+                              Navigator.pushReplacementNamed(
+                                context,
+                                MyHomePage.routeName,
+                              );
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ))
+              ));
     } else {
       return Container();
     }
