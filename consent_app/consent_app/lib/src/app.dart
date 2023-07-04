@@ -2,7 +2,6 @@ import 'package:consent_app/main.dart';
 import 'package:consent_app/src/language_chooser_feature/language_item_list_view.dart';
 import 'package:consent_app/src/procedure_chooser_feature/procedure_item_list_view.dart';
 import 'package:consent_app/src/summary_feature/summary_view.dart';
-import 'package:consent_app/src/survey/survey.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -113,8 +112,6 @@ class MyApp extends StatelessWidget {
                     return SettingsView(controller: settingsController);
                   case SummaryView.routeName:
                     return const SummaryView();
-                  case SurveyView.routeName:
-                    return const SurveyView();
                   case MyHomePage.routeName:
                     return const MyHomePage();
                   case ProcedureListView.routeName:
