@@ -135,7 +135,8 @@ class StatefullButton extends StatefulWidget {
 class _StatefullButtonState extends State<StatefullButton> {
   @override
   Widget build(BuildContext context) {
-    if (widget.counter > 1) {
+    var ShowAfterSeconds = 60;
+    if (widget.counter > ShowAfterSeconds) {
       return AnimatedOpacity(
           opacity: 1,
           duration: const Duration(seconds: 3),
