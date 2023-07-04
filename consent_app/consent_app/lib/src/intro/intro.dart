@@ -23,10 +23,11 @@ class _MyHomePageState extends State<MyHomePage> {
           decoration: const BoxDecoration(color: Color(0xff325FF9)),
           child: Center(
               child: FittedBox(
-                fit: BoxFit.fill,
+                fit: BoxFit.scaleDown,
                 child: Column(
                   children: [
-                    Image.asset('assets/images/medical-abstract.png'),
+                    Image.asset('assets/images/medical-abstract.png',
+                      width: 200, height: 200,),
                   ],
                 ),
               )),
