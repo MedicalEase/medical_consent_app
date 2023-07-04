@@ -6,14 +6,37 @@ import 'package:flutter/material.dart';
 import '../../main.dart';
 import '../components/frame.dart';
 
-class SummaryView extends StatelessWidget {
-  const SummaryView({super.key});
-
+class SummaryView extends StatefulWidget {
+  const SummaryView({Key? key}) : super(key: key);
   static const routeName = '/summary';
+
+  @override
+  State<SummaryView> createState() => _SummaryViewState();
+}
+
+class _SummaryViewState extends State<SummaryView> {
+  int _counter = 0;
+  var _forceRedraw; // generate the key from this
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+      _forceRedraw = Object();
+    });
+  }
+
+  @override
+  void initState() {
+    _forceRedraw = Object();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     Store store = locator<Store>();
+    Future.delayed(Duration(milliseconds: 3000), () {
+      _incrementCounter();
+    });
     return FrameView(
         heading: 'Summary',
         body: Center(
@@ -24,15 +47,15 @@ class SummaryView extends StatelessWidget {
             DataTable(columns: <DataColumn>[
               DataColumn(
                 label: Text(
-                    ' ',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
+                  ' ',
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
               ),
               DataColumn(
-                label:  Text(
-                    ' ',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
+                label: Text(
+                  ' ',
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
               ),
             ], rows: <DataRow>[
               DataRow(
@@ -85,17 +108,48 @@ class SummaryView extends StatelessWidget {
               ),
             ]),
 
-            SummaryStatement( value: store.summary.willProceed,),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacementNamed(
-                  context,
-                  MyHomePage.routeName,
-                );
-              },
-              child: Text('Restart'),
-            )
+            SummaryStatement(
+              value: store.summary.willProceed,
+            ),
+            StatefullButton(
+              key: ValueKey(_forceRedraw),
+              counter: _counter,
+            ),
           ]),
         )));
+  }
+}
+
+class StatefullButton extends StatefulWidget {
+  final int counter;
+
+  const StatefullButton({
+    required this.counter,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  _StatefullButtonState createState() => _StatefullButtonState();
+}
+
+class _StatefullButtonState extends State<StatefullButton> {
+  @override
+  Widget build(BuildContext context) {
+    if (widget.counter > 1) {
+      return AnimatedOpacity(
+          opacity: 1,
+          duration: const Duration(seconds: 3),
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(
+                context,
+                MyHomePage.routeName,
+              );
+            },
+            child: Text('Restart'),
+          ));
+    } else {
+      return Container();
+    }
   }
 }
