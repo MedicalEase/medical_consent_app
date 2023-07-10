@@ -487,8 +487,8 @@ class Store {
           ]),
       VideoItem(
           id: 10,
-          path: 'FAQ4.1_COLLECTION_.mov',
-          heading: '10: FAQ4.1_COLLECTION_.mov',
+          path: 'FAQ4.1_COLLECTION.mov',
+          heading: '10: FAQ4.1_COLLECTION.mov',
           questionAfter: -6,
           subtitles: [],
           questionBank: [
