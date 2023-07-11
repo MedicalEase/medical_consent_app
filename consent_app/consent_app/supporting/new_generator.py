@@ -84,7 +84,7 @@ class VideoItem:
     def __repr__(self):
         return f"""VideoItem(
               id: {self.video_id},
-              path: '{self.path.upper().replace(' ','_')}.mp4',
+              path: '{self.path.upper().strip().replace(' ','_')}.mov',
               heading: '{self.header}',
               questionAfter: {self.question_after},
               subtitles: [],

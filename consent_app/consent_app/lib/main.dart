@@ -920,159 +920,921 @@ class Store {
                 })
           ]),
     ]),
-    // Procedure(
-    //     id: 1,
-    //     name: 'Flexi-Sigmoidoscopy',
-    //     icon: 'assets/images/sigmoidoscopy_icon.png',
-    //     videos: [
-    //       VideoItem(
-    //           id: 0,
-    //           path: 'OGD1_INTRO.mov',
-    //           heading: '1What is  Flexible Sigmoidoscopy?',
-    //           questionAfter: 1,
-    //           questionBank: [
-    //             PatientButton(
-    //                 text: 'Replay',
-    //                 icon: Icons.fast_rewind,
-    //                 backColor: Colors.black,
-    //                 textColor: Colors.white,
-    //                 function: (BuildContext context) {
-    //                   locator<Store>().summary.throatSpray = 'no';
-    //                   Navigator.pushReplacementNamed(
-    //                     context,
-    //                     VideoItemDetailsView.routeName,
-    //                     arguments: 0,
-    //                   );
-    //                 }),
-    //             PatientButton(
-    //                 text: 'Yes',
-    //                 icon: Icons.done,
-    //                 backColor: Colors.green,
-    //                 textColor: Colors.white,
-    //                 function: (BuildContext context) {
-    //                   Navigator.pushReplacementNamed(
-    //                     context,
-    //                     VideoItemDetailsView.routeName,
-    //                     arguments: 2,
-    //                   );
-    //                 }),
-    //             PatientButton(
-    //                 text: 'No',
-    //                 icon: Icons.close,
-    //                 backColor: Colors.red,
-    //                 textColor: Colors.white,
-    //                 function: (BuildContext context) {
-    //                   Navigator.pushReplacementNamed(
-    //                     context,
-    //                     VideoItemDetailsView.routeName,
-    //                     arguments: 1,
-    //                   );
-    //                 })
-    //           ],
-    //           subtitles: [
-    //             const SubtitleLine(
-    //                 'Hello', Duration(seconds: 0), Duration(seconds: 1), 'en'),
-    //             const SubtitleLine(
-    //                 'World', Duration(seconds: 1), Duration(seconds: 2), 'en'),
-    //           ])
-    //     ]),
-    // Procedure(
-    //     id: 2,
-    //     name: 'Colonoscopy',
-    //     icon: 'assets/images/colonscopy_icon.png',
-    //     videos: [
-    //       VideoItem(
-    //           id: 0,
-    //           path: 'OGD1_INTRO.mov',
-    //           heading: '2What is  Flexible Sigmoidoscopy?',
-    //           questionBank: [
-    //             PatientButton(
-    //                 text: 'Replay',
-    //                 icon: Icons.fast_rewind,
-    //                 backColor: Colors.black,
-    //                 textColor: Colors.white,
-    //                 function: (BuildContext context) {
-    //                   locator<Store>().summary.throatSpray = 'no';
-    //                   Navigator.pushReplacementNamed(
-    //                     context,
-    //                     VideoItemDetailsView.routeName,
-    //                     arguments: 0,
-    //                   );
-    //                 }),
-    //             PatientButton(
-    //                 text: 'Yes',
-    //                 icon: Icons.done,
-    //                 backColor: Colors.green,
-    //                 textColor: Colors.white,
-    //                 function: (BuildContext context) {
-    //                   Navigator.pushReplacementNamed(
-    //                     context,
-    //                     VideoItemDetailsView.routeName,
-    //                     arguments: 2,
-    //                   );
-    //                 }),
-    //             PatientButton(
-    //                 text: 'No',
-    //                 icon: Icons.close,
-    //                 backColor: Colors.red,
-    //                 textColor: Colors.white,
-    //                 function: (BuildContext context) {
-    //                   Navigator.pushReplacementNamed(
-    //                     context,
-    //                     VideoItemDetailsView.routeName,
-    //                     arguments: 1,
-    //                   );
-    //                 })
-    //           ],
-    //           questionAfter: 1,
-    //           subtitles: [
-    //             const SubtitleLine(
-    //                 'Hello', Duration(seconds: 0), Duration(seconds: 1), 'en'),
-    //             const SubtitleLine(
-    //                 'World', Duration(seconds: 1), Duration(seconds: 5), 'en'),
-    //           ])
-    //     ]),
-    // Procedure(
-    //     id: 3,
-    //     name: 'OGD \n+ Flexi-Sigmoidoscopy',
-    //     icon: 'assets/images/ogd+flexi_icon.png',
-    //     videos: [
-    //       VideoItem(
-    //           id: 0,
-    //           path: 'OGD1_INTRO.mov',
-    //           heading: '3What is  Flexible Sigmoidoscopy?',
-    //           questionBank: [],
-    //           questionAfter: 3,
-    //           subtitles: [
-    //             const SubtitleLine(
-    //                 'Hello', Duration(seconds: 0), Duration(seconds: 5), 'en'),
-    //             const SubtitleLine(
-    //                 'World', Duration(seconds: 0), Duration(seconds: 5), 'tr'),
-    //           ])
-    //     ]),
-    // Procedure(
-    //     id: 4,
-    //     name: 'OGD + colonoscopy',
-    //     icon: 'assets/images/ogd+colon_icon.png',
-    //     videos: [
-    //       VideoItem(
-    //           id: 0,
-    //           path: 'OGD1_INTRO.mov',
-    //           heading: '4What is  Flexible Sigmoidoscopy?',
-    //           questionBank: [],
-    //           questionAfter: 3,
-    //           subtitles: [
-    //             const SubtitleLine(
-    //                 'Hello', Duration(seconds: 0), Duration(seconds: 5), 'en'),
-    //             const SubtitleLine(
-    //                 'World', Duration(seconds: 0), Duration(seconds: 5), 'tr'),
-    //           ])
-    //     ]),
-    // const Procedure(
-    //     id: 5,
-    //     name: 'Survey',
-    //     icon: 'assets/images/survey_icon.png',
-    //     videos: []),
+    Procedure(
+        id: 1,
+        name: 'Colonoscopy',
+        icon: 'assets/images/colonscopy_icon.png',
+        videos: [
+          VideoItem(
+              id: 0,
+              path: '_placeholder.mov',
+              heading: 'S11 intro',
+              questionAfter: -5,
+              subtitles: [],
+              questionBank: [
+                PatientButton(
+                    text: 'Replay',
+                    icon: Icons.fast_rewind,
+                    backColor: Colors.black,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 0,
+                      );
+                    }),
+                PatientButton(
+                    text: 'Yes',
+                    icon: Icons.done,
+                    backColor: Colors.green,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 2,
+                      );
+                    }),
+                PatientButton(
+                    text: 'No',
+                    icon: Icons.close,
+                    backColor: Colors.red,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 1,
+                      );
+                    })
+              ]),
+          VideoItem(
+              id: 1,
+              path: '_placeholder.mov',
+              heading: 'S11.1 intro FAQ',
+              questionAfter: -5,
+              subtitles: [],
+              questionBank: [
+                PatientButton(
+                    text: 'Replay',
+                    icon: Icons.fast_rewind,
+                    backColor: Colors.black,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 1,
+                      );
+                    }),
+                PatientButton(
+                    text: 'Yes',
+                    icon: Icons.done,
+                    backColor: Colors.green,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 2,
+                      );
+                    }),
+                PatientButton(
+                    text: 'No',
+                    icon: Icons.close,
+                    backColor: Colors.red,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      locator<Store>().summary.willProceed = 'not yet';
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 2,
+                      );
+                    })
+              ]),
+          VideoItem(
+              id: 2,
+              path: '_placeholder.mov',
+              heading: 'S12 sedation',
+              questionAfter: -5,
+              subtitles: [],
+              questionBank: [
+                PatientButton(
+                    text: 'Replay',
+                    icon: Icons.fast_rewind,
+                    backColor: Colors.black,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 2,
+                      );
+                    }),
+                PatientButton(
+                    text: 'Yes',
+                    icon: Icons.done,
+                    backColor: Colors.green,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 5,
+                      );
+                    }),
+                PatientButton(
+                    text: 'No',
+                    icon: Icons.close,
+                    backColor: Colors.red,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 14,
+                      );
+                    }),
+                PatientButton(
+                    text: 'Start',
+                    icon: Icons.flaky,
+                    backColor: Colors.white,
+                    textColor: Colors.grey,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 4,
+                      );
+                    }),
+                PatientButton(
+                    text: 'without',
+                    icon: Icons.help_outline,
+                    backColor: Colors.grey,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 3,
+                      );
+                    })
+              ]),
+          VideoItem(
+              id: 3,
+              path: '_placeholder.mov',
+              heading: 'S12.1 sedation FAQ',
+              questionAfter: -5,
+              subtitles: [],
+              questionBank: [
+                PatientButton(
+                    text: 'Replay',
+                    icon: Icons.fast_rewind,
+                    backColor: Colors.black,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 3,
+                      );
+                    }),
+                PatientButton(
+                    text: 'Yes',
+                    icon: Icons.done,
+                    backColor: Colors.green,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 5,
+                      );
+                    }),
+                PatientButton(
+                    text: 'No',
+                    icon: Icons.close,
+                    backColor: Colors.red,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 14,
+                      );
+                    }),
+                PatientButton(
+                    text: 'Start',
+                    icon: Icons.flaky,
+                    backColor: Colors.white,
+                    textColor: Colors.grey,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 4,
+                      );
+                    }),
+                PatientButton(
+                    text: 'without',
+                    icon: Icons.help_outline,
+                    backColor: Colors.grey,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      locator<Store>().summary.willProceed = 'not yet';
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 14,
+                      );
+                    })
+              ]),
+          VideoItem(
+              id: 4,
+              path: '_placeholder.mov',
+              heading: 'S12.2 sedation audio and video extra',
+              questionAfter: -5,
+              subtitles: [],
+              questionBank: [
+                PatientButton(
+                    text: 'Replay',
+                    icon: Icons.fast_rewind,
+                    backColor: Colors.black,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 4,
+                      );
+                    }),
+                PatientButton(
+                    text: 'Yes',
+                    icon: Icons.done,
+                    backColor: Colors.green,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 5,
+                      );
+                    }),
+                PatientButton(
+                    text: 'No',
+                    icon: Icons.close,
+                    backColor: Colors.red,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 14,
+                      );
+                    })
+              ]),
+          VideoItem(
+              id: 5,
+              path: '_placeholder.mov',
+              heading: 'S13 collection',
+              questionAfter: -5,
+              subtitles: [],
+              questionBank: [
+                PatientButton(
+                    text: 'Replay',
+                    icon: Icons.fast_rewind,
+                    backColor: Colors.black,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 5,
+                      );
+                    }),
+                PatientButton(
+                    text: 'Yes',
+                    icon: Icons.done,
+                    backColor: Colors.green,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 9,
+                      );
+                    }),
+                PatientButton(
+                    text: 'No',
+                    icon: Icons.close,
+                    backColor: Colors.red,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 8,
+                      );
+                    }),
+                PatientButton(
+                    text: 'More',
+                    icon: Icons.help_outline,
+                    backColor: Colors.grey,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 7,
+                      );
+                    })
+              ]),
+          VideoItem(
+              id: 6,
+              path: '_placeholder.mov',
+              heading: 'S13a collection replay',
+              questionAfter: -5,
+              subtitles: [],
+              questionBank: [
+                PatientButton(
+                    text: 'Replay',
+                    icon: Icons.fast_rewind,
+                    backColor: Colors.black,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 6,
+                      );
+                    }),
+                PatientButton(
+                    text: 'Yes',
+                    icon: Icons.done,
+                    backColor: Colors.green,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 9,
+                      );
+                    }),
+                PatientButton(
+                    text: 'No',
+                    icon: Icons.close,
+                    backColor: Colors.red,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 8,
+                      );
+                    }),
+                PatientButton(
+                    text: 'More',
+                    icon: Icons.help_outline,
+                    backColor: Colors.grey,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 7,
+                      );
+                    })
+              ]),
+          VideoItem(
+              id: 7,
+              path: '_placeholder.mov',
+              heading: 'S13.1 collection FAQ',
+              questionAfter: -5,
+              subtitles: [],
+              questionBank: [
+                PatientButton(
+                    text: 'Replay',
+                    icon: Icons.fast_rewind,
+                    backColor: Colors.black,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 7,
+                      );
+                    }),
+                PatientButton(
+                    text: 'Yes',
+                    icon: Icons.done,
+                    backColor: Colors.green,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 9,
+                      );
+                    }),
+                PatientButton(
+                    text: 'No',
+                    icon: Icons.close,
+                    backColor: Colors.red,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 13,
+                      );
+                    }),
+                PatientButton(
+                    text: 'More',
+                    icon: Icons.help_outline,
+                    backColor: Colors.grey,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      locator<Store>().summary.willProceed = 'not yet';
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 14,
+                      );
+                    })
+              ]),
+          VideoItem(
+              id: 8,
+              path: '_placeholder.mov',
+              heading: 'S13.2 collection FAQ after no',
+              questionAfter: -5,
+              subtitles: [],
+              questionBank: [
+                PatientButton(
+                    text: 'Replay',
+                    icon: Icons.fast_rewind,
+                    backColor: Colors.black,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 8,
+                      );
+                    }),
+                PatientButton(
+                    text: 'Yes',
+                    icon: Icons.done,
+                    backColor: Colors.green,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 9,
+                      );
+                    }),
+                PatientButton(
+                    text: 'No',
+                    icon: Icons.close,
+                    backColor: Colors.red,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 13,
+                      );
+                    }),
+                PatientButton(
+                    text: 'More',
+                    icon: Icons.help_outline,
+                    backColor: Colors.grey,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      locator<Store>().summary.willProceed = 'not yet';
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 14,
+                      );
+                    })
+              ]),
+          VideoItem(
+              id: 9,
+              path: '_placeholder.mov',
+              heading: 'S14 24 hours',
+              questionAfter: -5,
+              subtitles: [],
+              questionBank: [
+                PatientButton(
+                    text: 'Replay',
+                    icon: Icons.fast_rewind,
+                    backColor: Colors.black,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 9,
+                      );
+                    }),
+                PatientButton(
+                    text: 'Yes',
+                    icon: Icons.done,
+                    backColor: Colors.green,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 14,
+                      );
+                    }),
+                PatientButton(
+                    text: 'No',
+                    icon: Icons.close,
+                    backColor: Colors.red,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 12,
+                      );
+                    }),
+                PatientButton(
+                    text: 'More',
+                    icon: Icons.help_outline,
+                    backColor: Colors.grey,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 11,
+                      );
+                    })
+              ]),
+          VideoItem(
+              id: 10,
+              path: '_placeholder.mov',
+              heading: 'S14a 24 hours replay',
+              questionAfter: -5,
+              subtitles: [],
+              questionBank: [
+                PatientButton(
+                    text: 'Replay',
+                    icon: Icons.fast_rewind,
+                    backColor: Colors.black,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 10,
+                      );
+                    }),
+                PatientButton(
+                    text: 'Yes',
+                    icon: Icons.done,
+                    backColor: Colors.green,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 14,
+                      );
+                    }),
+                PatientButton(
+                    text: 'No',
+                    icon: Icons.close,
+                    backColor: Colors.red,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 12,
+                      );
+                    }),
+                PatientButton(
+                    text: 'More',
+                    icon: Icons.help_outline,
+                    backColor: Colors.grey,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 11,
+                      );
+                    })
+              ]),
+          VideoItem(
+              id: 11,
+              path: '_placeholder.mov',
+              heading: 'S14.1 24 hours FAQ',
+              questionAfter: -5,
+              subtitles: [],
+              questionBank: [
+                PatientButton(
+                    text: 'Replay',
+                    icon: Icons.fast_rewind,
+                    backColor: Colors.black,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 11,
+                      );
+                    }),
+                PatientButton(
+                    text: 'Yes',
+                    icon: Icons.done,
+                    backColor: Colors.green,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 14,
+                      );
+                    }),
+                PatientButton(
+                    text: 'No',
+                    icon: Icons.close,
+                    backColor: Colors.red,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 13,
+                      );
+                    }),
+                PatientButton(
+                    text: 'More',
+                    icon: Icons.help_outline,
+                    backColor: Colors.grey,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      locator<Store>().summary.willProceed = 'not yet';
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 14,
+                      );
+                    })
+              ]),
+          VideoItem(
+              id: 12,
+              path: '_placeholder.mov',
+              heading: 'S14.2 24 hours FAQ after no',
+              questionAfter: -5,
+              subtitles: [],
+              questionBank: [
+                PatientButton(
+                    text: 'Replay',
+                    icon: Icons.fast_rewind,
+                    backColor: Colors.black,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 12,
+                      );
+                    }),
+                PatientButton(
+                    text: 'Yes',
+                    icon: Icons.done,
+                    backColor: Colors.green,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 14,
+                      );
+                    }),
+                PatientButton(
+                    text: 'No',
+                    icon: Icons.close,
+                    backColor: Colors.red,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 13,
+                      );
+                    }),
+                PatientButton(
+                    text: 'More',
+                    icon: Icons.help_outline,
+                    backColor: Colors.grey,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      locator<Store>().summary.willProceed = 'not yet';
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 14,
+                      );
+                    })
+              ]),
+          VideoItem(
+              id: 13,
+              path: '_placeholder.mov',
+              heading: 'S13.5 Extra audio with warning',
+              questionAfter: -5,
+              subtitles: [],
+              questionBank: [
+                PatientButton(
+                    text: 'Replay',
+                    icon: Icons.fast_rewind,
+                    backColor: Colors.black,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 13,
+                      );
+                    }),
+                PatientButton(
+                    text: 'Yes',
+                    icon: Icons.done,
+                    backColor: Colors.green,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      locator<Store>().summary.willProceed = 'not yet';
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 14,
+                      );
+                    }),
+                PatientButton(
+                    text: 'No',
+                    icon: Icons.close,
+                    backColor: Colors.red,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 14,
+                      );
+                    })
+              ]),
+          VideoItem(
+              id: 14,
+              path: '_placeholder.mov',
+              heading: 'S15 risks',
+              questionAfter: -5,
+              subtitles: [],
+              questionBank: [
+                PatientButton(
+                    text: 'Replay',
+                    icon: Icons.fast_rewind,
+                    backColor: Colors.black,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 14,
+                      );
+                    }),
+                PatientButton(
+                    text: 'Yes',
+                    icon: Icons.done,
+                    backColor: Colors.green,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 16,
+                      );
+                    }),
+                PatientButton(
+                    text: 'No',
+                    icon: Icons.close,
+                    backColor: Colors.red,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 15,
+                      );
+                    })
+              ]),
+          VideoItem(
+              id: 15,
+              path: '_placeholder.mov',
+              heading: 'S15.1 risks FAQ',
+              questionAfter: -5,
+              subtitles: [],
+              questionBank: [
+                PatientButton(
+                    text: 'Replay',
+                    icon: Icons.fast_rewind,
+                    backColor: Colors.black,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 15,
+                      );
+                    }),
+                PatientButton(
+                    text: 'Yes',
+                    icon: Icons.done,
+                    backColor: Colors.green,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 16,
+                      );
+                    }),
+                PatientButton(
+                    text: 'No',
+                    icon: Icons.close,
+                    backColor: Colors.red,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      locator<Store>().summary.willProceed = 'not yet';
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 16,
+                      );
+                    })
+              ]),
+          VideoItem(
+              id: 16,
+              path: '_placeholder.mov',
+              heading: 'S16 proceed',
+              questionAfter: -5,
+              subtitles: [],
+              questionBank: [
+                PatientButton(
+                    text: 'Replay',
+                    icon: Icons.fast_rewind,
+                    backColor: Colors.black,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        VideoItemDetailsView.routeName,
+                        arguments: 16,
+                      );
+                    }),
+                PatientButton(
+                    text: 'Yes',
+                    icon: Icons.done,
+                    backColor: Colors.green,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        SummaryView.routeName,
+                      );
+                    }),
+                PatientButton(
+                    text: 'No',
+                    icon: Icons.close,
+                    backColor: Colors.red,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        SummaryView.routeName,
+                      );
+                    }),
+                PatientButton(
+                    text: 'More',
+                    icon: Icons.help_outline,
+                    backColor: Colors.grey,
+                    textColor: Colors.white,
+                    function: (BuildContext context) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        SummaryView.routeName,
+                      );
+                    })
+              ]),
+        ])
   ];
 // todo SettingsController settingsController = SettingsController();
 }
